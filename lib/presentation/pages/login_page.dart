@@ -8,6 +8,7 @@ import 'package:raho_mobile/core/constants/route_constant.dart';
 import 'package:raho_mobile/core/styles/app_color.dart';
 import 'package:raho_mobile/core/styles/app_text_style.dart';
 import 'package:raho_mobile/core/utils/helper.dart';
+import 'package:raho_mobile/core/utils/loading.dart';
 import 'package:raho_mobile/presentation/widgets/captcha_painter.dart';
 
 class LoginPage extends StatelessWidget {
@@ -22,25 +23,17 @@ class LoginPage extends StatelessWidget {
       context.read<AuthBloc>().add(GenerateCaptcha());
     });
 
+    final Loading loading = Loading(context: context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColor.white,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthLoading) {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) => const Center(
-                child: CircularProgressIndicator(
-                  color: AppColor.primary,
-                ),
-              ),
-            );
+            loading.show();
           } else {
-            if (Navigator.canPop(context)) {
-              Navigator.of(context).pop();
-            }
+            loading.dismiss();
           }
 
           if (state is AuthSuccess) {
@@ -67,21 +60,8 @@ class LoginPage extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 42, horizontal: 24),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: GestureDetector(
-                    onTap: () {
-                      context.pop();
-                    },
-                    child: Icon(
-                      Icons.arrow_back_ios,
-                      color: AppColor.black2,
-                      size: 30,
-                    ),
-                  ),
-                ),
                 Image.asset(
                   "assets/images/logo_raho_crop.png",
                   width: Screen.width * 0.6,
@@ -117,11 +97,14 @@ class LoginPage extends StatelessWidget {
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 0, horizontal: 16),
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: AppColor.black)),
-                          errorBorder:OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: AppColor.black)) ,
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: AppColor.black)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: AppColor.black)),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),borderSide: BorderSide(color: AppColor.black)),
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: AppColor.black)),
                           hintText: "Nomor ID Registrasi",
                           hintStyle: AppFontStyle.s11.regular.grey4),
                     ),

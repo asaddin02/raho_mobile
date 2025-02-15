@@ -22,7 +22,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     GenerateCaptcha event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading(captcha: state.captcha));
+    emit(AuthLoading());
     try {
       final newCaptcha = await _authRepository.generateCaptcha();
       if (state is AuthInitial) {
@@ -30,7 +30,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else if (state is AuthError) {
         emit(AuthError(
           message: (state as AuthError).message,
-          captcha: newCaptcha,
         ));
       } else if (state is AuthSuccess) {
         emit(AuthSuccessGenerate(
@@ -42,7 +41,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(AuthError(
         message: 'Failed to generate captcha: ${e.toString()}',
-        captcha: state.captcha,
       ));
       throw Exception(e);
     }
@@ -52,7 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     LoginSubmitted event,
     Emitter<AuthState> emit,
   ) async {
-    emit(AuthLoading(captcha: state.captcha));
+    emit(AuthLoading());
     try {
       final loginResponse = await _authRepository.login(
         event.idRegistration,
@@ -61,17 +59,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (loginResponse.status == 'success') {
         emit(AuthSuccess(
           user: loginResponse,
-          captcha: state.captcha,
         ));
       } else {
         emit(AuthError(
           message: loginResponse.message,
-          captcha: state.captcha,
         ));
         add(GenerateCaptcha());
       }
     } catch (e) {
-      emit(AuthError(message: e.toString(), captcha: state.captcha));
+      emit(AuthError(message: e.toString()));
       add(GenerateCaptcha());
       throw Exception(e);
     }
@@ -82,6 +78,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     await _storageService.deleteToken();
+    emit(AuthInitial(captcha: state.captcha));
   }
 
   Future<void> _onCheckAuth(
@@ -97,8 +94,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         add(GenerateCaptcha());
       }
     } catch (e) {
-      emit(AuthError(message: e.toString(), captcha: state.captcha));
-      throw Exception(e);
+      emit(AuthError(message: e.toString()));
     }
   }
 }

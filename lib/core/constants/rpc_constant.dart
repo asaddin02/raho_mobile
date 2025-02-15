@@ -1,6 +1,7 @@
 class RpcConstant {
   // Base URLs environment
-  static const String baseUrl = "http://192.168.50.145:8069/api/"; // Development
+  static const String baseUrl =
+      "http://192.168.50.145:8069/api/"; // Development
   // static const String baseUrl = "http://localhost:8069/api"; // Release
 
   // Database Set Up
@@ -19,4 +20,9 @@ class _Database {
 class _RcpEndpoint {
   final String generateCaptcha = "generate_captcha";
   final String login = "login";
+  final String profile = "profile";
+  final String diagnosis = "diagnosis";
+  final String editProfile = "profile/update";
+  final String history = "history";
+  final String detailHistory = "history/detail";
 }

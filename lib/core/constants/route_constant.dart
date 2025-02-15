@@ -8,6 +8,7 @@ class RouteName {
   static const String profile = "profile";
   static const String myVoucher = "voucher-me";
   static const String detailTransaction = "detail-transaction";
+  static const String detailHistory = "detail-history";
   static const String personalData = "personal-data";
   static const String referenceCode = "reference-code";
   static const String rahoBranchLocation = "raho-branch-location";
@@ -24,6 +25,7 @@ class RouteApp {
   static const String profile = "/profile";
   static const String myVoucher = "$dashboard/voucher-me";
   static const String detailTransaction = "$transaction/detail-transaction";
+  static const String detailHistory = "/detail-history";
   static const String personalData = "$profile/personal-data";
   static const String referenceCode = "$profile/reference-code";
   static const String rahoBranchLocation = "$profile/raho-branch-location";

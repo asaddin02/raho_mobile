@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:raho_mobile/bloc/user/user_bloc.dart';
 import 'package:raho_mobile/core/constants/route_constant.dart';
 import 'package:raho_mobile/core/styles/app_color.dart';
 import 'package:raho_mobile/core/styles/app_text_style.dart';
 import 'package:raho_mobile/core/utils/helper.dart';
+import 'package:raho_mobile/data/models/profile.dart';
 import 'package:raho_mobile/presentation/template/background_white_black.dart';
+import 'package:raho_mobile/presentation/widgets/logout_pop_up.dart';
 import 'package:raho_mobile/presentation/widgets/profile_detail_button.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -53,16 +57,23 @@ class ProfilePage extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        "Mirza Ananta",
-                        style: AppFontStyle.s16.bold.black,
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "240224014056",
-                        style: AppFontStyle.s12.regular.grey,
+                      BlocBuilder<UserBloc, UserState>(
+                        builder: (context, state) {
+                          switch (state) {
+                            case UserLoadedProfile _:
+                              return _buildProfileUser(state.profile!);
+                            case UserLoading _:
+                              return _buildProfileUser(state.profile!);
+                            case UserLoadedDiagnosis _:
+                              return _buildProfileUser(state.profile!);
+                            case UserInitial _:
+                              return _buildProfileUser(state.profile!);
+                            case UserError _:
+                              return _buildError(context);
+                            default:
+                              return _buildProfileUser(state.profile!);
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 10,
@@ -81,13 +92,13 @@ class ProfilePage extends StatelessWidget {
                           nameButton: "Data Pribadi",
                           iconData: CupertinoIcons.profile_circled,
                           onClick: () {
-                            context.push(RouteApp.personalData);
+                            context.replace(RouteApp.personalData);
                           }),
                       ProfileDetailButton(
                           nameButton: "Diagnosa Saya",
                           iconData: Icons.fact_check,
                           onClick: () {
-                            context.push(RouteApp.myDiagnosis);
+                            context.replace(RouteApp.myDiagnosis);
                           }),
                       ProfileDetailButton(
                           nameButton: "Referensi Code",
@@ -126,7 +137,14 @@ class ProfilePage extends StatelessWidget {
                         height: 10,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) {
+                                return LogoutPopUp();
+                              });
+                        },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           width: double.infinity,
@@ -149,5 +167,37 @@ class ProfilePage extends StatelessWidget {
         ],
       ),
     ));
+  }
+
+  Widget _buildProfileUser(ProfileModel profile) {
+    return Column(
+      children: [
+        Text(
+          profile.name,
+          style: AppFontStyle.s16.bold.black,
+        ),
+        const SizedBox(
+          height: 5,
+        ),
+        Text(
+          profile.noId,
+          style: AppFontStyle.s12.regular.grey,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildError(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context.read<UserBloc>().add(FetchProfile());
+      },
+      child: Center(
+        child: Icon(
+          Icons.refresh_rounded,
+          color: AppColor.primary,
+        ),
+      ),
+    );
   }
 }

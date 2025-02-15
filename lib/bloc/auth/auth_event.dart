@@ -17,3 +17,5 @@ class GenerateCaptcha extends AuthEvent {}
 class LogoutRequested extends AuthEvent {}
 
 class CheckAuth extends AuthEvent {}
+
+

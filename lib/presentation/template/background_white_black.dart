@@ -11,6 +11,7 @@ class BackgroundWhiteBlack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.white,
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           Container(

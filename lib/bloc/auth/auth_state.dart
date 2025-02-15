@@ -1,6 +1,6 @@
 part of 'auth_bloc.dart';
 
-abstract class AuthState {
+sealed class AuthState {
   final String captcha;
 
   const AuthState({this.captcha = ''});
@@ -11,7 +11,7 @@ class AuthInitial extends AuthState {
 }
 
 class AuthLoading extends AuthState {
-  AuthLoading({super.captcha});
+  AuthLoading();
 }
 
 class AuthAuthenticated extends AuthState {
@@ -31,16 +31,15 @@ class AuthSuccess extends AuthState {
   final LoginResponse user;
 
   AuthSuccess({
-    required this.user,
     super.captcha,
+    required this.user
   });
 }
 
 class AuthError extends AuthState {
   final String message;
 
-  AuthError({
+  AuthError({super.captcha,
     required this.message,
-    super.captcha,
   });
 }

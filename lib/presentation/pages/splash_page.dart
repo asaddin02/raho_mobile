@@ -14,9 +14,8 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = context.read<AuthBloc>();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      authBloc.add(CheckAuth());
+      context.read<AuthBloc>().add(CheckAuth());
     });
 
     return Scaffold(
@@ -30,24 +29,18 @@ class SplashPage extends StatelessWidget {
                 imagePath: 'assets/images/logo_raho.png',
                 onFinish: (GoRouterState state) async {
                   final authState = context.read<AuthBloc>().state;
-                  final authenticatedRoutes = [
-                    RouteApp.dashboard,
-                    RouteApp.transaction,
-                    RouteApp.history,
-                    RouteApp.profile,
-                  ];
-
                   final key = await service.getKey();
+
                   if ((key == 0 || key == null) && context.mounted) {
                     context.go(RouteApp.welcome);
-                  } else if (authState is AuthAuthenticated &&
-                      context.mounted) {
-                    context.go(RouteApp.dashboard);
-                  } else if (authenticatedRoutes
-                          .contains(state.matchedLocation) &&
-                      context.mounted) {
-                    context.go(RouteApp.login);
+                    return;
                   }
+                  if (authState is AuthAuthenticated && context.mounted) {
+                    context.go(RouteApp.dashboard);
+                    return;
+                  }
+
+                  if (context.mounted) context.go(RouteApp.login);
                 },
               ),
             );

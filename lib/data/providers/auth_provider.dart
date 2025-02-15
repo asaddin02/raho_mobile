@@ -1,16 +1,11 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:raho_mobile/core/constants/rpc_constant.dart';
 import 'package:raho_mobile/data/models/login.dart';
 import 'package:raho_mobile/data/services/dio_client_service.dart';
-import 'package:raho_mobile/data/services/storage_service.dart';
 
 class AuthProvider {
   final Dio _dio = DioClient.instance;
-  final StorageService _storageService;
-
-  AuthProvider(this._storageService);
 
   Future<Map<String, dynamic>> generateCaptcha() async {
     try {

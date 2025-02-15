@@ -2,21 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:raho_mobile/bloc/user/user_bloc.dart';
 import 'package:raho_mobile/core/constants/route_constant.dart';
 import 'package:raho_mobile/core/styles/app_color.dart';
 import 'package:raho_mobile/core/styles/app_text_style.dart';
 import 'package:raho_mobile/cubit/bottom_navigation/bottom_navigation_cubit.dart';
 
-class BottomNavigation extends StatelessWidget {
+class BottomNavigation extends StatefulWidget {
   final Widget child;
 
   const BottomNavigation({super.key, required this.child});
 
   @override
+  State<BottomNavigation> createState() => _BottomNavigationState();
+}
+
+class _BottomNavigationState extends State<BottomNavigation> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      context.read<UserBloc>().add(FetchProfile());
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => BottomNavigationCubit(),
-      child: BottomNavigationContent(child: child),
+      child: BottomNavigationContent(child: widget.child),
     );
   }
 }

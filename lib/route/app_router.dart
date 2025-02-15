@@ -1,13 +1,20 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:raho_mobile/bloc/auth/auth_bloc.dart';
+import 'package:raho_mobile/bloc/history/history_bloc.dart';
+import 'package:raho_mobile/bloc/user/user_bloc.dart';
 import 'package:raho_mobile/core/constants/route_constant.dart';
+import 'package:raho_mobile/data/providers/history_provider.dart';
+import 'package:raho_mobile/data/repositories/history_repository.dart';
+import 'package:raho_mobile/data/repositories/user_repository.dart';
+import 'package:raho_mobile/data/services/storage_service.dart';
 import 'package:raho_mobile/data/services/welcome_to_app.dart';
 import 'package:raho_mobile/presentation/pages/authenticated_page.dart';
 import 'package:raho_mobile/presentation/pages/dashboard/dashboard_page.dart';
 import 'package:raho_mobile/presentation/pages/dashboard/myvoucher_page.dart';
+import 'package:raho_mobile/presentation/pages/history/detail_history_page.dart';
 import 'package:raho_mobile/presentation/pages/history/history_page.dart';
 import 'package:raho_mobile/presentation/pages/login_page.dart';
 import 'package:raho_mobile/presentation/pages/menu_navigation/bottom_navigation.dart';
@@ -77,7 +84,27 @@ class AppRouter {
               GoRoute(
                   path: RouteApp.history,
                   name: RouteName.history,
-                  builder: (context, state) => const HistoryPage()),
+                  builder: (context, state) => BlocProvider(
+                        create: (context) => HistoryBloc(
+                            repository: HistoryRepository(
+                                historyProvider: HistoryProvider(
+                          prefs: context.read<StorageService>().prefs,
+                          storageService: context.read<StorageService>(),
+                        )))
+                          ..add(FetchHistory()),
+                        child: HistoryPage(),
+                      ),
+                  routes: [
+                    GoRoute(
+                        path: "${RouteApp.detailHistory}/:id",
+                        name: RouteName.detailHistory,
+                        builder: (context, state) {
+                          int id = int.parse(state.pathParameters['id']!);
+                          return DetailHistoryPage(
+                            historyId: id,
+                          );
+                        }),
+                  ]),
               GoRoute(
                   path: RouteApp.profile,
                   name: RouteName.profile,
