@@ -1,0 +1,59 @@
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:raho_member_apps/data/models/diagnosis.dart';
+import 'package:raho_member_apps/data/models/profile.dart';
+import 'package:raho_member_apps/data/models/reference.dart';
+import 'package:raho_member_apps/data/providers/user_provider.dart';
+
+class UserRepository {
+  final UserProvider _provider;
+
+  UserRepository({required UserProvider provider}) : _provider = provider;
+
+  Future<ProfileModel> getProfile() async {
+    try {
+      final response = await _provider.getProfile();
+      final result = response;
+
+      return ProfileModel.fromJson(result);
+    } catch (e) {
+      throw Exception('Get profile error: ${e.toString()}');
+    }
+  }
+
+  Future<DiagnosisModel> getDiagnosis() async {
+    try {
+      final response = await _provider.getDiagnosis();
+      final result = response;
+      return DiagnosisModel.fromJson(result);
+    } catch (e) {
+      throw Exception('Get diagnosis error: ${e.toString()}');
+    }
+  }
+
+  Future<UpdateProfileResponse> updateProfile({
+    required UpdateProfileRequest request,
+  }) async {
+    try {
+      final response = await _provider.updateProfile(
+        updateData: request.toJson(),
+      );
+
+      final result = response;
+
+      return UpdateProfileResponse.fromJson(result);
+    } catch (e) {
+      throw Exception('Update profile error: ${e.toString()}');
+    }
+  }
+
+  Future<ReferenceModel> getReference() async {
+    try {
+      final response = await _provider.getReference();
+      final result = response;
+
+      return ReferenceModel.fromJson(result);
+    } catch (e) {
+      throw Exception('Get reference error: ${e.toString()}');
+    }
+  }
+}

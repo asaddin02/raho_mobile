@@ -1,0 +1,362 @@
+{
+  "@@locale": "id",
+  "appVersion": "versi 1.0.0",
+  "companyName": "RAHOCLUB",
+  "companyClubName": "RAHO Club",
+  "companyTagline": "Reverse Aging & Homeostasis Club",
+  "supportedBy": "Didukung Oleh:",
+  "onboardingTitle1": "Teknologi NanoBubble",
+  "onboardingSubtitle1": "Pelayanan kesehatan pertama di Dunia yang menggunakan Teknologi Nanobubble sebagai alat kesehatan",
+  "onboardingTitle2": "Ahli Kesehatan",
+  "onboardingSubtitle2": "Dibantu dengan Dokter yang Profesional di bidang kesehatan",
+  "onboardingTitle3": "Pelayanan Member",
+  "onboardingSubtitle3": "Dilayani oleh para tenaga medis yang berkualitas dan mengutamakan kesejahteraan Anda",
+  "buttonSkipOnboarding": "Lewati",
+  "buttonCompleteOnboarding": "Selesai",
+  "buttonNextOnboarding": "Selanjutnya",
+  "buttonPreviousOnboarding": "Sebelumnya",
+  "forgotPasswordButton": "Lupa Password?",
+  "passwordEmptyError": "Password tidak boleh kosong",
+  "passwordMinLengthError": "Password minimal 8 karakter",
+  "confirmPasswordLabel": "Konfirmasi Password",
+  "confirmPasswordHintText": "Masukkan ulang password",
+  "confirmPasswordEmptyError": "Konfirmasi password tidak boleh kosong",
+  "passwordMismatchError": "Password tidak sama",
+  "processingText": "Memproses...",
+  "verificationTitle": "Verifikasi Member",
+  "verificationSubtitle": "Masukkan ID Registrasi member Anda untuk melakukan verifikasi",
+  "idRegisterHintText": "Masukkan ID Registrasi",
+  "idRegisterLabel": "ID Registrasi",
+  "verificationButton": "Kirim Kode",
+  "otpTitle": "Kode OTP",
+  "otpSubtitle": "Masukkan kode OTP yang terkirim ke nomor {number_phone}",
+  "@otpSubtitle": {
+    "placeholders": {
+      "number_phone": {
+        "type": "String"
+      }
+    }
+  },
+  "otpNotReceive": "Tidak menerima kode?",
+  "otpResend": "Kirim ulang",
+  "otpButton": "Verifikasi",
+  "verifiedNumberTitle": "Verifikasi Berhasil",
+  "verifiedNumberSubtitle": "Selamat Anda sudah terverifikasi sebagai member di sistem kami",
+  "createPassword": "Buat Sandi",
+  "createPasswordSupportText": "Buat kata sandi Anda untuk mendapatkan autentikasi",
+  "createPasswordHintText": "Kata sandi baru",
+  "passwordButton": "Buat dan Masuk",
+  "loginTitle": "Selamat Datang",
+  "loginSubtitle": "Silahkan masuk ke akun Anda",
+  "passwordLabel": "Kata Sandi",
+  "passwordHintText": "Masukkan Kata Sandi",
+  "loginButton": "Masuk",
+  "loginErrorRequiredField": "ID Registrasi dan Kata Sandi wajib diisi",
+  "loginAuthenticationFailed": "ID Registrasi dan Kata Sandi salah",
+  "loginSuccess": "Login Berhasil",
+  "dashboardBottomNavText": "Beranda",
+  "therapyBottomNavText": "Terapi",
+  "transactionBottomNavText": "Transaksi",
+  "profileBottomNavText": "Profil",
+  "profilePageTitle": "Profil Saya",
+  "themeDarkLabel": "Gelap",
+  "themeLightLabel": "Terang",
+  "personalSectionTitle": "Pribadi",
+  "supportSectionTitle": "Dukungan",
+  "settingsSectionTitle": "Pengaturan",
+  "personalDataMenuTitle": "Data Pribadi",
+  "personalDataMenuSubtitle": "Kelola informasi pribadi Anda",
+  "diagnosisMenuTitle": "Diagnosa Saya",
+  "diagnosisMenuSubtitle": "Riwayat diagnosa medis",
+  "referenceCodeMenuTitle": "Referensi Code",
+  "referenceCodeMenuSubtitle": "Kode referensi layanan",
+  "branchLocationMenuTitle": "Lokasi Cabang",
+  "branchLocationMenuSubtitle": "Cari cabang terdekat",
+  "helpMenuTitle": "Bantuan",
+  "helpMenuSubtitle": "Pusat bantuan dan dukungan",
+  "languageMenuTitle": "Bahasa",
+  "languageMenuSubtitle": "Ubah bahasa aplikasi",
+  "aboutAppMenuTitle": "Tentang Aplikasi",
+  "aboutAppMenuSubtitle": "Informasi detail aplikasi",
+  "logoutButtonLabel": "Keluar",
+  "personalInfoSectionTitle": "Informasi Pribadi",
+  "fieldLabelNIK": "NIK",
+  "fieldLabelAddress": "Alamat",
+  "fieldLabelCity": "Kota/Kabupaten",
+  "fieldLabelDateOfBirth": "Tanggal Lahir",
+  "fieldLabelAge": "Usia",
+  "fieldSuffixYears": "Tahun",
+  "fieldLabelGender": "Jenis Kelamin",
+  "fieldLabelPhone": "Nomor WhatsApp",
+  "referenceInfoTitle": "Informasi Referensi",
+  "cardNumberFieldLabel": "Nomor Kartu",
+  "referralNameFieldLabel": "Nama Referal",
+  "diagnosisNoteTitle": "Catatan Tambahan",
+  "diagnosisCurrentIllnessTitle": "Keluhan dan Riwayat Penyakit",
+  "diagnosisPreviousIllnessTitle": "Riwayat Penyakit Terdahulu dan Keluarga",
+  "diagnosisSocialHabitTitle": "Riwayat Sosial dan Kebiasaan",
+  "diagnosisTreatmentHistoryTitle": "Riwayat Pengobatan",
+  "diagnosisPhysicalExamTitle": "Pemeriksaan Fisik",
+  "aboutDialogTitle": "Tentang Aplikasi",
+  "aboutVersionLabel": "Versi",
+  "aboutCopyrightLabel": "Hak Cipta",
+  "aboutReleaseDateLabel": "Tanggal Rilis",
+  "aboutCloseButton": "Tutup",
+  "languageDialogTitle": "Pilih Bahasa",
+  "languageOptionIndonesian": "Bahasa Indonesia",
+  "languageOptionEnglish": "Bahasa Inggris",
+  "languageOptionJapanese": "Bahasa Jepang",
+  "languageOptionChinese": "Bahasa Mandarin",
+  "languageOptionArabic": "Bahasa Arab",
+  "languageCancelButton": "Batal",
+  "languageSaveButton": "Simpan",
+  "logoutDialogTitle": "Konfirmasi Keluar",
+  "logoutDialogMessage": "Apakah Anda yakin ingin keluar dari aplikasi?",
+  "logoutCancelButton": "Batal",
+  "logoutConfirmButton": "Keluar",
+  "dashboardWelcome": "Selamat Datang",
+  "dashboardYourVoucher": "Voucher Anda",
+  "dashboardUsedVoucher": "Voucher Terpakai",
+  "dashboardLastTherapy": "Terapi Terakhir",
+  "dashboardEventPromo": "Event dan Promo",
+  "dashboardTherapyInfusionNumber": "Infus ke-{infusion_number}",
+  "@dashboardTherapyInfusionNumber": {
+    "placeholders": {
+      "infusion_number": {
+        "type": "String"
+      }
+    }
+  },
+  "myVoucherTitle": "Voucher Saya",
+  "voucherFilterDate": "Pilih Tanggal",
+  "voucherDateAll": "Semua Tanggal",
+  "voucherDateToday": "Hari Ini",
+  "voucherDate7Days": "7 Hari Terakhir",
+  "voucherDate30Days": "30 Hari Terakhir",
+  "voucherDate60Days": "60 Hari Terakhir",
+  "voucherDate90Days": "90 Hari Terakhir",
+  "voucherRedeemDate": "Ditukar pada {redeem_date}",
+  "@voucherRedeemDate": {
+    "placeholders": {
+      "redeem_date": {
+        "type": "String"
+      }
+    }
+  },
+  "voucherRedeemDateLabel": "Tanggal Redeem: {redeem_date}",
+  "@voucherRedeemDateLabel": {
+    "placeholders": {
+      "redeem_date": {
+        "type": "String"
+      }
+    }
+  },
+  "transactionDetailTitle": "Rincian Transaksi",
+  "transactionStatusPaid": "Terbayar",
+  "transactionTherapyDone": "Layanan terapi sudah dilakukan",
+  "transactionAmount": "Rp {amount}",
+  "@transactionAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "transactionDetailMemberName": "Nama Member",
+  "transactionDetailInvoiceNumber": "Nomor Invoice",
+  "transactionDetailBranchClinic": "Klinik Cabang",
+  "transactionDetailDate": "Tanggal",
+  "transactionDetailTherapyType": "Jenis Terapi",
+  "transactionDetailPaymentMethod": "Metode Pembayaran",
+  "transactionDetailVoucherQty": "Jumlah Voucher",
+  "transactionDetailFreeVoucher": "Free Voucher",
+  "transactionDetailUnitPrice": "Harga Satuan",
+  "transactionDetailTotalAmount": "Total Transaksi",
+  "transactionActionDownload": "Unduh",
+  "transactionActionShare": "Bagikan",
+  "transactionActionSeeRedeemVoucher": "Lihat Redeem Voucher",
+  "therapyDetailTitle": "Rincian Terapi",
+  "therapyInfoMember": "Member",
+  "therapyInfoDate": "Tanggal",
+  "therapyStartSurvey": "Start Survey",
+  "therapyTabHistory": "Riwayat Terapi",
+  "therapyTabSurvey": "Riwayat Survey",
+  "therapySurveyEmpty": "Belum ada data survey tersedia",
+  "therapyInfoCardTitle": "Informasi Terapi",
+  "therapyInfusNumber": "Infus ke",
+  "therapyInfusType": "Jenis Infus",
+  "therapyProductionDate": "Tgl. Produksi",
+  "therapyNextInfusDate": "Infus berikutnya",
+  "therapyHealingCrisisTitle": "Healing Crisis",
+  "therapyHealingCrisisComplaint": "Keluhan Healing Crisis",
+  "therapyHealingCrisisNote": "Catatan/Tindakan",
+  "therapyNeedleUsageTitle": "Penggunaan Jarum",
+  "therapyNeedleUsageHeaderNeedle": "Jarum",
+  "therapyNeedleUsageHeaderNakes": "Nakes",
+  "therapyNeedleUsageHeaderStatus": "Status",
+  "therapyNeedleUsed": "Digunakan",
+  "therapySectionAnamnesis": "Anamnesis",
+  "therapySectionLabPhoto": "Foto Lab",
+  "therapyLabPhotoEmpty": "Belum ada foto lab tersedia",
+  "therapyComplaintAfter": "Keluhan Setelah Terapi",
+  "therapyComplaintBefore": "Keluhan Sebelum Terapi",
+  "therapyNoComplaint": "Tidak Ada Keluhan",
+  "therapyVitalSignBloodPressure": "Tekanan Darah",
+  "therapyVitalSignSystolic": "Sistolik",
+  "therapyVitalSignDiastolic": "Diastolik",
+  "therapyVitalSignO2AndHR": "Saturasi O2 & Heart Rate",
+  "therapyVitalSaturationBefore": "Saturasi Sebelum",
+  "therapyVitalSaturationAfter": "Saturasi Sesudah",
+  "therapyVitalPerfusionBefore": "Index Perfusi Sebelum",
+  "therapyVitalPerfusionAfter": "Index Perfusi Sesudah",
+  "therapyVitalHRBefore": "HR Sebelum",
+  "therapyVitalHRAfter": "HR Sesudah",
+  "historyPageTitle": "Riwayat Saya",
+  "therapyTabTherapy": "Terapi",
+  "therapyTabLab": "Lab",
+  "therapySearchHint": "Cari riwayat terapi...",
+  "labSearchHint": "Cari riwayat laboratorium...",
+  "therapyCardInfusionNumber": "Infus ke-{infusionNumber}",
+  "@therapyCardInfusionNumber": {
+    "placeholders": {
+      "infusionNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "therapyEmptyTitle": "Belum ada riwayat terapi",
+  "therapyEmptySubtitle": "Riwayat terapi Anda akan muncul di sini",
+  "labEmptyTitle": "Belum Ada Data Laboratorium",
+  "labEmptySubtitle": "Data laboratorium akan muncul di sini setelah Anda menambahkan atau memuat data laboratorium",
+  "filterTitle": "Filter",
+  "filterClear": "Bersihkan",
+  "filterCompany": "Perusahaan",
+  "filterProduct": "Produk",
+  "filterDateRange": "Rentang Tanggal",
+  "selectCompany": "Pilih Perusahaan",
+  "selectProduct": "Pilih Produk",
+  "dateFrom": "Dari Tanggal",
+  "dateTo": "Sampai Tanggal",
+  "applyFilter": "Terapkan Filter",
+  "retry": "Coba Lagi",
+  "noTransactionsFound": "Tidak ada transaksi ditemukan",
+  "noDataAvailable": "Tidak ada data tersedia",
+  "transactionStatusPending": "Menunggu",
+  "transactionStatusCancelled": "Dibatalkan",
+  "transactionDetailAdmin": "Admin",
+  "transactionDetailPaymentStatus": "Status Pembayaran",
+  "therapyLoadingError": "Gagal memuat riwayat terapi",
+  "genericError": "Terjadi kesalahan. Silakan coba lagi nanti.",
+  "languageChangeSuccess": "Bahasa diubah ke {language}",
+  "@languageChangeSuccess": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "branchLocationTitle": "Cabang Rahoclub",
+  "branchLocationRetry": "Coba Lagi",
+  "branchLocationLoading": "Memuat data cabang...",
+  "branchLocationEmpty": "Belum ada data cabang",
+  "branchLocationEmptyHint": "Silakan coba lagi nanti",
+  "branchLocationReload": "Coba muat ulang",
+  "diagnosisReload": "Coba muat ulang",
+  "diagnosisEmpty": "Belum ada data diagnosa",
+  "diagnosisReloadButton": "Muat Ulang",
+  "genderMale": "Pria",
+  "genderFemale": "Wanita",
+  "genderSelectLabel": "Pilih Gender",
+  "genderSelectTitle": "Pilih Gender",
+  "personalDataCancelButton": "Batalkan",
+  "personalDataSaveButton": "Simpan",
+  "personalDataEditButton": "Edit",
+  "referenceErrorMessage": "Error: {message}",
+  "@referenceErrorMessage": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "referenceNoData": "Tidak ada data tersedia",
+  "companyLoadError": "Gagal memuat data cabang",
+  "languageLoadError": "Gagal memuat bahasa: {error}",
+  "@languageLoadError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "languageUnsupported": "Bahasa tidak didukung",
+  "languageChangeError": "Gagal mengubah bahasa: {error}",
+  "@languageChangeError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "languageResetError": "Gagal mengatur ulang bahasa: {error}",
+  "@languageResetError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileLoadError": "Gagal memuat profil",
+  "diagnosisLoadError": "Gagal memuat diagnosis",
+  "profileUpdateSuccess": "Profil berhasil diperbarui",
+  "profileUpdateError": "Gagal memperbarui profil",
+  "needleDataEmpty": "Tidak ada data tersedia",
+  "labTestTitle": "Lab Test",
+  "labResultLabel": "Lab Result",
+  "errorStateTitle": "Terjadi Kesalahan",
+  "errorStateRetry": "Coba Lagi",
+  "labLoadError": "Gagal memuat data",
+  "labLoadMoreError": "Gagal memuat data tambahan",
+  "therapyLoadError": "Gagal memuat data",
+  "therapyLoadMoreError": "Gagal memuat data tambahan",
+  "transactionLoadError": "Gagal memuat transaksi",
+  "transactionDetailNotFound": "Detail transaksi tidak ditemukan",
+  "transactionIdRequired": "ID transaksi diperlukan",
+  "transactionTypeInvalid": "Tipe transaksi tidak valid. Harus 'payment' atau 'faktur'",
+  "transactionNotFound": "Transaksi tidak ditemukan",
+  "transactionDetailLoadError": "Gagal memuat detail transaksi",
+  "transactionFilterLabel": "Pilih Transaksi",
+  "transactionFilterAll": "Semua Transaksi",
+  "transactionFilterPayment": "Pembelian",
+  "transactionFilterService": "Pelayanan",
+  "transactionPaymentDefault": "Pembayaran",
+  "transactionServiceDefault": "Terapi",
+  "transactionNoPaymentFound": "Tidak ada transaksi pembelian ditemukan",
+  "transactionNoServiceFound": "Tidak ada transaksi pelayanan ditemukan",
+  "transactionErrorMessage": "Error: {message}",
+  "@transactionErrorMessage": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "authSessionRestored": "Sesi berhasil dipulihkan",
+  "authProfileUpdated": "Profil berhasil diperbarui",
+  "authRefreshError": "Gagal memperbarui profil: {error}",
+  "@authRefreshError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "authLogoutError": "Gagal keluar: {error}",
+  "@authLogoutError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  }
+}
