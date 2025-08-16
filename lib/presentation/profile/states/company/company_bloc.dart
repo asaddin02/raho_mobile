@@ -24,8 +24,6 @@ class CompanyBloc extends Bloc<CompanyEvent, CompanyState> {
 
     try {
       final companyModel = await _repository.getCompanyBranches();
-      print(companyModel.status);
-
       if (companyModel.status == 'success') {
         emit(CompanyLoaded(companies: companyModel.data));
       } else {

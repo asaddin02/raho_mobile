@@ -349,6 +349,6 @@ class BranchLocationPage extends StatelessWidget {
   }
 
   void _handleBranchAction(Company company) {
-    print("Branch action for: ${company.name}");
+    // print("Branch action for: ${company.name}");
   }
 }

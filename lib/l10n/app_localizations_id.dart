@@ -24,6 +24,18 @@ class AppLocalizationsId extends AppLocalizations {
   String get supportedBy => 'Didukung Oleh:';
 
   @override
+  String get success => 'Berhasil';
+
+  @override
+  String get error => 'Kesalahan';
+
+  @override
+  String get warning => 'Peringatan';
+
+  @override
+  String get info => 'Informasi';
+
+  @override
   String get onboardingTitle1 => 'Teknologi NanoBubble';
 
   @override

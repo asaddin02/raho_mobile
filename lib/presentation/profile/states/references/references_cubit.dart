@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:raho_member_apps/data/models/reference.dart';
 import 'package:raho_member_apps/data/repositories/user_repository.dart';
-import 'package:raho_member_apps/data/repositories/user_repository.dart';
 
 part 'references_state.dart';
 

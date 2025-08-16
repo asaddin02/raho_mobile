@@ -127,14 +127,14 @@ class FilterModel {
   FilterModel({required this.companies, required this.products});
 
   factory FilterModel.fromJson(Map<String, dynamic> json) {
-    List<String> _extractNames(dynamic raw) => (raw as List<dynamic>? ?? [])
+    List<String> extractNames(dynamic raw) => (raw as List<dynamic>? ?? [])
         .map((e) => (e as Map<String, dynamic>)['name']?.toString() ?? '')
         .where((name) => name.isNotEmpty)
         .toList();
 
     return FilterModel(
-      companies: _extractNames(json['companies']),
-      products: _extractNames(json['products']),
+      companies: extractNames(json['companies']),
+      products: extractNames(json['products']),
     );
   }
 

@@ -77,7 +77,7 @@ class AuthRepository {
     try {
       await _authProvider.logout();
     } catch (e) {
-      print('Logout API failed: $e');
+      throw Exception('Logout API failed: $e');
     } finally {
       await _storageService.deleteToken();
       await _storageService.deleteRefreshToken();

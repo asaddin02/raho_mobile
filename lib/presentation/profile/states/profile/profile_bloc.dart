@@ -1,6 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:raho_member_apps/data/models/diagnosis.dart';
 import 'package:raho_member_apps/data/models/diagnosis.dart';
 import 'package:raho_member_apps/data/models/profile.dart';
 import 'package:raho_member_apps/data/repositories/user_repository.dart';
@@ -82,8 +80,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final response = await _userRepository.updateProfile(
         request: event.request,
       );
-      print(response.status);
-      print(response.isSuccess);
       if (response.isSuccess) {
         emit(ProfileUpdateSuccess(message: 'profileUpdateSuccess'));
         await Future.delayed(const Duration(milliseconds: 500));

@@ -124,6 +124,30 @@ abstract class AppLocalizations {
   /// **'Didukung Oleh:'**
   String get supportedBy;
 
+  /// No description provided for @success.
+  ///
+  /// In id, this message translates to:
+  /// **'Berhasil'**
+  String get success;
+
+  /// No description provided for @error.
+  ///
+  /// In id, this message translates to:
+  /// **'Kesalahan'**
+  String get error;
+
+  /// No description provided for @warning.
+  ///
+  /// In id, this message translates to:
+  /// **'Peringatan'**
+  String get warning;
+
+  /// No description provided for @info.
+  ///
+  /// In id, this message translates to:
+  /// **'Informasi'**
+  String get info;
+
   /// No description provided for @onboardingTitle1.
   ///
   /// In id, this message translates to:

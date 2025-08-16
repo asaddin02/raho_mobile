@@ -1,4 +1,3 @@
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:raho_member_apps/data/models/diagnosis.dart';
 import 'package:raho_member_apps/data/models/profile.dart';
 import 'package:raho_member_apps/data/models/reference.dart';

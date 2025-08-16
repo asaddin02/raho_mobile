@@ -103,7 +103,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       _currentUser = updatedUser;
       emit(AuthAuthenticated(user: updatedUser, message: 'authProfileUpdated'));
     } catch (e) {
-      print('authRefreshError');
+      throw Exception('authRefreshError');
     }
   }
 
