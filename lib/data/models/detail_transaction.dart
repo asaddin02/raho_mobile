@@ -1,104 +1,98 @@
+import 'package:flutter/material.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
+
 class DetailTransactionModel {
-  final String memberName;
-  final String dateTransaction;
-  final String invoice;
-  final double totalAmount;
-
-  // Optional fields for payment type
+  final String? success;
+  final String? error;
+  final String? memberName;
+  final String? dateTransaction;
+  final String? invoice;
+  final double? totalAmount;
   final String? companyName;
-  final int? qtyVoucherNormal;
-  final int? qtyVoucherFree;
+  final double? qtyVoucherNormal;
+  final double? qtyVoucherFree;
   final double? amountPerPcs;
-
-  // Optional fields for faktur type
   final String? admin;
   final String? paymentState;
 
-  // Transaction type identifier
-  final String transactionType;
-
   DetailTransactionModel({
-    required this.memberName,
-    required this.dateTransaction,
-    required this.invoice,
-    required this.totalAmount,
+    this.success,
+    this.error,
+    this.memberName,
+    this.dateTransaction,
+    this.invoice,
+    this.totalAmount,
     this.companyName,
     this.qtyVoucherNormal,
     this.qtyVoucherFree,
     this.amountPerPcs,
     this.admin,
     this.paymentState,
-    required this.transactionType,
   });
 
-  factory DetailTransactionModel.fromJson(
-    Map<String, dynamic> json,
-    String type,
-  ) {
+  factory DetailTransactionModel.fromJson(Map<String, dynamic> json) {
+    final data = json['data'];
     return DetailTransactionModel(
-      memberName: json['member_name'] ?? '',
-      dateTransaction: json['date_transaction'] ?? '',
-      invoice: json['invoice'] ?? '',
-      totalAmount: (json['total_amount'] ?? 0.0).toDouble(),
-      companyName: json['company_name'],
-      qtyVoucherNormal: json['qty_voucher_normal'] != null
-          ? (json['qty_voucher_normal'] as num).toInt()
-          : null,
-      qtyVoucherFree: json['qty_voucher_free'] != null
-          ? (json['qty_voucher_free'] as num).toInt()
-          : null,
-      amountPerPcs: json['amount_per_pcs'] != null
-          ? (json['amount_per_pcs'] as num).toDouble()
-          : null,
-      admin: json['admin'],
-      paymentState: json['payment_state'],
-      transactionType: type,
+      success: json['success'],
+      error: json['error'],
+      memberName: data?['member_name'],
+      dateTransaction: data?['date_transaction'],
+      invoice: data?['invoice'],
+      totalAmount: data?['total_amount']?.toDouble(),
+      companyName: data?['company_name'],
+      qtyVoucherNormal: data?['qty_voucher_normal']?.toDouble(),
+      qtyVoucherFree: data?['qty_voucher_free']?.toDouble(),
+      amountPerPcs: data?['amount_per_pcs']?.toDouble(),
+      admin: data?['admin'],
+      paymentState: data?['payment_state'],
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'member_name': memberName,
-    'date_transaction': dateTransaction,
-    'invoice': invoice,
-    'total_amount': totalAmount,
-    if (companyName != null) 'company_name': companyName,
-    if (qtyVoucherNormal != null) 'qty_voucher_normal': qtyVoucherNormal,
-    if (qtyVoucherFree != null) 'qty_voucher_free': qtyVoucherFree,
-    if (amountPerPcs != null) 'amount_per_pcs': amountPerPcs,
-    if (admin != null) 'admin': admin,
-    if (paymentState != null) 'payment_state': paymentState,
-    'transaction_type': transactionType,
-  };
+  bool get isSuccess => success != null && error == null;
 
-  bool get isPayment => transactionType == 'payment';
+  bool get isError => error != null;
 
-  bool get isFaktur => transactionType == 'faktur';
+  String get messageCode {
+    if (success != null) return success!;
+    if (error != null) return error!;
+    return 'UNKNOWN_ERROR';
+  }
+
+  String getLocalizedMessage(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
+    switch (messageCode) {
+      case 'TRANSACTION_DETAIL_FETCH_SUCCESS':
+        return localizations.transaction_detail_fetch_success;
+      case 'TRANSACTION_ID_REQUIRED':
+        return localizations.transaction_id_required;
+      case 'INVALID_TRANSACTION_TYPE':
+        return localizations.invalid_transaction_type;
+      case 'TRANSACTION_NOT_FOUND':
+        return localizations.transaction_not_found;
+      case 'ERROR_SERVER':
+        return localizations.error_server;
+      default:
+        return localizations.unknown_error;
+    }
+  }
+
+  bool get isTransactionIdRequired => error == 'TRANSACTION_ID_REQUIRED';
+
+  bool get isInvalidTransactionType => error == 'INVALID_TRANSACTION_TYPE';
+
+  bool get isTransactionNotFound => error == 'TRANSACTION_NOT_FOUND';
+
+  bool get isServerError => error == 'ERROR_SERVER';
 
   bool get isVoucherTransaction =>
       qtyVoucherNormal != null || qtyVoucherFree != null;
-}
 
-class DetailTransactionResponse {
-  final String status;
-  final DetailTransactionModel? data;
-  final String? code;
+  bool get isPayment =>
+      companyName != null ||
+      qtyVoucherNormal != null ||
+      qtyVoucherFree != null ||
+      amountPerPcs != null;
 
-  DetailTransactionResponse({required this.status, this.data, this.code});
-
-  factory DetailTransactionResponse.fromJson(
-    Map<String, dynamic> json,
-    String transactionType,
-  ) {
-    return DetailTransactionResponse(
-      status: json['status'] ?? '',
-      data: json['data'] != null
-          ? DetailTransactionModel.fromJson(json['data'], transactionType)
-          : null,
-      code: json['code'],
-    );
-  }
-
-  bool get isSuccess => status == 'success';
-
-  bool get isError => status == 'error';
+  bool get isFaktur => admin != null || paymentState != null;
 }

@@ -10,7 +10,6 @@ class UserProvider {
       final response = await _apiService.authenticatedRequest(
         AppEndpoints.profile,
         method: 'GET',
-        body: {'params': {}},
       );
       return response.data;
     } catch (e) {
@@ -23,7 +22,6 @@ class UserProvider {
       final response = await _apiService.authenticatedRequest(
         AppEndpoints.diagnosis,
         method: 'GET',
-        body: {'params': {}},
       );
       return response.data;
     } catch (e) {
@@ -42,7 +40,7 @@ class UserProvider {
       );
       return response.data;
     } catch (e) {
-      throw Exception(e);
+      throw Exception('Failed to update profile: ${e.toString()}');
     }
   }
 
@@ -51,7 +49,6 @@ class UserProvider {
       final response = await _apiService.authenticatedRequest(
         AppEndpoints.reference,
         method: 'GET',
-        body: {'params': {}},
       );
       return response.data;
     } catch (e) {

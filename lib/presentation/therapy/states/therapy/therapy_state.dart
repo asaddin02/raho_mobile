@@ -82,13 +82,38 @@ class TherapyRefreshing extends TherapyState {
 }
 
 class TherapyError extends TherapyState {
-  final String message;
+  final String messageCode;
+  final String? debugMessage;
   final List<TherapyData>? therapies;
 
-  const TherapyError({required this.message, this.therapies});
+  const TherapyError({
+    required this.messageCode,
+    this.debugMessage,
+    this.therapies,
+  });
+
+  String getLocalizedMessage(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (messageCode) {
+      case 'THERAPY_HISTORY_SUCCESS':
+        return localizations.therapy_history_success;
+      case 'THERAPY_HISTORY_FAILED':
+        return localizations.therapy_history_failed;
+      case 'PATIENT_NOT_FOUND':
+        return localizations.patient_not_found;
+      case 'ERROR_SYSTEM':
+        return localizations.error_system;
+      case 'ERROR_SERVER':
+        return localizations.error_server;
+      case 'UNKNOWN_ERROR':
+        return localizations.unknown_error;
+      default:
+        return localizations.unknown_error;
+    }
+  }
 
   @override
-  List<Object?> get props => [message, therapies];
+  List<Object?> get props => [messageCode, debugMessage, therapies];
 }
 
 class TherapyDetailLoading extends TherapyState {
@@ -111,11 +136,36 @@ class TherapyDetailLoaded extends TherapyState {
 }
 
 class TherapyDetailError extends TherapyState {
-  final String message;
+  final String messageCode;
+  final String? debugMessage;
   final List<TherapyData>? therapies;
 
-  const TherapyDetailError({required this.message, this.therapies});
+  const TherapyDetailError({
+    required this.messageCode,
+    this.debugMessage,
+    this.therapies,
+  });
+
+  String getLocalizedMessage(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (messageCode) {
+      case 'THERAPY_DETAIL_SUCCESS':
+        return localizations.therapy_detail_success;
+      case 'THERAPY_NOT_FOUND':
+        return localizations.therapy_not_found;
+      case 'THERAPY_DETAIL_FAILED':
+        return localizations.therapy_detail_failed;
+      case 'ERROR_SYSTEM':
+        return localizations.error_system;
+      case 'ERROR_SERVER':
+        return localizations.error_server;
+      case 'UNKNOWN_ERROR':
+        return localizations.unknown_error;
+      default:
+        return localizations.unknown_error;
+    }
+  }
 
   @override
-  List<Object?> get props => [message, therapies];
+  List<Object?> get props => [messageCode, debugMessage, therapies];
 }

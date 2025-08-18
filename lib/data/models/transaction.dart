@@ -1,33 +1,55 @@
-class TransactionModel {
-  final String status;
-  final TransactionData data;
-  final TransactionPagination pagination;
+import 'package:flutter/material.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
 
-  TransactionModel({
-    required this.status,
-    required this.data,
-    required this.pagination,
-  });
+class TransactionModel {
+  final String? success;
+  final String? error;
+  final TransactionData? data;
+  final TransactionPagination? pagination;
+
+  TransactionModel({this.success, this.error, this.data, this.pagination});
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
     return TransactionModel(
-      status: json['status'] ?? '',
-      data: TransactionData.fromJson(
-        json['data'] as Map<String, dynamic>? ?? {},
-      ),
-      pagination: TransactionPagination.fromJson(
-        json['pagination'] as Map<String, dynamic>? ?? {},
-      ),
+      success: json['success'],
+      error: json['error'],
+      data: json['data'] != null
+          ? TransactionData.fromJson(json['data'] as Map<String, dynamic>)
+          : null,
+      pagination: json['pagination'] != null
+          ? TransactionPagination.fromJson(
+              json['pagination'] as Map<String, dynamic>,
+            )
+          : null,
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'status': status,
-    'data': data.toJson(),
-    'pagination': pagination.toJson(),
-  };
+  bool get isSuccess => success != null && error == null;
 
-  bool get isSuccess => status == 'success';
+  bool get isError => error != null;
+
+  String get messageCode {
+    if (success != null) return success!;
+    if (error != null) return error!;
+    return 'UNKNOWN_ERROR';
+  }
+
+  String getLocalizedMessage(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
+    switch (messageCode) {
+      case 'TRANSACTION_FETCH_SUCCESS':
+        return localizations.transaction_fetch_success;
+      case 'ERROR_SERVER':
+        return localizations.error_server;
+      default:
+        return localizations.unknown_error;
+    }
+  }
+
+  bool get isPartnerNotFound => error == 'PARTNER_NOT_FOUND';
+
+  bool get isServerError => error == 'ERROR_SERVER';
 }
 
 class TransactionData {
@@ -46,102 +68,76 @@ class TransactionData {
           .toList(),
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    'payment': payment.map((e) => e.toJson()).toList(),
-    'faktur': faktur.map((e) => e.toJson()).toList(),
-  };
 }
 
 class PaymentData {
   final int id;
-  final String paymentName;
-  final double amountPayment;
-  final String paymentFor;
-  final String datePayment;
+  final String? paymentName;
+  final double? amountPayment;
+  final String? paymentFor;
+  final String? datePayment;
 
   PaymentData({
     required this.id,
-    required this.paymentName,
-    required this.amountPayment,
-    required this.paymentFor,
-    required this.datePayment,
+    this.paymentName,
+    this.amountPayment,
+    this.paymentFor,
+    this.datePayment,
   });
 
   factory PaymentData.fromJson(Map<String, dynamic> json) {
     return PaymentData(
       id: json['id'] ?? 0,
-      paymentName: json['payment_name'] ?? '',
-      amountPayment: (json['amount_payment'] ?? 0.0).toDouble(),
-      paymentFor: json['payment_for'] ?? '',
-      datePayment: json['date_payment'] ?? '',
+      paymentName: json['payment_name'],
+      amountPayment: json['amount_payment']?.toDouble(),
+      paymentFor: json['payment_for'],
+      datePayment: json['date_payment'],
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'payment_name': paymentName,
-    'amount_payment': amountPayment,
-    'payment_for': paymentFor,
-    'date_payment': datePayment,
-  };
 }
 
 class FakturData {
   final int id;
-  final String fakturName;
-  final double amountFaktur;
-  final String fakturFor;
-  final String dateFaktur;
+  final String? fakturName;
+  final double? amountFaktur;
+  final String? fakturFor;
+  final String? dateFaktur;
 
   FakturData({
     required this.id,
-    required this.fakturName,
-    required this.amountFaktur,
-    required this.fakturFor,
-    required this.dateFaktur,
+    this.fakturName,
+    this.amountFaktur,
+    this.fakturFor,
+    this.dateFaktur,
   });
 
   factory FakturData.fromJson(Map<String, dynamic> json) {
     return FakturData(
       id: json['id'] ?? 0,
-      fakturName: json['faktur_name'] ?? '',
-      amountFaktur: (json['amount_faktur'] ?? 0.0).toDouble(),
-      fakturFor: json['faktur_for'] ?? '',
-      dateFaktur: json['date_faktur'] ?? '',
+      fakturName: json['faktur_name'],
+      amountFaktur: json['amount_faktur']?.toDouble(),
+      fakturFor: json['faktur_for'],
+      dateFaktur: json['date_faktur'],
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'faktur_name': fakturName,
-    'amount_faktur': amountFaktur,
-    'faktur_for': fakturFor,
-    'date_faktur': dateFaktur,
-  };
 }
 
 class TransactionPagination {
-  final PaginationDetail payment;
-  final PaginationDetail faktur;
+  final PaginationDetail? payment;
+  final PaginationDetail? faktur;
 
-  TransactionPagination({required this.payment, required this.faktur});
+  TransactionPagination({this.payment, this.faktur});
 
   factory TransactionPagination.fromJson(Map<String, dynamic> json) {
     return TransactionPagination(
-      payment: PaginationDetail.fromJson(
-        json['payment'] as Map<String, dynamic>? ?? {},
-      ),
-      faktur: PaginationDetail.fromJson(
-        json['faktur'] as Map<String, dynamic>? ?? {},
-      ),
+      payment: json['payment'] != null
+          ? PaginationDetail.fromJson(json['payment'] as Map<String, dynamic>)
+          : null,
+      faktur: json['faktur'] != null
+          ? PaginationDetail.fromJson(json['faktur'] as Map<String, dynamic>)
+          : null,
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    'payment': payment.toJson(),
-    'faktur': faktur.toJson(),
-  };
 }
 
 class PaginationDetail {
@@ -168,14 +164,6 @@ class PaginationDetail {
       hasPrev: json['has_prev'] ?? false,
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    'current_page': currentPage,
-    'total_pages': totalPages,
-    'total_records': totalRecords,
-    'has_next': hasNext,
-    'has_prev': hasPrev,
-  };
 }
 
 class TransactionRequest {

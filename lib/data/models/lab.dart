@@ -1,60 +1,117 @@
+import 'package:flutter/material.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
+
 class LabModel {
-  final String status;
-  final String code;
+  final String? success;
+  final String? error;
+  final String? code;
   final String? message;
-  final List<LabModel> data;
-  final PaginationModelLab pagination;
-  final LabFilterModel filters;
+  final List<LabData>? data;
+  final PaginationModelLab? pagination;
+  final LabFilterModel? filters;
 
   LabModel({
-    required this.status,
-    required this.code,
+    this.success,
+    this.error,
+    this.code,
     this.message,
-    required this.data,
-    required this.pagination,
-    required this.filters,
+    this.data,
+    this.pagination,
+    this.filters,
   });
 
   factory LabModel.fromJson(Map<String, dynamic> json) {
+    // Handle both 'status' and 'success'/'error' patterns
+    String? success;
+    String? error;
+
+    if (json['status'] == 'success') {
+      success = json['code']; // Use code as success value
+    } else if (json['status'] == 'error') {
+      error = json['code']; // Use code as error value
+    } else {
+      success = json['success'];
+      error = json['error'];
+    }
+
     return LabModel(
-      status: json['status'] ?? '',
-      code: json['code'] ?? '',
+      success: success,
+      error: error,
+      code: json['code'],
       message: json['message'],
       data: json['data'] != null
-          ? (json['data'] as List)
-                .map((item) => LabModel.fromJson(item))
+          ? (json['data'] as List<dynamic>)
+                .map((item) => LabData.fromJson(item as Map<String, dynamic>))
                 .toList()
-          : [],
-      pagination: PaginationModelLab.fromJson(json['pagination'] ?? {}),
-      filters: LabFilterModel.fromJson(json['filters'] ?? {}),
+          : null,
+      pagination: json['pagination'] != null
+          ? PaginationModelLab.fromJson(
+              json['pagination'] as Map<String, dynamic>,
+            )
+          : null,
+      filters: json['filters'] != null
+          ? LabFilterModel.fromJson(json['filters'] as Map<String, dynamic>)
+          : null,
     );
   }
 
-  bool get isSuccess => status == 'success';
+  bool get isSuccess => success != null && error == null;
+
+  bool get isError => error != null;
+
+  String get messageCode {
+    if (success != null) return success!;
+    if (error != null) return error!;
+    return 'UNKNOWN_ERROR';
+  }
+
+  String getLocalizedMessage(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
+    switch (messageCode) {
+      case 'LAB_DATA_FETCHED':
+        return localizations.lab_data_fetched;
+      case 'PATIENT_NOT_FOUND':
+        return localizations.patient_not_found;
+      case 'ERROR_SYSTEM':
+        return localizations.error_system;
+      case 'ERROR_SERVER':
+        return localizations.error_server;
+      default:
+        return localizations.unknown_error;
+    }
+  }
+
+  bool get isPatientNotFound => error == 'PATIENT_NOT_FOUND';
+
+  bool get isSystemError => error == 'ERROR_SYSTEM';
 }
 
 class LabData {
   final int id;
-  final String labNumber;
-  final String doctor;
-  final String date;
-  final String companyName;
+  final String? companyName;
+  final String? date;
+  final String? labType;
+  final String? status;
+  final String? results;
 
   LabData({
     required this.id,
-    required this.labNumber,
-    required this.doctor,
-    required this.date,
-    required this.companyName,
+    this.companyName,
+    this.date,
+    this.labType,
+    this.status,
+    this.results,
   });
 
   factory LabData.fromJson(Map<String, dynamic> json) {
     return LabData(
       id: json['id'] ?? 0,
-      labNumber: json['lab_number'] ?? '-',
-      doctor: json['doctor'] ?? '-',
-      date: json['date'] ?? '-',
-      companyName: json['company_name'] ?? '-',
+      companyName: json['company_name'],
+      date: json['date'],
+      labType: json['lab_type'],
+      status: json['status'],
+      results: json['results'],
     );
   }
 }
@@ -91,14 +148,12 @@ class LabFilterModel {
   LabFilterModel({required this.companies});
 
   factory LabFilterModel.fromJson(Map<String, dynamic> json) {
-    return LabFilterModel(
-      companies: json['companies'] != null
-          ? (json['companies'] as List)
-                .map((item) => item['name']?.toString() ?? '')
-                .where((name) => name.isNotEmpty)
-                .toList()
-          : [],
-    );
+    List<String> extractNames(dynamic raw) => (raw as List<dynamic>? ?? [])
+        .map((e) => (e as Map<String, dynamic>)['name']?.toString() ?? '')
+        .where((name) => name.isNotEmpty)
+        .toList();
+
+    return LabFilterModel(companies: extractNames(json['companies']));
   }
 }
 
@@ -120,6 +175,7 @@ class LabRequest {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {'page': page, 'limit': limit};
     final Map<String, dynamic> filters = {};
+
     if (companyName != null && companyName!.isNotEmpty) {
       filters['company_name'] = companyName;
     }
@@ -129,9 +185,11 @@ class LabRequest {
     if (dateTo != null && dateTo!.isNotEmpty) {
       filters['date_to'] = dateTo;
     }
+
     if (filters.isNotEmpty) {
       data['filters'] = filters;
     }
+
     return data;
   }
 }

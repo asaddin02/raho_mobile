@@ -1,49 +1,44 @@
-class ReferenceModel {
-  final String status;
-  final String code;
-  final String message;
-  final ReferenceData data;
+import 'package:flutter/material.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
 
-  ReferenceModel({
-    required this.status,
-    required this.code,
-    required this.message,
-    required this.data,
-  });
+class ReferenceModel {
+  final String? success;
+  final String? error;
+  final String? name;
+  final String? noCard;
+
+  ReferenceModel({this.success, this.error, this.name, this.noCard});
 
   factory ReferenceModel.fromJson(Map<String, dynamic> json) {
+    final data = json['data'];
     return ReferenceModel(
-      status: json['status'] ?? '',
-      code: json['code'] ?? '',
-      message: json['message'] ?? '',
-      data: ReferenceData.fromJson(json['data'] ?? {}),
+      success: json['success'],
+      error: json['error'],
+      name: data?['name'],
+      noCard: data?['no_card'],
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'status': status,
-      'code': code,
-      'message': message,
-      'data': data.toJson(),
-    };
-  }
-}
+  bool get isSuccess => success != null && error == null;
 
-class ReferenceData {
-  final String name;
-  final String noCard;
+  bool get isError => error != null;
 
-  ReferenceData({required this.name, required this.noCard});
-
-  factory ReferenceData.fromJson(Map<String, dynamic> json) {
-    return ReferenceData(
-      name: json['name'] ?? '',
-      noCard: json['no_card'] ?? '',
-    );
+  String get messageCode {
+    if (success != null) return success!;
+    if (error != null) return error!;
+    return 'UNKNOWN_ERROR';
   }
 
-  Map<String, dynamic> toJson() {
-    return {'name': name, 'no_card': noCard};
+  String getLocalizedMessage(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
+    switch (messageCode) {
+      case 'REFERENCES_FETCH_SUCCESS':
+        return localizations.references_fetch_success;
+      case 'ERROR_SERVER':
+        return localizations.error_server;
+      default:
+        return localizations.unknown_error;
+    }
   }
 }

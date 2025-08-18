@@ -96,27 +96,28 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
       child: BlocListener<ProfileBloc, ProfileState>(
         listener: (context, state) {
           if (state is ProfileLoaded) {
-            name = state.profile.name;
-            partnerName = state.profile.partnerName;
-            noId = state.profile.noId;
-            nikController.text = state.profile.nik;
-            addressController.text = state.profile.address;
-            cityController.text = state.profile.city;
-            dobController.text = state.profile.dob;
-            ageController.text = state.profile.age;
-            genderController.value = state.profile.gender;
-            noHPController.text = state.profile.noHpWa.replaceAll('-', '');
+            name = state.profile.name ?? '-';
+            partnerName = state.profile.partnerName ?? '-';
+            noId = state.profile.noId ?? '-';
+            nikController.text = state.profile.nik ?? '-';
+            addressController.text = state.profile.address ?? '-';
+            cityController.text = state.profile.city ?? '-';
+            dobController.text = state.profile.dob ?? '-';
+            ageController.text = state.profile.age ?? '-';
+            genderController.value = state.profile.gender ?? '-';
+            noHPController.text =
+                state.profile.noHpWa?.replaceAll('-', '') ?? '-';
           } else if (state is ProfileUpdateSuccess) {
             AppNotification.success(
               context,
-              state.message,
+              state.messageCode,
               duration: NotificationDuration.medium,
             );
             context.read<ProfileBloc>().add(ToggleEditMode());
           } else if (state is ProfileError) {
             AppNotification.error(
               context,
-              state.error,
+              state.messageCode,
               duration: NotificationDuration.medium,
             );
           }
@@ -210,7 +211,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
             colorScheme: colorScheme,
           ),
           SizedBox(height: AppSizes.spacingLarge),
-          _buildActionButtons(colorScheme,l10n),
+          _buildActionButtons(colorScheme, l10n),
         ],
       ),
     );

@@ -128,7 +128,7 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
                     ),
                   ],
                 ),
-                child: _buildErrorWidget(theme, state.error,l10n),
+                child: _buildErrorWidget(theme, state.messageCode, l10n),
               ),
             ],
           );
@@ -186,7 +186,7 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
                   ),
                 ],
               ),
-              child: _buildEmptyWidget(theme,l10n),
+              child: _buildEmptyWidget(theme, l10n),
             ),
           ],
         );
@@ -208,42 +208,42 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
 
         _buildDiagnosisSection(
           l10n.diagnosisNoteTitle,
-          diagnosis.note,
+          diagnosis.note ?? '-',
           Icons.note_alt_outlined,
           theme,
         ),
 
         _buildDiagnosisSection(
           l10n.diagnosisCurrentIllnessTitle,
-          diagnosis.currentIllness,
+          diagnosis.currentIllness ?? '-',
           Icons.sick_outlined,
           theme,
         ),
 
         _buildDiagnosisSection(
           l10n.diagnosisPreviousIllnessTitle,
-          diagnosis.previousIllness,
+          diagnosis.previousIllness ?? '-',
           Icons.history_outlined,
           theme,
         ),
 
         _buildDiagnosisSection(
           l10n.diagnosisSocialHabitTitle,
-          diagnosis.socialHabit,
+          diagnosis.socialHabit ?? '-',
           Icons.people_outline,
           theme,
         ),
 
         _buildDiagnosisSection(
           l10n.diagnosisTreatmentHistoryTitle,
-          diagnosis.treatmentHistory,
+          diagnosis.treatmentHistory ?? '-',
           Icons.medication_outlined,
           theme,
         ),
 
         _buildDiagnosisSection(
           l10n.diagnosisPhysicalExamTitle,
-          diagnosis.physicalExamination,
+          diagnosis.physicalExamination ?? '-',
           Icons.health_and_safety_outlined,
           theme,
         ),
@@ -275,7 +275,7 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  diagnosis.name,
+                  diagnosis.name ?? '-',
                   style: AppTextStyle.subtitle
                       .withWeight(AppFontWeight.semiBold)
                       .withColor(theme.colorScheme.onPrimaryContainer),
@@ -291,7 +291,7 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
                     SizedBox(width: AppSizes.paddingTiny),
                     Expanded(
                       child: Text(
-                        diagnosis.partnerName,
+                        diagnosis.partnerName ?? '-',
                         style: AppTextStyle.caption.withColor(
                           theme.colorScheme.onPrimaryContainer,
                         ),
@@ -301,7 +301,7 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
                 ),
                 SizedBox(height: AppSizes.paddingTiny),
                 Text(
-                  diagnosis.noId,
+                  diagnosis.noId ?? '-',
                   style: AppTextStyle.caption.withColor(AppColor.grey),
                 ),
               ],
@@ -362,7 +362,11 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
     );
   }
 
-  Widget _buildErrorWidget(ThemeData theme, String errorMessage,AppLocalizations l10n) {
+  Widget _buildErrorWidget(
+    ThemeData theme,
+    String errorMessage,
+    AppLocalizations l10n,
+  ) {
     return Center(
       child: GestureDetector(
         onTap: () {
@@ -418,7 +422,7 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
     );
   }
 
-  Widget _buildEmptyWidget(ThemeData theme,AppLocalizations l10n) {
+  Widget _buildEmptyWidget(ThemeData theme, AppLocalizations l10n) {
     return Center(
       child: Container(
         padding: EdgeInsets.all(AppSizes.paddingLarge),

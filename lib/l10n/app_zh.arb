@@ -1,0 +1,405 @@
+{
+  "@@locale": "zh",
+  "appVersion": "版本 1.0.0",
+  "companyName": "RAHOCLUB",
+  "companyClubName": "RAHO 俱乐部",
+  "companyTagline": "逆龄与稳态俱乐部",
+  "supportedBy": "支持方：",
+  "success": "成功",
+  "error": "错误",
+  "warning": "警告",
+  "info": "信息",
+  "onboardingTitle1": "纳米气泡技术",
+  "onboardingSubtitle1": "全球首个使用纳米气泡技术作为医疗设备的保健服务",
+  "onboardingTitle2": "健康专家",
+  "onboardingSubtitle2": "由健康领域专业医生支持",
+  "onboardingTitle3": "会员服务",
+  "onboardingSubtitle3": "由优质医疗团队为您服务，优先考虑您的福祉",
+  "buttonSkipOnboarding": "跳过",
+  "buttonCompleteOnboarding": "完成",
+  "buttonNextOnboarding": "下一步",
+  "buttonPreviousOnboarding": "上一步",
+  "forgotPasswordButton": "忘记密码？",
+  "passwordEmptyError": "密码不能为空",
+  "passwordMinLengthError": "密码至少8个字符",
+  "confirmPasswordLabel": "确认密码",
+  "confirmPasswordHintText": "重新输入密码",
+  "confirmPasswordEmptyError": "确认密码不能为空",
+  "passwordMismatchError": "密码不匹配",
+  "processingText": "处理中...",
+  "verificationTitle": "会员验证",
+  "verificationSubtitle": "输入您的会员注册ID进行验证",
+  "idRegisterHintText": "输入注册ID",
+  "idRegisterLabel": "注册ID",
+  "verificationButton": "发送验证码",
+  "otpTitle": "验证码",
+  "otpSubtitle": "输入发送到 {number_phone} 的验证码",
+  "@otpSubtitle": {
+    "placeholders": {
+      "number_phone": {
+        "type": "String"
+      }
+    }
+  },
+  "otpNotReceive": "没收到验证码？",
+  "otpResend": "重新发送",
+  "otpButton": "验证",
+  "verifiedNumberTitle": "验证成功",
+  "verifiedNumberSubtitle": "恭喜！您已在我们的系统中成功验证为会员",
+  "createPassword": "创建密码",
+  "createPasswordSupportText": "创建您的认证密码",
+  "createPasswordHintText": "新密码",
+  "passwordButton": "创建并登录",
+  "loginTitle": "欢迎",
+  "loginSubtitle": "请登录您的账户",
+  "passwordLabel": "密码",
+  "passwordHintText": "输入密码",
+  "loginButton": "登录",
+  "loginErrorRequiredField": "注册ID和密码为必填项",
+  "loginAuthenticationFailed": "注册ID或密码无效",
+  "loginSuccess": "登录成功",
+  "dashboardBottomNavText": "首页",
+  "therapyBottomNavText": "治疗",
+  "transactionBottomNavText": "交易",
+  "profileBottomNavText": "个人资料",
+  "profilePageTitle": "我的资料",
+  "themeDarkLabel": "深色",
+  "themeLightLabel": "浅色",
+  "personalSectionTitle": "个人",
+  "supportSectionTitle": "支持",
+  "settingsSectionTitle": "设置",
+  "personalDataMenuTitle": "个人资料",
+  "personalDataMenuSubtitle": "管理您的个人信息",
+  "diagnosisMenuTitle": "我的诊断",
+  "diagnosisMenuSubtitle": "医疗诊断历史",
+  "referenceCodeMenuTitle": "参考代码",
+  "referenceCodeMenuSubtitle": "服务参考代码",
+  "branchLocationMenuTitle": "分店位置",
+  "branchLocationMenuSubtitle": "查找最近分店",
+  "helpMenuTitle": "帮助",
+  "helpMenuSubtitle": "帮助中心与支持",
+  "languageMenuTitle": "语言",
+  "languageMenuSubtitle": "更改应用语言",
+  "aboutAppMenuTitle": "关于应用",
+  "aboutAppMenuSubtitle": "详细应用信息",
+  "logoutButtonLabel": "登出",
+  "personalInfoSectionTitle": "个人信息",
+  "fieldLabelNIK": "身份证号",
+  "fieldLabelAddress": "地址",
+  "fieldLabelCity": "城市/地区",
+  "fieldLabelDateOfBirth": "出生日期",
+  "fieldLabelAge": "年龄",
+  "fieldSuffixYears": "岁",
+  "fieldLabelGender": "性别",
+  "fieldLabelPhone": "WhatsApp号码",
+  "referenceInfoTitle": "参考信息",
+  "cardNumberFieldLabel": "卡号",
+  "referralNameFieldLabel": "推荐人姓名",
+  "diagnosisNoteTitle": "附加说明",
+  "diagnosisCurrentIllnessTitle": "当前症状和病史",
+  "diagnosisPreviousIllnessTitle": "既往病史和家族史",
+  "diagnosisSocialHabitTitle": "社会和生活习惯史",
+  "diagnosisTreatmentHistoryTitle": "治疗史",
+  "diagnosisPhysicalExamTitle": "体格检查",
+  "aboutDialogTitle": "关于应用",
+  "aboutVersionLabel": "版本",
+  "aboutCopyrightLabel": "版权",
+  "aboutReleaseDateLabel": "发布日期",
+  "aboutCloseButton": "关闭",
+  "languageDialogTitle": "选择语言",
+  "languageOptionIndonesian": "印尼语",
+  "languageOptionEnglish": "英语",
+  "languageOptionJapanese": "日语",
+  "languageOptionChinese": "中文",
+  "languageOptionArabic": "阿拉伯语",
+  "languageCancelButton": "取消",
+  "languageSaveButton": "保存",
+  "logoutDialogTitle": "确认登出",
+  "logoutDialogMessage": "您确定要登出吗？",
+  "logoutCancelButton": "取消",
+  "logoutConfirmButton": "登出",
+  "dashboardWelcome": "欢迎",
+  "dashboardYourVoucher": "您的优惠券",
+  "dashboardUsedVoucher": "已使用优惠券",
+  "dashboardLastTherapy": "最近治疗",
+  "dashboardEventPromo": "活动与促销",
+  "dashboardTherapyInfusionNumber": "第{infusion_number}次输液",
+  "@dashboardTherapyInfusionNumber": {
+    "placeholders": {
+      "infusion_number": {
+        "type": "String"
+      }
+    }
+  },
+  "myVoucherTitle": "我的优惠券",
+  "voucherFilterDate": "选择日期",
+  "voucherDateAll": "所有日期",
+  "voucherDateToday": "今天",
+  "voucherDate7Days": "最近7天",
+  "voucherDate30Days": "最近30天",
+  "voucherDate60Days": "最近60天",
+  "voucherDate90Days": "最近90天",
+  "voucherRedeemDate": "兑换于 {redeem_date}",
+  "@voucherRedeemDate": {
+    "placeholders": {
+      "redeem_date": {
+        "type": "String"
+      }
+    }
+  },
+  "voucherRedeemDateLabel": "兑换日期：{redeem_date}",
+  "@voucherRedeemDateLabel": {
+    "placeholders": {
+      "redeem_date": {
+        "type": "String"
+      }
+    }
+  },
+  "transactionDetailTitle": "交易详情",
+  "transactionStatusPaid": "已支付",
+  "transactionTherapyDone": "治疗服务已完成",
+  "transactionAmount": "¥{amount}",
+  "@transactionAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "transactionDetailMemberName": "会员姓名",
+  "transactionDetailInvoiceNumber": "发票号",
+  "transactionDetailBranchClinic": "分店诊所",
+  "transactionDetailDate": "日期",
+  "transactionDetailTherapyType": "治疗类型",
+  "transactionDetailPaymentMethod": "支付方式",
+  "transactionDetailVoucherQty": "优惠券数量",
+  "transactionDetailFreeVoucher": "免费优惠券",
+  "transactionDetailUnitPrice": "单价",
+  "transactionDetailTotalAmount": "总金额",
+  "transactionActionDownload": "下载",
+  "transactionActionShare": "分享",
+  "transactionActionSeeRedeemVoucher": "查看已兑换优惠券",
+  "therapyDetailTitle": "治疗详情",
+  "therapyInfoMember": "会员",
+  "therapyInfoDate": "日期",
+  "therapyStartSurvey": "开始调查",
+  "therapyTabHistory": "治疗历史",
+  "therapyTabSurvey": "调查历史",
+  "therapySurveyEmpty": "暂无调查数据",
+  "therapyInfoCardTitle": "治疗信息",
+  "therapyInfusNumber": "输液次数",
+  "therapyInfusType": "输液类型",
+  "therapyProductionDate": "生产日期",
+  "therapyNextInfusDate": "下次输液",
+  "therapyHealingCrisisTitle": "康复危机",
+  "therapyHealingCrisisComplaint": "康复危机症状",
+  "therapyHealingCrisisNote": "备注/措施",
+  "therapyNeedleUsageTitle": "针具使用",
+  "therapyNeedleUsageHeaderNeedle": "针具",
+  "therapyNeedleUsageHeaderNakes": "医护人员",
+  "therapyNeedleUsageHeaderStatus": "状态",
+  "therapyNeedleUsed": "已使用",
+  "therapySectionAnamnesis": "病史询问",
+  "therapySectionLabPhoto": "化验照片",
+  "therapyLabPhotoEmpty": "暂无化验照片",
+  "therapyComplaintAfter": "治疗后症状",
+  "therapyComplaintBefore": "治疗前症状",
+  "therapyNoComplaint": "无症状",
+  "therapyVitalSignBloodPressure": "血压",
+  "therapyVitalSignSystolic": "收缩压",
+  "therapyVitalSignDiastolic": "舒张压",
+  "therapyVitalSignO2AndHR": "血氧饱和度与心率",
+  "therapyVitalSaturationBefore": "治疗前饱和度",
+  "therapyVitalSaturationAfter": "治疗后饱和度",
+  "therapyVitalPerfusionBefore": "治疗前灌注指数",
+  "therapyVitalPerfusionAfter": "治疗后灌注指数",
+  "therapyVitalHRBefore": "治疗前心率",
+  "therapyVitalHRAfter": "治疗后心率",
+  "historyPageTitle": "我的历史",
+  "therapyTabTherapy": "治疗",
+  "therapyTabLab": "化验",
+  "therapySearchHint": "搜索治疗历史...",
+  "labSearchHint": "搜索化验历史...",
+  "therapyCardInfusionNumber": "第{infusionNumber}次输液",
+  "@therapyCardInfusionNumber": {
+    "placeholders": {
+      "infusionNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "therapyEmptyTitle": "暂无治疗历史",
+  "therapyEmptySubtitle": "您的治疗历史将显示在这里",
+  "labEmptyTitle": "暂无化验数据",
+  "labEmptySubtitle": "添加或加载化验数据后，数据将显示在这里",
+  "filterTitle": "筛选",
+  "filterClear": "清除",
+  "filterCompany": "公司",
+  "filterProduct": "产品",
+  "filterDateRange": "日期范围",
+  "selectCompany": "选择公司",
+  "selectProduct": "选择产品",
+  "dateFrom": "起始日期",
+  "dateTo": "结束日期",
+  "applyFilter": "应用筛选",
+  "retry": "重试",
+  "noTransactionsFound": "未找到交易",
+  "noDataAvailable": "暂无数据",
+  "transactionStatusPending": "待处理",
+  "transactionStatusCancelled": "已取消",
+  "transactionDetailAdmin": "管理员",
+  "transactionDetailPaymentStatus": "支付状态",
+  "therapyLoadingError": "加载治疗历史失败",
+  "genericError": "发生错误，请稍后重试",
+  "languageChangeSuccess": "语言已更改为{language}",
+  "@languageChangeSuccess": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "branchLocationTitle": "Rahoclub分店",
+  "branchLocationRetry": "重试",
+  "branchLocationLoading": "正在加载分店数据...",
+  "branchLocationEmpty": "暂无分店数据",
+  "branchLocationEmptyHint": "请稍后重试",
+  "branchLocationReload": "尝试重新加载",
+  "diagnosisReload": "尝试重新加载",
+  "diagnosisEmpty": "暂无诊断数据",
+  "diagnosisReloadButton": "重新加载",
+  "genderMale": "男",
+  "genderFemale": "女",
+  "genderSelectLabel": "选择性别",
+  "genderSelectTitle": "选择性别",
+  "personalDataCancelButton": "取消",
+  "personalDataSaveButton": "保存",
+  "personalDataEditButton": "编辑",
+  "referenceErrorMessage": "错误：{message}",
+  "@referenceErrorMessage": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "referenceNoData": "暂无数据",
+  "companyLoadError": "加载分店数据失败",
+  "languageLoadError": "加载语言失败：{error}",
+  "@languageLoadError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "languageUnsupported": "不支持该语言",
+  "languageChangeError": "更改语言失败：{error}",
+  "@languageChangeError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "languageResetError": "重置语言失败：{error}",
+  "@languageResetError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileLoadError": "加载个人资料失败",
+  "diagnosisLoadError": "加载诊断失败",
+  "profileUpdateSuccess": "个人资料更新成功",
+  "profileUpdateError": "更新个人资料失败",
+  "needleDataEmpty": "暂无数据",
+  "labTestTitle": "化验检查",
+  "labResultLabel": "化验结果",
+  "errorStateTitle": "发生错误",
+  "errorStateRetry": "重试",
+  "labLoadError": "加载数据失败",
+  "labLoadMoreError": "加载更多数据失败",
+  "therapyLoadError": "加载数据失败",
+  "therapyLoadMoreError": "加载更多数据失败",
+  "transactionLoadError": "加载交易失败",
+  "transactionDetailNotFound": "未找到交易详情",
+  "transactionIdRequired": "需要交易ID",
+  "transactionTypeInvalid": "无效交易类型，必须是'payment'或'faktur'",
+  "transactionNotFound": "未找到交易",
+  "transactionDetailLoadError": "加载交易详情失败",
+  "transactionFilterLabel": "选择交易",
+  "transactionFilterAll": "所有交易",
+  "transactionFilterPayment": "购买",
+  "transactionFilterService": "服务",
+  "transactionPaymentDefault": "支付",
+  "transactionServiceDefault": "治疗",
+  "transactionNoPaymentFound": "未找到购买交易",
+  "transactionNoServiceFound": "未找到服务交易",
+  "transactionErrorMessage": "错误：{message}",
+  "@transactionErrorMessage": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "authSessionRestored": "会话恢复成功",
+  "authProfileUpdated": "个人资料更新成功",
+  "authRefreshError": "更新个人资料失败：{error}",
+  "@authRefreshError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "authLogoutError": "登出失败：{error}",
+  "@authLogoutError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "error_server": "服务器错误",
+  "require_id": "注册ID为必填项",
+  "id_not_found": "未找到注册ID",
+  "otp_failed": "发送验证码失败",
+  "otp_max_attempt": "已达到验证码最大尝试次数",
+  "otp_invalid": "验证码无效",
+  "otp_expired": "验证码已过期",
+  "otp_max_daily": "已达到每日验证码请求限制",
+  "otp_sended": "验证码已发送到您的WhatsApp",
+  "otp_verified": "验证码验证成功",
+  "already_verified": "号码已验证",
+  "unknown_error": "未知错误",
+  "companies_empty": "暂无公司分店数据",
+  "companies_fetch_success": "公司分店数据获取成功",
+  "dashboard_fetch_success": "仪表板数据加载成功",
+  "profile_fetch_success": "个人资料数据获取成功",
+  "diagnosis_fetch_success": "诊断数据获取成功",
+  "references_fetch_success": "参考数据获取成功",
+  "profile_update_success": "个人资料更新成功",
+  "invalid_field_type": "字段格式无效",
+  "invalid_sex_value": "性别字段值无效",
+  "invalid_date_format": "日期格式无效（请使用DD-MM-YYYY）",
+  "invalid_image_format": "图片格式无效或已损坏",
+  "patient_not_found": "未找到患者",
+  "transaction_fetch_success": "交易数据获取成功",
+  "transaction_detail_fetch_success": "交易详情获取成功",
+  "invalid_transaction_type": "无效交易类型",
+  "transaction_not_found": "未找到交易",
+  "transaction_id_required": "交易ID为必填项",
+  "therapy_history_success": "治疗历史数据获取成功",
+  "therapy_history_failed": "获取治疗历史数据失败",
+  "lab_data_fetched": "化验数据获取成功",
+  "error_system": "系统错误",
+  "therapy_not_found": "未找到治疗数据或访问被拒绝",
+  "therapy_detail_success": "治疗详情获取成功",
+  "therapy_detail_failed": "获取治疗详情失败",
+  "lab_id_required": "化验ID为必填项",
+  "lab_record_not_found": "未找到化验数据",
+  "lab_detail_fetched": "化验详情获取成功"
+}

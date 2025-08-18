@@ -101,7 +101,7 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
                     ),
                     SizedBox(height: AppSizes.spacingMedium),
                     Text(
-                      state.message,
+                      state.messageCode,
                       style: AppTextStyle.subtitle.withColor(colorScheme.error),
                       textAlign: TextAlign.center,
                     ),
@@ -229,13 +229,13 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
               children: [
                 _buildInfoRow(
                   l10n.therapyInfoMember,
-                  detailTherapy.memberName,
+                  detailTherapy.memberName ?? '',
                   colorScheme,
                 ),
                 SizedBox(height: AppSizes.spacingTiny),
                 _buildInfoRow(
                   l10n.therapyInfoDate,
-                  detailTherapy.therapyDate,
+                  detailTherapy.therapyDate ?? '',
                   colorScheme,
                 ),
                 SizedBox(height: AppSizes.spacingSmall),
@@ -347,13 +347,13 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
     AppLocalizations l10n,
     DetailTherapyModel detailTherapy,
   ) {
-    // Get infus type from layanan
-    final infusType = detailTherapy.layanan.isNotEmpty
-        ? detailTherapy.layanan.map((l) => l.name).join(', ')
+    final infusType = detailTherapy.layanan!.isNotEmpty
+        ? detailTherapy.layanan?.map((l) => l.name).join(', ')
         : '-';
 
-    // Calculate next infus date (7 days after therapy date)
-    final nextInfusDate = _calculateNextInfusDate(detailTherapy.therapyDate);
+    final nextInfusDate = _calculateNextInfusDate(
+      detailTherapy.therapyDate ?? '',
+    );
 
     return SingleChildScrollView(
       child: Column(
@@ -365,10 +365,14 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
               detailTherapy.infus.toString(),
               colorScheme,
             ),
-            _buildDetailRow(l10n.therapyInfusType, infusType, colorScheme),
+            _buildDetailRow(
+              l10n.therapyInfusType,
+              infusType ?? '',
+              colorScheme,
+            ),
             _buildDetailRow(
               l10n.therapyProductionDate,
-              detailTherapy.productionDate,
+              detailTherapy.productionDate ?? '',
               colorScheme,
             ),
             _buildDetailRow(
@@ -542,7 +546,7 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
             style: AppTextStyle.caption.withColor(colorScheme.onSurface),
           ),
           SizedBox(height: AppSizes.spacingTiny),
-          _buildTextFormField(healingCrisis, colorScheme, maxLines: 2),
+          _buildTextFormField(healingCrisis ?? '', colorScheme, maxLines: 2),
 
           SizedBox(height: AppSizes.spacingSmall),
 
@@ -551,7 +555,7 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
             style: AppTextStyle.caption.withColor(colorScheme.onSurface),
           ),
           SizedBox(height: AppSizes.spacingTiny),
-          _buildTextFormField(notes, colorScheme, maxLines: 2),
+          _buildTextFormField(notes ?? '', colorScheme, maxLines: 2),
         ],
       ),
     );
@@ -562,8 +566,7 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
     AppLocalizations l10n,
     DetailTherapyModel detailTherapy,
   ) {
-    // Convert jarum data to display format
-    final needleData = detailTherapy.jarum.map((jarum) {
+    final needleData = detailTherapy.jarum?.map((jarum) {
       return {
         'needle': jarum.name,
         'nakes': jarum.nakes,
@@ -646,7 +649,7 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
                 ),
 
                 // Data rows
-                if (needleData.isEmpty)
+                if (needleData!.isEmpty)
                   Container(
                     padding: EdgeInsets.all(AppSizes.paddingMedium),
                     child: Text(
@@ -780,9 +783,11 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
     DetailTherapyModel detailTherapy,
   ) {
     final monitoringMap = <String, MonitoringModel>{};
-    for (final monitoring in detailTherapy.monitoring) {
-      monitoringMap['${monitoring.pencatatan}-${monitoring.waktu}'] =
-          monitoring;
+    if (detailTherapy.monitoring != null) {
+      for (final monitoring in detailTherapy.monitoring!) {
+        monitoringMap['${monitoring.pencatatan}-${monitoring.waktu}'] =
+            monitoring;
+      }
     }
 
     return Container(
@@ -813,7 +818,7 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
           ),
           SizedBox(height: AppSizes.spacingTiny),
           _buildTextFormField(
-            detailTherapy.complaintAfter,
+            detailTherapy.complaintAfter ?? '',
             colorScheme,
             hintText: l10n.therapyNoComplaint,
           ),
@@ -826,7 +831,7 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
           ),
           SizedBox(height: AppSizes.spacingTiny),
           _buildTextFormField(
-            detailTherapy.complaintPrevious,
+            detailTherapy.complaintPrevious ?? '',
             colorScheme,
             hintText: l10n.therapyNoComplaint,
           ),

@@ -154,7 +154,9 @@ class ReferenceCodePage extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 16),
                                     Text(
-                                      l10n.referenceErrorMessage(state.message),
+                                      l10n.referenceErrorMessage(
+                                        state.messageCode,
+                                      ),
                                       textAlign: TextAlign.center,
                                       style: const TextStyle(fontSize: 16),
                                     ),
@@ -177,20 +179,18 @@ class ReferenceCodePage extends StatelessWidget {
                                   _buildInputField(
                                     context: context,
                                     label: l10n.referralNameFieldLabel,
-                                    hint: state.reference.data.name,
+                                    hint: state.reference.name ?? '-',
                                   ),
                                   SizedBox(height: AppSizes.spacingMedium),
                                   _buildInputField(
                                     context: context,
                                     label: l10n.cardNumberFieldLabel,
-                                    hint: state.reference.data.noCard,
+                                    hint: state.reference.noCard ?? '-',
                                   ),
                                 ],
                               );
                             }
-                            return Center(
-                              child: Text(l10n.referenceNoData),
-                            );
+                            return Center(child: Text(l10n.referenceNoData));
                           },
                         ),
                       ),

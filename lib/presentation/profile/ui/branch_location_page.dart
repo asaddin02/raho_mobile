@@ -89,7 +89,7 @@ class BranchLocationPage extends StatelessWidget {
         if (state is CompanyError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.message),
+              content: Text(state.messageCode),
               backgroundColor: Colors.red,
               action: SnackBarAction(
                 label: l10n.branchLocationRetry,
@@ -121,7 +121,7 @@ class BranchLocationPage extends StatelessWidget {
               ),
             ],
           ),
-          child: state is CompanyLoaded
+          child: state is CompanySuccess
               ? _buildBranchList(context, state.companies)
               : state is CompanyError
               ? _buildErrorWidget(context)

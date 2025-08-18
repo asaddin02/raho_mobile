@@ -81,21 +81,24 @@ class _OtpPageState extends State<OtpPage> {
         } else if (state is ResendOtpSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.message),
+              content: Text(state.messageCode),
               backgroundColor: Colors.green,
             ),
           );
         } else if (state is ResendOtpAlreadyVerified) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.message),
+              content: Text(state.messageCode),
               backgroundColor: Colors.blue,
             ),
           );
           Navigator.popUntil(context, (route) => route.isFirst);
         } else if (state is VerifyNumberError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
+            SnackBar(
+              content: Text(state.messageCode),
+              backgroundColor: Colors.red,
+            ),
           );
         }
       },

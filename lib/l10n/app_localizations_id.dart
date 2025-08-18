@@ -844,4 +844,125 @@ class AppLocalizationsId extends AppLocalizations {
   String authLogoutError(String error) {
     return 'Gagal keluar: $error';
   }
+
+  @override
+  String get error_server => 'Terjadi kesalahan server';
+
+  @override
+  String get require_id => 'ID Registrasi harus diisi';
+
+  @override
+  String get id_not_found => 'ID Registrasi tidak ditemukan';
+
+  @override
+  String get otp_failed => 'Gagal mengirim OTP';
+
+  @override
+  String get otp_max_attempt => 'Maksimal percobaan OTP telah tercapai';
+
+  @override
+  String get otp_invalid => 'Kode OTP tidak valid';
+
+  @override
+  String get otp_expired => 'Kode OTP sudah kadaluarsa';
+
+  @override
+  String get otp_max_daily => 'Maksimal permintaan OTP harian telah tercapai';
+
+  @override
+  String get otp_sended => 'OTP telah dikirim ke WhatsApp Anda';
+
+  @override
+  String get otp_verified => 'OTP berhasil diverifikasi';
+
+  @override
+  String get already_verified => 'Nomor sudah terverifikasi';
+
+  @override
+  String get unknown_error => 'Terjadi kesalahan yang tidak diketahui';
+
+  @override
+  String get companies_empty => 'Tidak ada data cabang perusahaan';
+
+  @override
+  String get companies_fetch_success =>
+      'Data cabang perusahaan berhasil diambil';
+
+  @override
+  String get dashboard_fetch_success => 'Data dashboard berhasil dimuat';
+
+  @override
+  String get profile_fetch_success => 'Data profil berhasil diambil';
+
+  @override
+  String get diagnosis_fetch_success => 'Data diagnosis berhasil diambil';
+
+  @override
+  String get references_fetch_success => 'Data referensi berhasil diambil';
+
+  @override
+  String get profile_update_success => 'Profil berhasil diperbarui';
+
+  @override
+  String get invalid_field_type => 'Format field tidak valid';
+
+  @override
+  String get invalid_sex_value => 'Nilai field jenis kelamin tidak valid';
+
+  @override
+  String get invalid_date_format =>
+      'Format tanggal tidak valid (gunakan DD-MM-YYYY)';
+
+  @override
+  String get invalid_image_format => 'Format gambar tidak valid atau rusak';
+
+  @override
+  String get patient_not_found => 'Pasien tidak ditemukan';
+
+  @override
+  String get transaction_fetch_success => 'Data transaksi berhasil diambil';
+
+  @override
+  String get transaction_detail_fetch_success =>
+      'Detail transaksi berhasil diambil';
+
+  @override
+  String get invalid_transaction_type => 'Jenis transaksi tidak valid';
+
+  @override
+  String get transaction_not_found => 'Transaksi tidak ditemukan';
+
+  @override
+  String get transaction_id_required => 'ID transaksi harus diisi';
+
+  @override
+  String get therapy_history_success => 'Data riwayat terapi berhasil diambil';
+
+  @override
+  String get therapy_history_failed => 'Gagal mengambil data riwayat terapi';
+
+  @override
+  String get lab_data_fetched => 'Data laboratorium berhasil diambil';
+
+  @override
+  String get error_system => 'Terjadi kesalahan sistem';
+
+  @override
+  String get therapy_not_found =>
+      'Data terapi tidak ditemukan atau akses ditolak';
+
+  @override
+  String get therapy_detail_success => 'Detail terapi berhasil diambil';
+
+  @override
+  String get therapy_detail_failed => 'Gagal mengambil detail terapi';
+
+  @override
+  String get lab_id_required => 'ID laboratorium harus diisi';
+
+  @override
+  String get lab_record_not_found => 'Data laboratorium tidak ditemukan';
+
+  @override
+  String get lab_detail_fetched => 'Detail laboratorium berhasil diambil';
 }

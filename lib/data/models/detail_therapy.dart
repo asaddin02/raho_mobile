@@ -1,172 +1,198 @@
-import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
 
-class DetailTherapyModel extends Equatable {
-  final int id;
-  final String memberName;
-  final String therapyDate;
-  final String productionDate;
-  final int infus;
-  final String complaintPrevious;
-  final String complaintAfter;
-  final String healingCrisis;
-  final String actionForHealing;
-  final List<LayananModel> layanan;
-  final List<JarumModel> jarum;
-  final List<MonitoringModel> monitoring;
+class DetailTherapyModel {
+  final String? success;
+  final String? error;
+  final String? code;
+  final String? message;
+  final int? id;
+  final String? memberName;
+  final String? therapyDate;
+  final String? productionDate;
+  final int? infus;
+  final String? complaintPrevious;
+  final String? complaintAfter;
+  final String? healingCrisis;
+  final String? actionForHealing;
+  final List<LayananModel>? layanan;
+  final List<JarumModel>? jarum;
+  final List<MonitoringModel>? monitoring;
 
-  const DetailTherapyModel({
-    required this.id,
-    required this.memberName,
-    required this.therapyDate,
-    required this.productionDate,
-    required this.infus,
-    required this.complaintPrevious,
-    required this.complaintAfter,
-    required this.healingCrisis,
-    required this.actionForHealing,
-    required this.layanan,
-    required this.jarum,
-    required this.monitoring,
+  DetailTherapyModel({
+    this.success,
+    this.error,
+    this.code,
+    this.message,
+    this.id,
+    this.memberName,
+    this.therapyDate,
+    this.productionDate,
+    this.infus,
+    this.complaintPrevious,
+    this.complaintAfter,
+    this.healingCrisis,
+    this.actionForHealing,
+    this.layanan,
+    this.jarum,
+    this.monitoring,
   });
 
   factory DetailTherapyModel.fromJson(Map<String, dynamic> json) {
+    // Handle both 'status' and 'success'/'error' patterns
+    String? success;
+    String? error;
+
+    if (json['status'] == 'success') {
+      success = json['code']; // Use code as success value
+    } else if (json['status'] == 'error') {
+      error = json['code']; // Use code as error value
+    } else {
+      success = json['success'];
+      error = json['error'];
+    }
+
+    final data = json['data'];
+
     return DetailTherapyModel(
-      id: json['id'] ?? 0,
-      memberName: json['member_name'] ?? '',
-      therapyDate: json['therapy_date'] ?? '',
-      productionDate: json['production_date'] ?? '',
-      infus: json['infus'] ?? 0,
-      complaintPrevious: json['complaint_previous'] ?? '',
-      complaintAfter: json['complaint_after'] ?? '',
-      healingCrisis: json['healing_crisis'] ?? '',
-      actionForHealing: json['action_for_healing'] ?? '',
-      layanan: json['layanan'] != null
-          ? (json['layanan'] as List)
+      success: success,
+      error: error,
+      code: json['code'],
+      message: json['message'],
+      id: data?['id'],
+      memberName: data?['member_name'],
+      therapyDate: data?['therapy_date'],
+      productionDate: data?['production_date'],
+      infus: data?['infus'],
+      complaintPrevious: data?['complaint_previous'],
+      complaintAfter: data?['complaint_after'],
+      healingCrisis: data?['healing_crisis'],
+      actionForHealing: data?['action_for_healing'],
+      layanan: data?['layanan'] != null
+          ? (data['layanan'] as List)
                 .map((item) => LayananModel.fromJson(item))
                 .toList()
-          : [],
-      jarum: json['jarum'] != null
-          ? (json['jarum'] as List)
+          : null,
+      jarum: data?['jarum'] != null
+          ? (data['jarum'] as List)
                 .map((item) => JarumModel.fromJson(item))
                 .toList()
-          : [],
-      monitoring: json['monitoring'] != null
-          ? (json['monitoring'] as List)
+          : null,
+      monitoring: data?['monitoring'] != null
+          ? (data['monitoring'] as List)
                 .map((item) => MonitoringModel.fromJson(item))
                 .toList()
-          : [],
+          : null,
     );
   }
 
-  @override
-  List<Object?> get props => [
-    id,
-    memberName,
-    therapyDate,
-    productionDate,
-    infus,
-    complaintPrevious,
-    complaintAfter,
-    healingCrisis,
-    actionForHealing,
-    layanan,
-    jarum,
-    monitoring,
-  ];
+  bool get isSuccess => success != null && error == null;
+
+  bool get isError => error != null;
+
+  String get messageCode {
+    if (success != null) return success!;
+    if (error != null) return error!;
+    return 'UNKNOWN_ERROR';
+  }
+
+  String getLocalizedMessage(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
+    switch (messageCode) {
+      case 'THERAPY_DETAIL_SUCCESS':
+        return localizations.therapy_detail_success;
+      case 'THERAPY_NOT_FOUND':
+        return localizations.therapy_not_found;
+      case 'THERAPY_DETAIL_FAILED':
+        return localizations.therapy_detail_failed;
+      case 'ERROR_SYSTEM':
+        return localizations.error_system;
+      case 'ERROR_SERVER':
+        return localizations.error_server;
+      default:
+        return localizations.unknown_error;
+    }
+  }
+
+  bool get isTherapyNotFound => error == 'THERAPY_NOT_FOUND';
+
+  bool get isLabIdRequired => error == 'LAB_ID_REQUIRED';
+
+  bool get isLabRecordNotFound => error == 'LAB_RECORD_NOT_FOUND';
+
+  bool get isSystemError => error == 'ERROR_SYSTEM';
 }
 
-class LayananModel extends Equatable {
+class LayananModel {
   final int id;
-  final String name;
-  final ProductModel product;
-  final double priceUnit;
+  final String? name;
+  final ProductModel? product;
+  final double? priceUnit;
 
-  const LayananModel({
-    required this.id,
-    required this.name,
-    required this.product,
-    required this.priceUnit,
-  });
+  LayananModel({required this.id, this.name, this.product, this.priceUnit});
 
   factory LayananModel.fromJson(Map<String, dynamic> json) {
     return LayananModel(
       id: json['id'] ?? 0,
-      name: json['name'] ?? '',
+      name: json['name'],
       product: json['product'] != null
           ? ProductModel.fromJson(json['product'])
-          : ProductModel(id: 0, name: '', defaultCode: ''),
-      priceUnit: (json['price_unit'] ?? 0).toDouble(),
+          : null,
+      priceUnit: json['price_unit']?.toDouble(),
     );
   }
-
-  @override
-  List<Object?> get props => [id, name, product, priceUnit];
 }
 
-class ProductModel extends Equatable {
+class ProductModel {
   final int id;
-  final String name;
-  final String defaultCode;
+  final String? name;
+  final String? defaultCode;
 
-  const ProductModel({
-    required this.id,
-    required this.name,
-    required this.defaultCode,
-  });
+  ProductModel({required this.id, this.name, this.defaultCode});
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
     return ProductModel(
       id: json['id'] ?? 0,
-      name: json['name'] ?? '',
-      defaultCode: json['default_code']?.toString() ?? '',
+      name: json['name'],
+      defaultCode: json['default_code']?.toString(),
     );
   }
-
-  @override
-  List<Object?> get props => [id, name, defaultCode];
 }
 
-class JarumModel extends Equatable {
+class JarumModel {
   final int id;
-  final String name;
-  final String nakes;
-  final String status;
-  final String keterangan;
+  final String? name;
+  final String? nakes;
+  final String? status;
+  final String? keterangan;
 
-  const JarumModel({
+  JarumModel({
     required this.id,
-    required this.name,
-    required this.nakes,
-    required this.status,
-    required this.keterangan,
+    this.name,
+    this.nakes,
+    this.status,
+    this.keterangan,
   });
 
   factory JarumModel.fromJson(Map<String, dynamic> json) {
     return JarumModel(
       id: json['id'] ?? 0,
-      name: json['name'] ?? '',
-      nakes: json['nakes'] ?? '',
-      status: json['status'] ?? '',
-      keterangan: json['keterangan'] ?? '',
+      name: json['name'],
+      nakes: json['nakes'],
+      status: json['status'],
+      keterangan: json['keterangan'],
     );
   }
-
-  @override
-  List<Object?> get props => [id, name, nakes, status, keterangan];
 }
 
-class MonitoringModel extends Equatable {
+class MonitoringModel {
   final int id;
-  final String pencatatan;
-  final String waktu;
+  final String? pencatatan;
+  final String? waktu;
   final double? hasil;
 
-  const MonitoringModel({
-    required this.id,
-    required this.pencatatan,
-    required this.waktu,
-    this.hasil,
-  });
+  MonitoringModel({required this.id, this.pencatatan, this.waktu, this.hasil});
 
   factory MonitoringModel.fromJson(Map<String, dynamic> json) {
     double? parsedHasil;
@@ -176,12 +202,9 @@ class MonitoringModel extends Equatable {
 
     return MonitoringModel(
       id: json['id'] ?? 0,
-      pencatatan: json['pencatatan'] ?? '',
-      waktu: json['waktu'] ?? '',
+      pencatatan: json['pencatatan'],
+      waktu: json['waktu'],
       hasil: parsedHasil,
     );
   }
-
-  @override
-  List<Object?> get props => [id, pencatatan, waktu, hasil];
 }

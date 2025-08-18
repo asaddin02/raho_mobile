@@ -1683,6 +1683,240 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Gagal keluar: {error}'**
   String authLogoutError(String error);
+
+  /// No description provided for @error_server.
+  ///
+  /// In id, this message translates to:
+  /// **'Terjadi kesalahan server'**
+  String get error_server;
+
+  /// No description provided for @require_id.
+  ///
+  /// In id, this message translates to:
+  /// **'ID Registrasi harus diisi'**
+  String get require_id;
+
+  /// No description provided for @id_not_found.
+  ///
+  /// In id, this message translates to:
+  /// **'ID Registrasi tidak ditemukan'**
+  String get id_not_found;
+
+  /// No description provided for @otp_failed.
+  ///
+  /// In id, this message translates to:
+  /// **'Gagal mengirim OTP'**
+  String get otp_failed;
+
+  /// No description provided for @otp_max_attempt.
+  ///
+  /// In id, this message translates to:
+  /// **'Maksimal percobaan OTP telah tercapai'**
+  String get otp_max_attempt;
+
+  /// No description provided for @otp_invalid.
+  ///
+  /// In id, this message translates to:
+  /// **'Kode OTP tidak valid'**
+  String get otp_invalid;
+
+  /// No description provided for @otp_expired.
+  ///
+  /// In id, this message translates to:
+  /// **'Kode OTP sudah kadaluarsa'**
+  String get otp_expired;
+
+  /// No description provided for @otp_max_daily.
+  ///
+  /// In id, this message translates to:
+  /// **'Maksimal permintaan OTP harian telah tercapai'**
+  String get otp_max_daily;
+
+  /// No description provided for @otp_sended.
+  ///
+  /// In id, this message translates to:
+  /// **'OTP telah dikirim ke WhatsApp Anda'**
+  String get otp_sended;
+
+  /// No description provided for @otp_verified.
+  ///
+  /// In id, this message translates to:
+  /// **'OTP berhasil diverifikasi'**
+  String get otp_verified;
+
+  /// No description provided for @already_verified.
+  ///
+  /// In id, this message translates to:
+  /// **'Nomor sudah terverifikasi'**
+  String get already_verified;
+
+  /// No description provided for @unknown_error.
+  ///
+  /// In id, this message translates to:
+  /// **'Terjadi kesalahan yang tidak diketahui'**
+  String get unknown_error;
+
+  /// No description provided for @companies_empty.
+  ///
+  /// In id, this message translates to:
+  /// **'Tidak ada data cabang perusahaan'**
+  String get companies_empty;
+
+  /// No description provided for @companies_fetch_success.
+  ///
+  /// In id, this message translates to:
+  /// **'Data cabang perusahaan berhasil diambil'**
+  String get companies_fetch_success;
+
+  /// No description provided for @dashboard_fetch_success.
+  ///
+  /// In id, this message translates to:
+  /// **'Data dashboard berhasil dimuat'**
+  String get dashboard_fetch_success;
+
+  /// No description provided for @profile_fetch_success.
+  ///
+  /// In id, this message translates to:
+  /// **'Data profil berhasil diambil'**
+  String get profile_fetch_success;
+
+  /// No description provided for @diagnosis_fetch_success.
+  ///
+  /// In id, this message translates to:
+  /// **'Data diagnosis berhasil diambil'**
+  String get diagnosis_fetch_success;
+
+  /// No description provided for @references_fetch_success.
+  ///
+  /// In id, this message translates to:
+  /// **'Data referensi berhasil diambil'**
+  String get references_fetch_success;
+
+  /// No description provided for @profile_update_success.
+  ///
+  /// In id, this message translates to:
+  /// **'Profil berhasil diperbarui'**
+  String get profile_update_success;
+
+  /// No description provided for @invalid_field_type.
+  ///
+  /// In id, this message translates to:
+  /// **'Format field tidak valid'**
+  String get invalid_field_type;
+
+  /// No description provided for @invalid_sex_value.
+  ///
+  /// In id, this message translates to:
+  /// **'Nilai field jenis kelamin tidak valid'**
+  String get invalid_sex_value;
+
+  /// No description provided for @invalid_date_format.
+  ///
+  /// In id, this message translates to:
+  /// **'Format tanggal tidak valid (gunakan DD-MM-YYYY)'**
+  String get invalid_date_format;
+
+  /// No description provided for @invalid_image_format.
+  ///
+  /// In id, this message translates to:
+  /// **'Format gambar tidak valid atau rusak'**
+  String get invalid_image_format;
+
+  /// No description provided for @patient_not_found.
+  ///
+  /// In id, this message translates to:
+  /// **'Pasien tidak ditemukan'**
+  String get patient_not_found;
+
+  /// No description provided for @transaction_fetch_success.
+  ///
+  /// In id, this message translates to:
+  /// **'Data transaksi berhasil diambil'**
+  String get transaction_fetch_success;
+
+  /// No description provided for @transaction_detail_fetch_success.
+  ///
+  /// In id, this message translates to:
+  /// **'Detail transaksi berhasil diambil'**
+  String get transaction_detail_fetch_success;
+
+  /// No description provided for @invalid_transaction_type.
+  ///
+  /// In id, this message translates to:
+  /// **'Jenis transaksi tidak valid'**
+  String get invalid_transaction_type;
+
+  /// No description provided for @transaction_not_found.
+  ///
+  /// In id, this message translates to:
+  /// **'Transaksi tidak ditemukan'**
+  String get transaction_not_found;
+
+  /// No description provided for @transaction_id_required.
+  ///
+  /// In id, this message translates to:
+  /// **'ID transaksi harus diisi'**
+  String get transaction_id_required;
+
+  /// No description provided for @therapy_history_success.
+  ///
+  /// In id, this message translates to:
+  /// **'Data riwayat terapi berhasil diambil'**
+  String get therapy_history_success;
+
+  /// No description provided for @therapy_history_failed.
+  ///
+  /// In id, this message translates to:
+  /// **'Gagal mengambil data riwayat terapi'**
+  String get therapy_history_failed;
+
+  /// No description provided for @lab_data_fetched.
+  ///
+  /// In id, this message translates to:
+  /// **'Data laboratorium berhasil diambil'**
+  String get lab_data_fetched;
+
+  /// No description provided for @error_system.
+  ///
+  /// In id, this message translates to:
+  /// **'Terjadi kesalahan sistem'**
+  String get error_system;
+
+  /// No description provided for @therapy_not_found.
+  ///
+  /// In id, this message translates to:
+  /// **'Data terapi tidak ditemukan atau akses ditolak'**
+  String get therapy_not_found;
+
+  /// No description provided for @therapy_detail_success.
+  ///
+  /// In id, this message translates to:
+  /// **'Detail terapi berhasil diambil'**
+  String get therapy_detail_success;
+
+  /// No description provided for @therapy_detail_failed.
+  ///
+  /// In id, this message translates to:
+  /// **'Gagal mengambil detail terapi'**
+  String get therapy_detail_failed;
+
+  /// No description provided for @lab_id_required.
+  ///
+  /// In id, this message translates to:
+  /// **'ID laboratorium harus diisi'**
+  String get lab_id_required;
+
+  /// No description provided for @lab_record_not_found.
+  ///
+  /// In id, this message translates to:
+  /// **'Data laboratorium tidak ditemukan'**
+  String get lab_record_not_found;
+
+  /// No description provided for @lab_detail_fetched.
+  ///
+  /// In id, this message translates to:
+  /// **'Detail laboratorium berhasil diambil'**
+  String get lab_detail_fetched;
 }
 
 class _AppLocalizationsDelegate

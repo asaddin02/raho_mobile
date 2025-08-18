@@ -11,9 +11,7 @@ class UserRepository {
   Future<ProfileModel> getProfile() async {
     try {
       final response = await _provider.getProfile();
-      final result = response;
-
-      return ProfileModel.fromJson(result);
+      return ProfileModel.fromJson(response);
     } catch (e) {
       throw Exception('Get profile error: ${e.toString()}');
     }
@@ -22,24 +20,20 @@ class UserRepository {
   Future<DiagnosisModel> getDiagnosis() async {
     try {
       final response = await _provider.getDiagnosis();
-      final result = response;
-      return DiagnosisModel.fromJson(result);
+      return DiagnosisModel.fromJson(response);
     } catch (e) {
       throw Exception('Get diagnosis error: ${e.toString()}');
     }
   }
 
-  Future<UpdateProfileResponse> updateProfile({
+  Future<UpdateProfileModel> updateProfile({
     required UpdateProfileRequest request,
   }) async {
     try {
       final response = await _provider.updateProfile(
         updateData: request.toJson(),
       );
-
-      final result = response;
-
-      return UpdateProfileResponse.fromJson(result);
+      return UpdateProfileModel.fromJson(response);
     } catch (e) {
       throw Exception('Update profile error: ${e.toString()}');
     }
@@ -48,9 +42,7 @@ class UserRepository {
   Future<ReferenceModel> getReference() async {
     try {
       final response = await _provider.getReference();
-      final result = response;
-
-      return ReferenceModel.fromJson(result);
+      return ReferenceModel.fromJson(response);
     } catch (e) {
       throw Exception('Get reference error: ${e.toString()}');
     }

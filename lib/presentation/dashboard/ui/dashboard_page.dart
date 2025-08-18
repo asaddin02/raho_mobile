@@ -212,8 +212,8 @@ class _DashboardPageState extends State<DashboardPage> {
           const CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
         ],
       );
-    } else if (state is DashboardLoaded) {
-      final voucher = state.voucherInfo;
+    } else if (state is DashboardSuccess) {
+      final voucher = state.data.voucher;
       final l10n = AppLocalizations.of(context)!;
 
       content = Row(
@@ -282,8 +282,8 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         ],
       );
-    } else if (state is DashboardRefreshing && state.previousData != null) {
-      final voucher = state.previousData!.data.voucher;
+    } else if (state is DashboardRefreshing) {
+      final voucher = state.previousData.voucher;
       final l10n = AppLocalizations.of(context)!;
 
       content = Stack(
@@ -476,8 +476,8 @@ class _DashboardPageState extends State<DashboardPage> {
       );
     }
 
-    if (state is DashboardLoaded) {
-      final history = state.history;
+    if (state is DashboardSuccess) {
+      final history = state.data.history;
 
       if (history.isEmpty) {
         return Container(
@@ -519,8 +519,8 @@ class _DashboardPageState extends State<DashboardPage> {
       );
     }
 
-    if (state is DashboardRefreshing && state.previousData != null) {
-      final history = state.previousData!.data.history;
+    if (state is DashboardRefreshing) {
+      final history = state.previousData.history;
 
       return Column(
         children: history
@@ -537,7 +537,7 @@ class _DashboardPageState extends State<DashboardPage> {
       );
     }
 
-    if (state is DashboardError && state.message == 'genericError') {
+    if (state is DashboardError) {
       return Container(
         height: 100,
         padding: EdgeInsets.all(AppSizes.paddingLarge),

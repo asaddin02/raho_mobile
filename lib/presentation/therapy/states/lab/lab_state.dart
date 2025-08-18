@@ -77,13 +77,32 @@ class LabRefreshing extends LabState {
 }
 
 class LabError extends LabState {
-  final String message;
+  final String messageCode;
+  final String? debugMessage;
   final List<LabData>? labs;
 
-  const LabError({required this.message, this.labs});
+  const LabError({required this.messageCode, this.debugMessage, this.labs});
+
+  String getLocalizedMessage(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (messageCode) {
+      case 'LAB_DATA_FETCHED':
+        return localizations.lab_data_fetched;
+      case 'PATIENT_NOT_FOUND':
+        return localizations.patient_not_found;
+      case 'ERROR_SYSTEM':
+        return localizations.error_system;
+      case 'ERROR_SERVER':
+        return localizations.error_server;
+      case 'UNKNOWN_ERROR':
+        return localizations.unknown_error;
+      default:
+        return localizations.unknown_error;
+    }
+  }
 
   @override
-  List<Object?> get props => [message, labs];
+  List<Object?> get props => [messageCode, debugMessage, labs];
 }
 
 class LabDetailLoading extends LabState {
@@ -96,7 +115,7 @@ class LabDetailLoading extends LabState {
 }
 
 class LabDetailLoaded extends LabState {
-  final LabData labDetail;
+  final DetailLabModel labDetail;
   final List<LabData>? labs;
 
   const LabDetailLoaded({required this.labDetail, this.labs});
@@ -106,11 +125,36 @@ class LabDetailLoaded extends LabState {
 }
 
 class LabDetailError extends LabState {
-  final String message;
+  final String messageCode;
+  final String? debugMessage;
   final List<LabData>? labs;
 
-  const LabDetailError({required this.message, this.labs});
+  const LabDetailError({
+    required this.messageCode,
+    this.debugMessage,
+    this.labs,
+  });
+
+  String getLocalizedMessage(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    switch (messageCode) {
+      case 'LAB_DETAIL_FETCHED':
+        return localizations.lab_detail_fetched;
+      case 'LAB_ID_REQUIRED':
+        return localizations.lab_id_required;
+      case 'LAB_RECORD_NOT_FOUND':
+        return localizations.lab_record_not_found;
+      case 'ERROR_SYSTEM':
+        return localizations.error_system;
+      case 'ERROR_SERVER':
+        return localizations.error_server;
+      case 'UNKNOWN_ERROR':
+        return localizations.unknown_error;
+      default:
+        return localizations.unknown_error;
+    }
+  }
 
   @override
-  List<Object?> get props => [message, labs];
+  List<Object?> get props => [messageCode, debugMessage, labs];
 }

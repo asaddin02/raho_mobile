@@ -1,14 +1,15 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:raho_member_apps/data/models/detail_transaction.dart';
 import 'package:raho_member_apps/data/models/transaction.dart';
 import 'package:raho_member_apps/data/repositories/transaction_repository.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
 
 part 'transaction_event.dart';
 
 part 'transaction_state.dart';
 
-// transaction_bloc.dart - Updated _onFetchDetailTransaction method
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   final TransactionRepository _repository;
   static const int _pageLimit = 10;
@@ -32,9 +33,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     FetchInitialTransactionEvent event,
     Emitter<TransactionState> emit,
   ) async {
-    emit(TransactionLoading());
-
     try {
+      emit(TransactionLoading());
+
       final request = TransactionRequest(
         page: 1,
         limit: _pageLimit,
@@ -46,22 +47,31 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       if (transaction.isSuccess) {
         emit(
           TransactionLoaded(
-            allPayments: transaction.data.payment,
-            paymentPage: transaction.pagination.payment.currentPage,
-            paymentTotalPages: transaction.pagination.payment.totalPages,
-            paymentHasReachedMax: !transaction.pagination.payment.hasNext,
-            allFakturs: transaction.data.faktur,
-            fakturPage: transaction.pagination.faktur.currentPage,
-            fakturTotalPages: transaction.pagination.faktur.totalPages,
-            fakturHasReachedMax: !transaction.pagination.faktur.hasNext,
+            allPayments: transaction.data?.payment ?? [],
+            paymentPage: transaction.pagination?.payment?.currentPage ?? 1,
+            paymentTotalPages: transaction.pagination?.payment?.totalPages ?? 0,
+            paymentHasReachedMax:
+                !(transaction.pagination?.payment?.hasNext ?? false),
+            allFakturs: transaction.data?.faktur ?? [],
+            fakturPage: transaction.pagination?.faktur?.currentPage ?? 1,
+            fakturTotalPages: transaction.pagination?.faktur?.totalPages ?? 0,
+            fakturHasReachedMax:
+                !(transaction.pagination?.faktur?.hasNext ?? false),
             activeFilters: event.filters,
           ),
         );
+      } else if (transaction.isError) {
+        emit(TransactionError(messageCode: transaction.messageCode));
       } else {
-        emit(const TransactionError(message: 'transactionLoadError'));
+        emit(TransactionError(messageCode: 'UNKNOWN_ERROR'));
       }
     } catch (e) {
-      emit(TransactionError(message: 'transactionLoadError'));
+      emit(
+        TransactionError(
+          messageCode: 'ERROR_SERVER',
+          debugMessage: e.toString(),
+        ),
+      );
     }
   }
 
@@ -69,33 +79,28 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     FetchDetailTransactionEvent event,
     Emitter<TransactionState> emit,
   ) async {
-    emit(DetailTransactionLoading());
-
     try {
+      emit(DetailTransactionLoading());
+
       final detail = await _repository.fetchDetailTransaction(
         transactionId: event.transactionId,
         transactionType: event.transactionType,
       );
 
-      if (detail != null) {
+      if (detail.isSuccess) {
         emit(DetailTransactionLoaded(detail: detail));
+      } else if (detail.isError) {
+        emit(DetailTransactionError(messageCode: detail.messageCode));
       } else {
-        emit(
-          const DetailTransactionError(message: 'transactionDetailNotFound'),
-        );
+        emit(DetailTransactionError(messageCode: 'UNKNOWN_ERROR'));
       }
     } catch (e) {
-      String errorMessage = e.toString();
-      if (errorMessage.contains('TRANSACTION_ID_REQUIRED')) {
-        errorMessage = 'transactionIdRequired';
-      } else if (errorMessage.contains('INVALID_TRANSACTION_TYPE')) {
-        errorMessage = 'transactionTypeInvalid';
-      } else if (errorMessage.contains('TRANSACTION_NOT_FOUND')) {
-        errorMessage = 'transactionNotFound';
-      } else if (errorMessage.contains('ERROR_GET_TRANSACTION_DETAIL')) {
-        errorMessage = 'transactionDetailLoadError';
-      }
-      emit(DetailTransactionError(message: errorMessage));
+      emit(
+        DetailTransactionError(
+          messageCode: 'ERROR_SERVER',
+          debugMessage: e.toString(),
+        ),
+      );
     }
   }
 
@@ -108,7 +113,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       emit(
         currentState.copyWith(
           transactionType: event.transactionType,
-          expandedSection: null,
+          expandedSection: ExpandedSection.none,
         ),
       );
     }
@@ -142,15 +147,17 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         if (transaction.isSuccess) {
           final updatedPayments = [
             ...currentState.allPayments,
-            ...transaction.data.payment,
+            ...(transaction.data?.payment ?? []),
           ];
 
           emit(
             currentState.copyWith(
               allPayments: updatedPayments,
               paymentPage: nextPage,
-              paymentTotalPages: transaction.pagination.payment.totalPages,
-              paymentHasReachedMax: !transaction.pagination.payment.hasNext,
+              paymentTotalPages:
+                  transaction.pagination?.payment?.totalPages ?? 0,
+              paymentHasReachedMax:
+                  !(transaction.pagination?.payment?.hasNext ?? false),
               paymentLoading: false,
             ),
           );
@@ -173,7 +180,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
       if (currentState.fakturHasReachedMax || currentState.fakturLoading) {
         return;
       }
+
       emit(currentState.copyWith(fakturLoading: true));
+
       try {
         final nextPage = currentState.fakturPage + 1;
         final request = TransactionRequest(
@@ -189,15 +198,16 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         if (transaction.isSuccess) {
           final updatedFakturs = [
             ...currentState.allFakturs,
-            ...transaction.data.faktur,
+            ...(transaction.data?.faktur ?? []),
           ];
 
           emit(
             currentState.copyWith(
               allFakturs: updatedFakturs,
               fakturPage: nextPage,
-              fakturTotalPages: transaction.pagination.faktur.totalPages,
-              fakturHasReachedMax: !transaction.pagination.faktur.hasNext,
+              fakturTotalPages: transaction.pagination?.faktur?.totalPages ?? 0,
+              fakturHasReachedMax:
+                  !(transaction.pagination?.faktur?.hasNext ?? false),
               fakturLoading: false,
             ),
           );

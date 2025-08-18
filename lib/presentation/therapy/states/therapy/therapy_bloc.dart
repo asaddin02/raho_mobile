@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:raho_member_apps/data/models/detail_therapy.dart';
 import 'package:raho_member_apps/data/models/therapy.dart';
 import 'package:raho_member_apps/data/repositories/therapy_repository.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'therapy_event.dart';
@@ -11,7 +13,6 @@ part 'therapy_state.dart';
 
 class TherapyBloc extends Bloc<TherapyEvent, TherapyState> {
   final TherapyRepository _repository;
-
   final _searchDebounce = BehaviorSubject<String>();
 
   TherapyBloc({required TherapyRepository repository})
@@ -56,9 +57,18 @@ class TherapyBloc extends Bloc<TherapyEvent, TherapyState> {
       if (response.isSuccess) {
         emit(
           TherapyListLoaded(
-            therapies: response.data,
-            pagination: response.pagination,
-            filters: response.filters,
+            therapies: response.data ?? [],
+            pagination:
+                response.pagination ??
+                PaginationModel(
+                  currentPage: 1,
+                  totalPages: 0,
+                  totalRecords: 0,
+                  hasNext: false,
+                  hasPrev: false,
+                ),
+            filters:
+                response.filters ?? FilterModel(companies: [], products: []),
             searchQuery: event.search,
             selectedCompany: event.companyName,
             selectedProduct: event.productName,
@@ -66,11 +76,15 @@ class TherapyBloc extends Bloc<TherapyEvent, TherapyState> {
             dateTo: event.dateTo,
           ),
         );
+      } else if (response.isError) {
+        emit(TherapyError(messageCode: response.messageCode));
       } else {
-        emit(TherapyError(message: response.message ?? 'therapyLoadError'));
+        emit(TherapyError(messageCode: 'UNKNOWN_ERROR'));
       }
     } catch (e) {
-      emit(TherapyError(message: 'therapyLoadError'));
+      emit(
+        TherapyError(messageCode: 'ERROR_SERVER', debugMessage: e.toString()),
+      );
     }
   }
 
@@ -103,33 +117,21 @@ class TherapyBloc extends Bloc<TherapyEvent, TherapyState> {
         );
 
         if (response.isSuccess) {
-          final newTherapies = response.data;
+          final newTherapies = response.data ?? [];
 
           emit(
             currentState.copyWith(
               therapies: [...currentState.therapies, ...newTherapies],
-              pagination: response.pagination,
-              filters: response.filters,
+              pagination: response.pagination ?? currentState.pagination,
+              filters: response.filters ?? currentState.filters,
               isLoadingMore: false,
             ),
           );
         } else {
           emit(currentState.copyWith(isLoadingMore: false));
-          emit(
-            TherapyError(
-              message: response.message ?? 'therapyLoadMoreError',
-              therapies: currentState.therapies,
-            ),
-          );
         }
       } catch (e) {
         emit(currentState.copyWith(isLoadingMore: false));
-        emit(
-          TherapyError(
-            message: 'therapyLoadMoreError',
-            therapies: currentState.therapies,
-          ),
-        );
       }
     }
   }
@@ -207,22 +209,27 @@ class TherapyBloc extends Bloc<TherapyEvent, TherapyState> {
       }
 
       emit(TherapyDetailLoading(therapies: currentTherapies));
-      final futures = await Future.wait([
-        _repository.fetchDetailTherapy(event.id),
-        Future.delayed(const Duration(milliseconds: 300)),
-      ]);
-      final response = futures[0] as DetailTherapyModel?;
-      if (response != null) {
+
+      final response = await _repository.fetchDetailTherapy(event.id);
+
+      if (response!.isSuccess) {
         emit(
           TherapyDetailLoaded(
             therapyDetail: response,
             therapies: currentTherapies,
           ),
         );
+      } else if (response.isError) {
+        emit(
+          TherapyDetailError(
+            messageCode: response.messageCode,
+            therapies: currentTherapies,
+          ),
+        );
       } else {
         emit(
           TherapyDetailError(
-            message: 'therapyDetailNotFound',
+            messageCode: 'UNKNOWN_ERROR',
             therapies: currentTherapies,
           ),
         );
@@ -234,7 +241,11 @@ class TherapyBloc extends Bloc<TherapyEvent, TherapyState> {
       }
 
       emit(
-        TherapyDetailError(message: 'therapyDetailNotFound', therapies: currentTherapies),
+        TherapyDetailError(
+          messageCode: 'ERROR_SERVER',
+          debugMessage: e.toString(),
+          therapies: currentTherapies,
+        ),
       );
     }
   }

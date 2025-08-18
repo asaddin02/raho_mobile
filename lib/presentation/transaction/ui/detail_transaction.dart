@@ -117,7 +117,7 @@ class DetailTransaction extends StatelessWidget {
                       ),
                       SizedBox(height: AppSizes.spacingMedium),
                       Text(
-                        state.message,
+                        state.messageCode,
                         style: AppTextStyle.caption.withColor(
                           colorScheme.error,
                         ),
@@ -285,7 +285,7 @@ class DetailTransaction extends StatelessWidget {
               ),
             SizedBox(height: AppSizes.spacingSmall),
             Text(
-              detail.dateTransaction,
+              detail.dateTransaction ?? '',
               style: AppTextStyle.supportText.withColor(
                 colorScheme.onSurface.withAlpha(153),
               ),
@@ -293,7 +293,9 @@ class DetailTransaction extends StatelessWidget {
             ),
             SizedBox(height: AppSizes.spacingMedium),
             Text(
-              l10n.transactionAmount(detail.totalAmount.toStringAsFixed(0)),
+              l10n.transactionAmount(
+                detail.totalAmount?.toStringAsFixed(0) ?? '',
+              ),
               style: AppTextStyle.title.withColor(colorScheme.onSurface),
               textAlign: TextAlign.center,
             ),
@@ -311,9 +313,9 @@ class DetailTransaction extends StatelessWidget {
     final List<(String, String)> details = [];
 
     // Common fields
-    details.add((l10n.transactionDetailMemberName, detail.memberName));
-    details.add((l10n.transactionDetailInvoiceNumber, detail.invoice));
-    details.add((l10n.transactionDetailDate, detail.dateTransaction));
+    details.add((l10n.transactionDetailMemberName, detail.memberName ?? ''));
+    details.add((l10n.transactionDetailInvoiceNumber, detail.invoice ?? ''));
+    details.add((l10n.transactionDetailDate, detail.dateTransaction ?? ''));
 
     // Payment specific fields
     if (detail.isPayment) {
@@ -360,7 +362,7 @@ class DetailTransaction extends StatelessWidget {
     // Total amount (common)
     details.add((
       l10n.transactionDetailTotalAmount,
-      'Rp ${formatCurrency(detail.totalAmount)}',
+      'Rp ${formatCurrency(detail.totalAmount ?? 0)}',
     ));
 
     return Container(

@@ -26,14 +26,16 @@ class Company {
 }
 
 class CompanyModel {
-  final String status;
+  final String? success;
+  final String? error;
   final List<Company> data;
 
-  CompanyModel({required this.status, required this.data});
+  CompanyModel({this.success, this.error, required this.data});
 
   factory CompanyModel.fromJson(Map<String, dynamic> json) {
     return CompanyModel(
-      status: json['status'] ?? '',
+      success: json['success'],
+      error: json['error'],
       data:
           (json['data'] as List<dynamic>?)
               ?.map((item) => Company.fromJson(item as Map<String, dynamic>))
@@ -43,9 +45,22 @@ class CompanyModel {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'status': status,
+    final Map<String, dynamic> result = {
       'data': data.map((company) => company.toJson()).toList(),
     };
+
+    if (success != null) result['success'] = success;
+    if (error != null) result['error'] = error;
+
+    return result;
   }
+
+  // Helper methods
+  bool get isSuccess => success != null && error == null;
+
+  bool get hasError => error != null;
+
+  bool get isEmpty => success == "COMPANIES_EMPTY";
+
+  String get responseCode => error ?? success ?? '';
 }

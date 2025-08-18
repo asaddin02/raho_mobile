@@ -540,7 +540,7 @@ class _OptimizedTherapyContent extends StatelessWidget {
     return BlocConsumer<TherapyBloc, TherapyState>(
       listener: (context, state) {
         if (state is TherapyError && state.therapies == null) {
-          _showErrorSnackBar(context, state.message);
+          _showErrorSnackBar(context, state.messageCode);
         }
       },
       builder: (context, state) => _buildTherapyList(context, l10n, state),
@@ -579,8 +579,8 @@ class _OptimizedTherapyContent extends StatelessWidget {
           therapies: therapies!,
           scrollController: scrollController,
         ),
-      TherapyError(:final message) => _ErrorState(
-        message: message,
+      TherapyError(:final messageCode) => _ErrorState(
+        message: messageCode,
         onRetry: () =>
             context.read<TherapyBloc>().add(const FetchTherapyList()),
       ),
@@ -606,7 +606,7 @@ class _OptimizedLabContent extends StatelessWidget {
     return BlocConsumer<LabBloc, LabState>(
       listener: (context, state) {
         if (state is LabError && state.labs == null) {
-          _showErrorSnackBar(context, state.message);
+          _showErrorSnackBar(context, state.messageCode);
         }
       },
       builder: (context, state) => _buildLabList(context, l10n, state),
@@ -641,8 +641,8 @@ class _OptimizedLabContent extends StatelessWidget {
       ),
       LabError(:final labs) when labs?.isNotEmpty == true =>
         _OptimizedLabListView(labs: labs!, scrollController: scrollController),
-      LabError(:final message) => _ErrorState(
-        message: message,
+      LabError(:final messageCode) => _ErrorState(
+        message: messageCode,
         onRetry: () => context.read<LabBloc>().add(const FetchLabList()),
       ),
       _ => _EmptyState(
@@ -833,7 +833,7 @@ class _TherapyCardContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    therapy.companyName,
+                    therapy.companyName ?? '',
                     style: AppTextStyle.caption.withColor(
                       theme.colorScheme.primary,
                     ),
@@ -842,7 +842,7 @@ class _TherapyCardContent extends StatelessWidget {
                   ),
                   SizedBox(height: AppSizes.paddingTiny),
                   Text(
-                    therapy.date,
+                    therapy.date ?? '',
                     style: AppTextStyle.supportText.withColor(
                       theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
@@ -871,7 +871,7 @@ class _TherapyCardContent extends StatelessWidget {
                 ),
                 SizedBox(height: AppSizes.paddingTiny),
                 Text(
-                  therapy.nakes,
+                  therapy.nakes ?? '',
                   style: AppTextStyle.supportText.withColor(
                     theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
@@ -970,7 +970,7 @@ class _LabCardContent extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    lab.companyName,
+                    lab.companyName ?? '',
                     style: AppTextStyle.caption.withColor(
                       theme.colorScheme.tertiary,
                     ),
@@ -979,7 +979,7 @@ class _LabCardContent extends StatelessWidget {
                   ),
                   SizedBox(height: AppSizes.paddingTiny),
                   Text(
-                    lab.date,
+                    lab.date ?? '',
                     style: AppTextStyle.supportText.withColor(
                       theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
@@ -1008,7 +1008,7 @@ class _LabCardContent extends StatelessWidget {
                 ),
                 SizedBox(height: AppSizes.paddingTiny),
                 Text(
-                  lab.doctor,
+                  lab.labType ?? '',
                   style: AppTextStyle.supportText.withColor(
                     theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
@@ -1115,10 +1115,7 @@ class _ErrorState extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: AppSizes.spacingLarge),
-          ElevatedButton(
-            onPressed: onRetry,
-            child: Text(l10n.errorStateRetry),
-          ),
+          ElevatedButton(onPressed: onRetry, child: Text(l10n.errorStateRetry)),
         ],
       ),
     );

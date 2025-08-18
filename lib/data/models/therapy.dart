@@ -1,89 +1,121 @@
+import 'package:flutter/material.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
+
 class TherapyModel {
-  final String status;
-  final String code;
+  final String? success;
+  final String? error;
+  final String? code;
   final String? message;
-  final List<TherapyData> data;
-  final PaginationModel pagination;
-  final FilterModel filters;
+  final List<TherapyData>? data;
+  final PaginationModel? pagination;
+  final FilterModel? filters;
 
   TherapyModel({
-    required this.status,
-    required this.code,
+    this.success,
+    this.error,
+    this.code,
     this.message,
-    required this.data,
-    required this.pagination,
-    required this.filters,
+    this.data,
+    this.pagination,
+    this.filters,
   });
 
   factory TherapyModel.fromJson(Map<String, dynamic> json) {
+    String? success;
+    String? error;
+
+    if (json['status'] == 'success') {
+      success = json['code'];
+    } else if (json['status'] == 'error') {
+      error = json['code'];
+    } else {
+      success = json['success'];
+      error = json['error'];
+    }
+
     return TherapyModel(
-      status: json['status'] ?? '',
-      code: json['code'] ?? '',
+      success: success,
+      error: error,
+      code: json['code'],
       message: json['message'],
-      data: (json['data'] as List<dynamic>? ?? [])
-          .map((e) => TherapyData.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      pagination: PaginationModel.fromJson(
-        json['pagination'] as Map<String, dynamic>? ?? {},
-      ),
-      filters: FilterModel.fromJson(
-        json['filters'] as Map<String, dynamic>? ?? {},
-      ),
+      data: json['data'] != null
+          ? (json['data'] as List<dynamic>)
+                .map((e) => TherapyData.fromJson(e as Map<String, dynamic>))
+                .toList()
+          : null,
+      pagination: json['pagination'] != null
+          ? PaginationModel.fromJson(json['pagination'] as Map<String, dynamic>)
+          : null,
+      filters: json['filters'] != null
+          ? FilterModel.fromJson(json['filters'] as Map<String, dynamic>)
+          : null,
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'status': status,
-    'code': code,
-    if (message != null) 'message': message,
-    'data': data.map((e) => e.toJson()).toList(),
-    'pagination': pagination.toJson(),
-    'filters': filters.toJson(),
-  };
+  bool get isSuccess => success != null && error == null;
 
-  bool get isSuccess => status == 'success';
+  bool get isError => error != null;
+
+  String get messageCode {
+    if (success != null) return success!;
+    if (error != null) return error!;
+    return 'UNKNOWN_ERROR';
+  }
+
+  String getLocalizedMessage(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
+    switch (messageCode) {
+      case 'THERAPY_HISTORY_SUCCESS':
+        return localizations.therapy_history_success;
+      case 'THERAPY_HISTORY_FAILED':
+        return localizations.therapy_history_failed;
+      case 'PATIENT_NOT_FOUND':
+        return localizations.patient_not_found;
+      case 'ERROR_SYSTEM':
+        return localizations.error_system;
+      case 'ERROR_SERVER':
+        return localizations.error_server;
+      default:
+        return localizations.unknown_error;
+    }
+  }
+
+  bool get isPatientNotFound => error == 'PATIENT_NOT_FOUND';
+
+  bool get isSystemError => error == 'ERROR_SYSTEM';
 }
 
 class TherapyData {
   final int id;
-  final String companyName;
-  final int infus;
-  final String date;
-  final String nameProduct;
-  final String variant;
-  final String nakes;
+  final String? companyName;
+  final int? infus;
+  final String? date;
+  final String? nameProduct;
+  final String? variant;
+  final String? nakes;
 
   TherapyData({
     required this.id,
-    required this.companyName,
-    required this.infus,
-    required this.date,
-    required this.nameProduct,
-    required this.variant,
-    required this.nakes,
+    this.companyName,
+    this.infus,
+    this.date,
+    this.nameProduct,
+    this.variant,
+    this.nakes,
   });
 
   factory TherapyData.fromJson(Map<String, dynamic> json) {
     return TherapyData(
       id: json['id'] ?? 0,
-      companyName: json['company_name'] ?? '-',
-      infus: json['infus'] ?? 0,
-      date: json['date'] ?? '-',
-      nameProduct: json['name_product'] ?? '-',
-      variant: json['variant'] ?? '-',
-      nakes: json['nakes'] ?? '-',
+      companyName: json['company_name'],
+      infus: json['infus'],
+      date: json['date'],
+      nameProduct: json['name_product'],
+      variant: json['variant'],
+      nakes: json['nakes'],
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    'id': id,
-    'company_name': companyName,
-    'infus': infus,
-    'date': date,
-    'name_product': nameProduct,
-    'variant': variant,
-    'nakes': nakes,
-  };
 }
 
 class PaginationModel {
@@ -110,14 +142,6 @@ class PaginationModel {
       hasPrev: json['has_prev'] ?? false,
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    'current_page': currentPage,
-    'total_pages': totalPages,
-    'total_records': totalRecords,
-    'has_next': hasNext,
-    'has_prev': hasPrev,
-  };
 }
 
 class FilterModel {
@@ -137,11 +161,6 @@ class FilterModel {
       products: extractNames(json['products']),
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    'companies': companies.map((e) => {'name': e}).toList(),
-    'products': products.map((e) => {'name': e}).toList(),
-  };
 }
 
 class TherapyRequest {
@@ -164,6 +183,7 @@ class TherapyRequest {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {'page': page, 'limit': limit};
     final Map<String, dynamic> filters = {};
+
     if (companyName != null && companyName!.isNotEmpty) {
       filters['company_name'] = companyName;
     }
@@ -176,9 +196,11 @@ class TherapyRequest {
     if (dateTo != null && dateTo!.isNotEmpty) {
       filters['date_to'] = dateTo;
     }
+
     if (filters.isNotEmpty) {
       data['filters'] = filters;
     }
+
     return data;
   }
 }

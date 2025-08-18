@@ -1,3 +1,4 @@
+import 'package:raho_member_apps/data/models/detail_lab.dart';
 import 'package:raho_member_apps/data/models/lab.dart';
 import 'package:raho_member_apps/data/providers/lab_provider.dart';
 
@@ -27,12 +28,12 @@ class LabRepository {
     }
   }
 
-  Future<LabData?> getDetailLab(int id) async {
+  Future<DetailLabModel?> getDetailLab(int id) async {
     try {
       final response = await _provider.getDetailLab(id);
 
       if (response['data'] != null) {
-        return LabData.fromJson(response['data']);
+        return DetailLabModel.fromJson(response['data']);
       }
 
       return null;

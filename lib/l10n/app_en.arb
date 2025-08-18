@@ -1,0 +1,405 @@
+{
+  "@@locale": "en",
+  "appVersion": "version 1.0.0",
+  "companyName": "RAHOCLUB",
+  "companyClubName": "RAHO Club",
+  "companyTagline": "Reverse Aging & Homeostasis Club",
+  "supportedBy": "Supported By:",
+  "success": "Success",
+  "error": "Error",
+  "warning": "Warning",
+  "info": "Information",
+  "onboardingTitle1": "NanoBubble Technology",
+  "onboardingSubtitle1": "World's first healthcare service using NanoBubble technology as medical equipment",
+  "onboardingTitle2": "Health Experts",
+  "onboardingSubtitle2": "Supported by professional doctors in the health field",
+  "onboardingTitle3": "Member Service",
+  "onboardingSubtitle3": "Served by qualified medical staff who prioritize your well-being",
+  "buttonSkipOnboarding": "Skip",
+  "buttonCompleteOnboarding": "Complete",
+  "buttonNextOnboarding": "Next",
+  "buttonPreviousOnboarding": "Previous",
+  "forgotPasswordButton": "Forgot Password?",
+  "passwordEmptyError": "Password cannot be empty",
+  "passwordMinLengthError": "Password must be at least 8 characters",
+  "confirmPasswordLabel": "Confirm Password",
+  "confirmPasswordHintText": "Re-enter password",
+  "confirmPasswordEmptyError": "Confirm password cannot be empty",
+  "passwordMismatchError": "Passwords do not match",
+  "processingText": "Processing...",
+  "verificationTitle": "Member Verification",
+  "verificationSubtitle": "Enter your member registration ID for verification",
+  "idRegisterHintText": "Enter Registration ID",
+  "idRegisterLabel": "Registration ID",
+  "verificationButton": "Send Code",
+  "otpTitle": "OTP Code",
+  "otpSubtitle": "Enter the OTP code sent to {number_phone}",
+  "@otpSubtitle": {
+    "placeholders": {
+      "number_phone": {
+        "type": "String"
+      }
+    }
+  },
+  "otpNotReceive": "Didn't receive code?",
+  "otpResend": "Resend",
+  "otpButton": "Verify",
+  "verifiedNumberTitle": "Verification Successful",
+  "verifiedNumberSubtitle": "Congratulations! You are now verified as a member in our system",
+  "createPassword": "Create Password",
+  "createPasswordSupportText": "Create your password for authentication",
+  "createPasswordHintText": "New password",
+  "passwordButton": "Create & Login",
+  "loginTitle": "Welcome",
+  "loginSubtitle": "Please login to your account",
+  "passwordLabel": "Password",
+  "passwordHintText": "Enter Password",
+  "loginButton": "Login",
+  "loginErrorRequiredField": "Registration ID and Password are required",
+  "loginAuthenticationFailed": "Invalid Registration ID or Password",
+  "loginSuccess": "Login Successful",
+  "dashboardBottomNavText": "Home",
+  "therapyBottomNavText": "Therapy",
+  "transactionBottomNavText": "Transaction",
+  "profileBottomNavText": "Profile",
+  "profilePageTitle": "My Profile",
+  "themeDarkLabel": "Dark",
+  "themeLightLabel": "Light",
+  "personalSectionTitle": "Personal",
+  "supportSectionTitle": "Support",
+  "settingsSectionTitle": "Settings",
+  "personalDataMenuTitle": "Personal Data",
+  "personalDataMenuSubtitle": "Manage your personal information",
+  "diagnosisMenuTitle": "My Diagnosis",
+  "diagnosisMenuSubtitle": "Medical diagnosis history",
+  "referenceCodeMenuTitle": "Reference Code",
+  "referenceCodeMenuSubtitle": "Service reference code",
+  "branchLocationMenuTitle": "Branch Locations",
+  "branchLocationMenuSubtitle": "Find nearest branch",
+  "helpMenuTitle": "Help",
+  "helpMenuSubtitle": "Help center and support",
+  "languageMenuTitle": "Language",
+  "languageMenuSubtitle": "Change app language",
+  "aboutAppMenuTitle": "About App",
+  "aboutAppMenuSubtitle": "Detailed app information",
+  "logoutButtonLabel": "Logout",
+  "personalInfoSectionTitle": "Personal Information",
+  "fieldLabelNIK": "National ID",
+  "fieldLabelAddress": "Address",
+  "fieldLabelCity": "City/District",
+  "fieldLabelDateOfBirth": "Date of Birth",
+  "fieldLabelAge": "Age",
+  "fieldSuffixYears": "Years",
+  "fieldLabelGender": "Gender",
+  "fieldLabelPhone": "WhatsApp Number",
+  "referenceInfoTitle": "Reference Information",
+  "cardNumberFieldLabel": "Card Number",
+  "referralNameFieldLabel": "Referral Name",
+  "diagnosisNoteTitle": "Additional Notes",
+  "diagnosisCurrentIllnessTitle": "Current Complaints and Medical History",
+  "diagnosisPreviousIllnessTitle": "Previous and Family Medical History",
+  "diagnosisSocialHabitTitle": "Social and Lifestyle History",
+  "diagnosisTreatmentHistoryTitle": "Treatment History",
+  "diagnosisPhysicalExamTitle": "Physical Examination",
+  "aboutDialogTitle": "About App",
+  "aboutVersionLabel": "Version",
+  "aboutCopyrightLabel": "Copyright",
+  "aboutReleaseDateLabel": "Release Date",
+  "aboutCloseButton": "Close",
+  "languageDialogTitle": "Select Language",
+  "languageOptionIndonesian": "Indonesian",
+  "languageOptionEnglish": "English",
+  "languageOptionJapanese": "Japanese",
+  "languageOptionChinese": "Chinese",
+  "languageOptionArabic": "Arabic",
+  "languageCancelButton": "Cancel",
+  "languageSaveButton": "Save",
+  "logoutDialogTitle": "Confirm Logout",
+  "logoutDialogMessage": "Are you sure you want to logout?",
+  "logoutCancelButton": "Cancel",
+  "logoutConfirmButton": "Logout",
+  "dashboardWelcome": "Welcome",
+  "dashboardYourVoucher": "Your Vouchers",
+  "dashboardUsedVoucher": "Used Vouchers",
+  "dashboardLastTherapy": "Last Therapy",
+  "dashboardEventPromo": "Events and Promos",
+  "dashboardTherapyInfusionNumber": "Infusion #{infusion_number}",
+  "@dashboardTherapyInfusionNumber": {
+    "placeholders": {
+      "infusion_number": {
+        "type": "String"
+      }
+    }
+  },
+  "myVoucherTitle": "My Vouchers",
+  "voucherFilterDate": "Select Date",
+  "voucherDateAll": "All Dates",
+  "voucherDateToday": "Today",
+  "voucherDate7Days": "Last 7 Days",
+  "voucherDate30Days": "Last 30 Days",
+  "voucherDate60Days": "Last 60 Days",
+  "voucherDate90Days": "Last 90 Days",
+  "voucherRedeemDate": "Redeemed on {redeem_date}",
+  "@voucherRedeemDate": {
+    "placeholders": {
+      "redeem_date": {
+        "type": "String"
+      }
+    }
+  },
+  "voucherRedeemDateLabel": "Redeem Date: {redeem_date}",
+  "@voucherRedeemDateLabel": {
+    "placeholders": {
+      "redeem_date": {
+        "type": "String"
+      }
+    }
+  },
+  "transactionDetailTitle": "Transaction Details",
+  "transactionStatusPaid": "Paid",
+  "transactionTherapyDone": "Therapy service completed",
+  "transactionAmount": "${amount}",
+  "@transactionAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "transactionDetailMemberName": "Member Name",
+  "transactionDetailInvoiceNumber": "Invoice Number",
+  "transactionDetailBranchClinic": "Branch Clinic",
+  "transactionDetailDate": "Date",
+  "transactionDetailTherapyType": "Therapy Type",
+  "transactionDetailPaymentMethod": "Payment Method",
+  "transactionDetailVoucherQty": "Voucher Quantity",
+  "transactionDetailFreeVoucher": "Free Voucher",
+  "transactionDetailUnitPrice": "Unit Price",
+  "transactionDetailTotalAmount": "Total Amount",
+  "transactionActionDownload": "Download",
+  "transactionActionShare": "Share",
+  "transactionActionSeeRedeemVoucher": "View Redeemed Voucher",
+  "therapyDetailTitle": "Therapy Details",
+  "therapyInfoMember": "Member",
+  "therapyInfoDate": "Date",
+  "therapyStartSurvey": "Start Survey",
+  "therapyTabHistory": "Therapy History",
+  "therapyTabSurvey": "Survey History",
+  "therapySurveyEmpty": "No survey data available",
+  "therapyInfoCardTitle": "Therapy Information",
+  "therapyInfusNumber": "Infusion No.",
+  "therapyInfusType": "Infusion Type",
+  "therapyProductionDate": "Production Date",
+  "therapyNextInfusDate": "Next Infusion",
+  "therapyHealingCrisisTitle": "Healing Crisis",
+  "therapyHealingCrisisComplaint": "Healing Crisis Complaint",
+  "therapyHealingCrisisNote": "Notes/Action",
+  "therapyNeedleUsageTitle": "Needle Usage",
+  "therapyNeedleUsageHeaderNeedle": "Needle",
+  "therapyNeedleUsageHeaderNakes": "Staff",
+  "therapyNeedleUsageHeaderStatus": "Status",
+  "therapyNeedleUsed": "Used",
+  "therapySectionAnamnesis": "Anamnesis",
+  "therapySectionLabPhoto": "Lab Photos",
+  "therapyLabPhotoEmpty": "No lab photos available",
+  "therapyComplaintAfter": "Complaints After Therapy",
+  "therapyComplaintBefore": "Complaints Before Therapy",
+  "therapyNoComplaint": "No Complaints",
+  "therapyVitalSignBloodPressure": "Blood Pressure",
+  "therapyVitalSignSystolic": "Systolic",
+  "therapyVitalSignDiastolic": "Diastolic",
+  "therapyVitalSignO2AndHR": "O2 Saturation & Heart Rate",
+  "therapyVitalSaturationBefore": "Saturation Before",
+  "therapyVitalSaturationAfter": "Saturation After",
+  "therapyVitalPerfusionBefore": "Perfusion Index Before",
+  "therapyVitalPerfusionAfter": "Perfusion Index After",
+  "therapyVitalHRBefore": "HR Before",
+  "therapyVitalHRAfter": "HR After",
+  "historyPageTitle": "My History",
+  "therapyTabTherapy": "Therapy",
+  "therapyTabLab": "Lab",
+  "therapySearchHint": "Search therapy history...",
+  "labSearchHint": "Search laboratory history...",
+  "therapyCardInfusionNumber": "Infusion #{infusionNumber}",
+  "@therapyCardInfusionNumber": {
+    "placeholders": {
+      "infusionNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "therapyEmptyTitle": "No therapy history",
+  "therapyEmptySubtitle": "Your therapy history will appear here",
+  "labEmptyTitle": "No Laboratory Data",
+  "labEmptySubtitle": "Laboratory data will appear here after you add or load laboratory data",
+  "filterTitle": "Filter",
+  "filterClear": "Clear",
+  "filterCompany": "Company",
+  "filterProduct": "Product",
+  "filterDateRange": "Date Range",
+  "selectCompany": "Select Company",
+  "selectProduct": "Select Product",
+  "dateFrom": "From Date",
+  "dateTo": "To Date",
+  "applyFilter": "Apply Filter",
+  "retry": "Retry",
+  "noTransactionsFound": "No transactions found",
+  "noDataAvailable": "No data available",
+  "transactionStatusPending": "Pending",
+  "transactionStatusCancelled": "Cancelled",
+  "transactionDetailAdmin": "Admin",
+  "transactionDetailPaymentStatus": "Payment Status",
+  "therapyLoadingError": "Failed to load therapy history",
+  "genericError": "An error occurred. Please try again later.",
+  "languageChangeSuccess": "Language changed to {language}",
+  "@languageChangeSuccess": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "branchLocationTitle": "Rahoclub Branches",
+  "branchLocationRetry": "Retry",
+  "branchLocationLoading": "Loading branch data...",
+  "branchLocationEmpty": "No branch data",
+  "branchLocationEmptyHint": "Please try again later",
+  "branchLocationReload": "Try reload",
+  "diagnosisReload": "Try reload",
+  "diagnosisEmpty": "No diagnosis data",
+  "diagnosisReloadButton": "Reload",
+  "genderMale": "Male",
+  "genderFemale": "Female",
+  "genderSelectLabel": "Select Gender",
+  "genderSelectTitle": "Select Gender",
+  "personalDataCancelButton": "Cancel",
+  "personalDataSaveButton": "Save",
+  "personalDataEditButton": "Edit",
+  "referenceErrorMessage": "Error: {message}",
+  "@referenceErrorMessage": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "referenceNoData": "No data available",
+  "companyLoadError": "Failed to load branch data",
+  "languageLoadError": "Failed to load language: {error}",
+  "@languageLoadError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "languageUnsupported": "Language not supported",
+  "languageChangeError": "Failed to change language: {error}",
+  "@languageChangeError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "languageResetError": "Failed to reset language: {error}",
+  "@languageResetError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "profileLoadError": "Failed to load profile",
+  "diagnosisLoadError": "Failed to load diagnosis",
+  "profileUpdateSuccess": "Profile updated successfully",
+  "profileUpdateError": "Failed to update profile",
+  "needleDataEmpty": "No data available",
+  "labTestTitle": "Lab Test",
+  "labResultLabel": "Lab Result",
+  "errorStateTitle": "An Error Occurred",
+  "errorStateRetry": "Retry",
+  "labLoadError": "Failed to load data",
+  "labLoadMoreError": "Failed to load additional data",
+  "therapyLoadError": "Failed to load data",
+  "therapyLoadMoreError": "Failed to load additional data",
+  "transactionLoadError": "Failed to load transactions",
+  "transactionDetailNotFound": "Transaction details not found",
+  "transactionIdRequired": "Transaction ID required",
+  "transactionTypeInvalid": "Invalid transaction type. Must be 'payment' or 'faktur'",
+  "transactionNotFound": "Transaction not found",
+  "transactionDetailLoadError": "Failed to load transaction details",
+  "transactionFilterLabel": "Select Transaction",
+  "transactionFilterAll": "All Transactions",
+  "transactionFilterPayment": "Purchase",
+  "transactionFilterService": "Service",
+  "transactionPaymentDefault": "Payment",
+  "transactionServiceDefault": "Therapy",
+  "transactionNoPaymentFound": "No purchase transactions found",
+  "transactionNoServiceFound": "No service transactions found",
+  "transactionErrorMessage": "Error: {message}",
+  "@transactionErrorMessage": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "authSessionRestored": "Session restored successfully",
+  "authProfileUpdated": "Profile updated successfully",
+  "authRefreshError": "Failed to update profile: {error}",
+  "@authRefreshError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "authLogoutError": "Failed to logout: {error}",
+  "@authLogoutError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "error_server": "Server error occurred",
+  "require_id": "Registration ID is required",
+  "id_not_found": "Registration ID not found",
+  "otp_failed": "Failed to send OTP",
+  "otp_max_attempt": "Maximum OTP attempts reached",
+  "otp_invalid": "Invalid OTP code",
+  "otp_expired": "OTP code expired",
+  "otp_max_daily": "Daily OTP request limit reached",
+  "otp_sended": "OTP sent to your WhatsApp",
+  "otp_verified": "OTP verified successfully",
+  "already_verified": "Number already verified",
+  "unknown_error": "Unknown error occurred",
+  "companies_empty": "No company branch data",
+  "companies_fetch_success": "Company branch data retrieved successfully",
+  "dashboard_fetch_success": "Dashboard data loaded successfully",
+  "profile_fetch_success": "Profile data retrieved successfully",
+  "diagnosis_fetch_success": "Diagnosis data retrieved successfully",
+  "references_fetch_success": "Reference data retrieved successfully",
+  "profile_update_success": "Profile updated successfully",
+  "invalid_field_type": "Invalid field format",
+  "invalid_sex_value": "Invalid gender field value",
+  "invalid_date_format": "Invalid date format (use DD-MM-YYYY)",
+  "invalid_image_format": "Invalid or corrupted image format",
+  "patient_not_found": "Patient not found",
+  "transaction_fetch_success": "Transaction data retrieved successfully",
+  "transaction_detail_fetch_success": "Transaction details retrieved successfully",
+  "invalid_transaction_type": "Invalid transaction type",
+  "transaction_not_found": "Transaction not found",
+  "transaction_id_required": "Transaction ID is required",
+  "therapy_history_success": "Therapy history data retrieved successfully",
+  "therapy_history_failed": "Failed to retrieve therapy history data",
+  "lab_data_fetched": "Laboratory data retrieved successfully",
+  "error_system": "System error occurred",
+  "therapy_not_found": "Therapy data not found or access denied",
+  "therapy_detail_success": "Therapy details retrieved successfully",
+  "therapy_detail_failed": "Failed to retrieve therapy details",
+  "lab_id_required": "Laboratory ID is required",
+  "lab_record_not_found": "Laboratory data not found",
+  "lab_detail_fetched": "Laboratory details retrieved successfully"
+}

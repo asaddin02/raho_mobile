@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:raho_member_apps/data/models/resend_otp.dart';
 import 'package:raho_member_apps/data/models/validate_number.dart';
 import 'package:raho_member_apps/data/models/verify_otp.dart';
 import 'package:raho_member_apps/data/repositories/otp_repository.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
 
 part 'verify_number_event.dart';
 
@@ -31,24 +33,34 @@ class VerifyNumberBloc extends Bloc<VerifyNumberEvent, VerifyNumberState> {
       final request = ValidateNumberRequest(idRegister: event.idRegister);
       final result = await _repository.validateNumber(request: request);
 
-      if (result.status == 'verified') {
-        emit(ValidateNumberAlreadyVerified(mobile: result.mobile ?? ''));
-      } else if (result.status == 'otp_sent') {
+      if (result.isAlreadyVerified) {
+        emit(
+          ValidateNumberAlreadyVerified(
+            mobile: result.mobile ?? '',
+            messageCode: result.messageCode,
+          ),
+        );
+      } else if (result.isOtpSent) {
         emit(
           ValidateNumberOtpSent(
-            idRegister: result.idRegister ?? '',
+            idRegister: result.idRegister ?? event.idRegister,
             mobile: result.mobile ?? '',
-            message: result.message ?? 'OTP sent successfully',
+            messageCode: result.messageCode,
             expiresIn: result.expiresIn ?? 300,
           ),
         );
-      } else if (result.error != null) {
-        emit(VerifyNumberError(message: result.error!));
+      } else if (result.isError) {
+        emit(VerifyNumberError(messageCode: result.messageCode));
       } else {
-        emit(ValidateNumberSuccess(data: result));
+        emit(VerifyNumberError(messageCode: 'UNKNOWN_ERROR'));
       }
     } catch (e) {
-      emit(VerifyNumberError(message: e.toString()));
+      emit(
+        VerifyNumberError(
+          messageCode: 'ERROR_SERVER',
+          debugMessage: e.toString(),
+        ),
+      );
     }
   }
 
@@ -65,19 +77,20 @@ class VerifyNumberBloc extends Bloc<VerifyNumberEvent, VerifyNumberState> {
       );
       final result = await _repository.verifyOtpCode(request: request);
 
-      if (result.status == 'success') {
-        emit(
-          VerifyOtpSuccess(
-            message: result.message ?? 'Number verified successfully',
-          ),
-        );
-      } else if (result.error != null) {
-        emit(VerifyNumberError(message: result.error!));
+      if (result.isSuccess) {
+        emit(VerifyOtpSuccess(messageCode: result.messageCode));
+      } else if (result.isError) {
+        emit(VerifyNumberError(messageCode: result.messageCode));
       } else {
-        emit(VerifyNumberError(message: 'Verification failed'));
+        emit(VerifyNumberError(messageCode: 'UNKNOWN_ERROR'));
       }
     } catch (e) {
-      emit(VerifyNumberError(message: e.toString()));
+      emit(
+        VerifyNumberError(
+          messageCode: 'ERROR_SERVER',
+          debugMessage: e.toString(),
+        ),
+      );
     }
   }
 
@@ -91,26 +104,28 @@ class VerifyNumberBloc extends Bloc<VerifyNumberEvent, VerifyNumberState> {
       final request = ResendOtpRequest(idRegister: event.idRegister);
       final result = await _repository.resendOtp(request: request);
 
-      if (result.status == 'already_verified') {
-        emit(
-          ResendOtpAlreadyVerified(
-            message: result.message ?? 'Number already verified',
-          ),
-        );
-      } else if (result.status == 'otp_sent') {
+      if (result.isAlreadyVerified) {
+        emit(ResendOtpAlreadyVerified(messageCode: result.messageCode));
+      } else if (result.isOtpSent) {
         emit(
           ResendOtpSuccess(
             mobile: result.mobile ?? '',
-            message: result.message ?? 'OTP resent successfully',
+            messageCode: result.messageCode,
+            expiresIn: result.expiresIn ?? 300,
           ),
         );
-      } else if (result.error != null) {
-        emit(VerifyNumberError(message: result.error!));
+      } else if (result.isError) {
+        emit(VerifyNumberError(messageCode: result.messageCode));
       } else {
-        emit(VerifyNumberError(message: 'Failed to resend OTP'));
+        emit(VerifyNumberError(messageCode: 'UNKNOWN_ERROR'));
       }
     } catch (e) {
-      emit(VerifyNumberError(message: e.toString()));
+      emit(
+        VerifyNumberError(
+          messageCode: 'ERROR_SERVER',
+          debugMessage: e.toString(),
+        ),
+      );
     }
   }
 

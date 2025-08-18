@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:raho_member_apps/data/models/detail_lab.dart';
 import 'package:raho_member_apps/data/models/lab.dart';
 import 'package:raho_member_apps/data/repositories/lab_repository.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
 import 'package:rxdart/rxdart.dart';
 
 part 'lab_event.dart';
@@ -10,7 +13,6 @@ part 'lab_state.dart';
 
 class LabBloc extends Bloc<LabEvent, LabState> {
   final LabRepository _repository;
-
   final _searchDebounce = BehaviorSubject<String>();
 
   LabBloc({required LabRepository repository})
@@ -22,6 +24,7 @@ class LabBloc extends Bloc<LabEvent, LabState> {
     on<SearchLab>(_onSearchLab);
     on<FilterLab>(_onFilterLab);
     on<ClearLabFilters>(_onClearFilters);
+    on<FetchLabDetail>(_onFetchLabDetail);
 
     _searchDebounce.debounceTime(const Duration(milliseconds: 500)).listen((
       query,
@@ -53,22 +56,30 @@ class LabBloc extends Bloc<LabEvent, LabState> {
       if (response.isSuccess) {
         emit(
           LabListLoaded(
-            labs: response.data
-                .map((e) => LabData.fromJson(e as Map<String, dynamic>))
-                .toList(),
-            pagination: response.pagination,
-            filters: response.filters,
+            labs: response.data ?? [],
+            pagination:
+                response.pagination ??
+                PaginationModelLab(
+                  currentPage: 1,
+                  totalPages: 0,
+                  totalRecords: 0,
+                  hasNext: false,
+                  hasPrev: false,
+                ),
+            filters: response.filters ?? LabFilterModel(companies: []),
             searchQuery: event.search,
             selectedCompany: event.companyName,
             dateFrom: event.dateFrom,
             dateTo: event.dateTo,
           ),
         );
+      } else if (response.isError) {
+        emit(LabError(messageCode: response.messageCode));
       } else {
-        emit(LabError(message: response.message ?? 'labLoadError'));
+        emit(LabError(messageCode: 'UNKNOWN_ERROR'));
       }
     } catch (e) {
-      emit(LabError(message: 'labLoadError'));
+      emit(LabError(messageCode: 'ERROR_SERVER', debugMessage: e.toString()));
     }
   }
 
@@ -97,30 +108,21 @@ class LabBloc extends Bloc<LabEvent, LabState> {
         );
 
         if (response.isSuccess) {
-          final newLabs = response.data
-              .map((e) => LabData.fromJson(e as Map<String, dynamic>))
-              .toList();
+          final newLabs = response.data ?? [];
 
           emit(
             currentState.copyWith(
               labs: [...currentState.labs, ...newLabs],
-              pagination: response.pagination,
-              filters: response.filters,
+              pagination: response.pagination ?? currentState.pagination,
+              filters: response.filters ?? currentState.filters,
               isLoadingMore: false,
             ),
           );
         } else {
           emit(currentState.copyWith(isLoadingMore: false));
-          emit(
-            LabError(
-              message: response.message ?? 'labLoadMoreError',
-              labs: currentState.labs,
-            ),
-          );
         }
       } catch (e) {
         emit(currentState.copyWith(isLoadingMore: false));
-        emit(LabError(message: 'labLoadMoreError', labs: currentState.labs));
       }
     }
   }
@@ -174,6 +176,47 @@ class LabBloc extends Bloc<LabEvent, LabState> {
             : null,
       ),
     );
+  }
+
+  Future<void> _onFetchLabDetail(
+    FetchLabDetail event,
+    Emitter<LabState> emit,
+  ) async {
+    try {
+      List<LabData>? currentLabs;
+      final currentState = state;
+
+      if (currentState is LabListLoaded) {
+        currentLabs = currentState.labs;
+      }
+
+      emit(LabDetailLoading(labs: currentLabs));
+
+      final response = await _repository.getDetailLab(event.id);
+
+      if (response!.isSuccess) {
+        emit(LabDetailLoaded(labDetail: response, labs: currentLabs));
+      } else if (response.isError) {
+        emit(
+          LabDetailError(messageCode: response.messageCode, labs: currentLabs),
+        );
+      } else {
+        emit(LabDetailError(messageCode: 'UNKNOWN_ERROR', labs: currentLabs));
+      }
+    } catch (e) {
+      List<LabData>? currentLabs;
+      if (state is LabDetailLoading) {
+        currentLabs = (state as LabDetailLoading).labs;
+      }
+
+      emit(
+        LabDetailError(
+          messageCode: 'ERROR_SERVER',
+          debugMessage: e.toString(),
+          labs: currentLabs,
+        ),
+      );
+    }
   }
 
   @override

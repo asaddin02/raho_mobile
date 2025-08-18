@@ -612,7 +612,7 @@ class _TransactionPageState extends State<TransactionPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        payment.paymentName,
+                        payment.paymentName ?? '',
                         style: AppTextStyle.supportText.withColor(
                           colorScheme.onSurface.withAlpha(150),
                         ),
@@ -621,8 +621,8 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       SizedBox(height: AppSizes.paddingTiny),
                       Text(
-                        payment.paymentFor.isNotEmpty
-                            ? payment.paymentFor
+                        (payment.paymentFor?.isNotEmpty == true)
+                            ? payment.paymentFor!
                             : l10n.transactionPaymentDefault,
                         style: AppTextStyle.body.withColor(
                           colorScheme.onSurface,
@@ -632,7 +632,7 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       SizedBox(height: AppSizes.paddingTiny),
                       Text(
-                        formatDate(payment.datePayment, context),
+                        formatDate(payment.datePayment ?? '', context),
                         style: AppTextStyle.caption.withColor(
                           colorScheme.onSurface.withAlpha(120),
                         ),
@@ -642,7 +642,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 ),
                 SizedBox(width: AppSizes.spacingMedium),
                 Text(
-                  'Rp ${formatCurrency(payment.amountPayment)}',
+                  'Rp ${formatCurrency(payment.amountPayment ?? 0)}',
                   style: AppTextStyle.body.withColor(AppColor.green),
                 ),
               ],
@@ -661,7 +661,8 @@ class _TransactionPageState extends State<TransactionPage> {
     Widget iconWidget;
     Color iconColor;
 
-    if (faktur.fakturFor.toLowerCase().contains('voucher')) {
+    if (faktur.fakturFor != null &&
+        faktur.fakturFor!.toLowerCase().contains('voucher')) {
       iconColor = AppColor.orange;
       iconWidget = Stack(
         alignment: Alignment.center,
@@ -714,7 +715,7 @@ class _TransactionPageState extends State<TransactionPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        faktur.fakturName,
+                        faktur.fakturName ?? '',
                         style: AppTextStyle.supportText.withColor(
                           colorScheme.onSurface.withAlpha(150),
                         ),
@@ -723,8 +724,8 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       SizedBox(height: AppSizes.paddingTiny),
                       Text(
-                        faktur.fakturFor.isNotEmpty
-                            ? faktur.fakturFor
+                        (faktur.fakturFor?.isNotEmpty == true)
+                            ? faktur.fakturFor!
                             : l10n.transactionServiceDefault,
                         style: AppTextStyle.body.withColor(
                           colorScheme.onSurface,
@@ -734,7 +735,7 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       SizedBox(height: AppSizes.paddingTiny),
                       Text(
-                        formatDate(faktur.dateFaktur, context),
+                        formatDate(faktur.dateFaktur ?? '', context),
                         style: AppTextStyle.caption.withColor(
                           colorScheme.onSurface.withAlpha(120),
                         ),
@@ -744,7 +745,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 ),
                 SizedBox(width: AppSizes.spacingMedium),
                 Text(
-                  '-Rp ${formatCurrency(faktur.amountFaktur)}',
+                  '-Rp ${formatCurrency(faktur.amountFaktur ?? 0)}',
                   style: AppTextStyle.body.withColor(colorScheme.error),
                 ),
               ],
@@ -769,7 +770,7 @@ class _TransactionPageState extends State<TransactionPage> {
             Icon(Icons.error_outline, size: 64, color: colorScheme.error),
             SizedBox(height: AppSizes.spacingMedium),
             Text(
-              l10n.transactionErrorMessage(state.message),
+              l10n.transactionErrorMessage(state.messageCode),
               textAlign: TextAlign.center,
               style: AppTextStyle.body.withColor(colorScheme.error),
             ),

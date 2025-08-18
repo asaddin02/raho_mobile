@@ -14,6 +14,7 @@ import 'package:raho_member_apps/presentation/authentication/states/verification
 import 'package:raho_member_apps/presentation/authentication/ui/background_wrapper.dart';
 import 'package:raho_member_apps/presentation/widgets/primary_button.dart';
 import 'package:raho_member_apps/presentation/widgets/primary_textfield.dart';
+import 'package:raho_member_apps/presentation/widgets/snackbar_toast.dart';
 
 class VerificationPage extends StatefulWidget {
   const VerificationPage({super.key});
@@ -47,14 +48,18 @@ class _VerificationPageState extends State<VerificationPage> {
                 'mobile': state.mobile,
               },
             );
-          } else if (state is ValidateNumberAlreadyVerified) {
+          }
+          if (state is ValidateNumberAlreadyVerified) {
+            AppNotification.successToast(context, 'Sudah Terverifikasi');
             context.pushNamed(AppRoutes.login.name);
-          } else if (state is VerifyNumberError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-                backgroundColor: Colors.red,
-              ),
+          }
+          if (_idController.text.trim().isNotEmpty &&
+              state is VerifyNumberError) {
+            AppNotification.error(
+              context,
+              state.messageCode,
+              duration: NotificationDuration.medium,
+              showCloseButton: false,
             );
           }
         },
@@ -76,23 +81,7 @@ class _VerificationPageState extends State<VerificationPage> {
                             top: AppSizes.paddingLarge,
                             bottom: AppSizes.paddingXl,
                           ),
-                          child: Container(
-                            padding: EdgeInsets.all(AppSizes.paddingMedium),
-                            decoration: BoxDecoration(
-                              color: AppColor.white,
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: AppColor.primary.withValues(
-                                    alpha: 0.2,
-                                  ),
-                                  blurRadius: 15,
-                                  offset: Offset(0, 8),
-                                ),
-                              ],
-                            ),
-                            child: Image.asset(AppAssets.logoApp, width: 120),
-                          ),
+                          child: Image.asset(AppAssets.logoApp, width: 120),
                         ),
                       ),
                     );
@@ -154,13 +143,12 @@ class _VerificationPageState extends State<VerificationPage> {
                   isLoading: state is VerifyNumberLoading,
                   onPressed: () {
                     if (_idController.text.trim().isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Please enter ID Register'),
-                          backgroundColor: Colors.red,
-                        ),
+                      AppNotification.error(
+                        context,
+                        'Masukkan ID Registrasi Anda',
+                        duration: NotificationDuration.short,
+                        showCloseButton: false,
                       );
-                      return;
                     }
                     context.read<VerifyNumberBloc>().add(
                       ValidateNumberEvent(
