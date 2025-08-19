@@ -222,7 +222,7 @@ class TherapyBloc extends Bloc<TherapyEvent, TherapyState> {
       } else if (response.isError) {
         emit(
           TherapyDetailError(
-            messageCode: response.messageCode,
+            messageCode: response.code??'UNKNOWN_ERROR',
             therapies: currentTherapies,
           ),
         );

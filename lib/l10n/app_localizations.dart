@@ -5,7 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_en.dart';
 import 'app_localizations_id.dart';
+import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
 
@@ -92,1830 +94,1822 @@ abstract class AppLocalizations {
       ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('id')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('id'),
+    Locale('zh'),
+  ];
 
   /// No description provided for @appVersion.
   ///
-  /// In id, this message translates to:
-  /// **'versi 1.0.0'**
+  /// In en, this message translates to:
+  /// **'version 1.0.0'**
   String get appVersion;
 
   /// No description provided for @companyName.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'RAHOCLUB'**
   String get companyName;
 
   /// No description provided for @companyClubName.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'RAHO Club'**
   String get companyClubName;
 
   /// No description provided for @companyTagline.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Reverse Aging & Homeostasis Club'**
   String get companyTagline;
 
   /// No description provided for @supportedBy.
   ///
-  /// In id, this message translates to:
-  /// **'Didukung Oleh:'**
+  /// In en, this message translates to:
+  /// **'Supported By:'**
   String get supportedBy;
 
   /// No description provided for @success.
   ///
-  /// In id, this message translates to:
-  /// **'Berhasil'**
+  /// In en, this message translates to:
+  /// **'Success'**
   String get success;
 
   /// No description provided for @error.
   ///
-  /// In id, this message translates to:
-  /// **'Kesalahan'**
+  /// In en, this message translates to:
+  /// **'Error'**
   String get error;
 
   /// No description provided for @warning.
   ///
-  /// In id, this message translates to:
-  /// **'Peringatan'**
+  /// In en, this message translates to:
+  /// **'Warning'**
   String get warning;
 
   /// No description provided for @info.
   ///
-  /// In id, this message translates to:
-  /// **'Informasi'**
+  /// In en, this message translates to:
+  /// **'Information'**
   String get info;
 
   /// No description provided for @onboardingTitle1.
   ///
-  /// In id, this message translates to:
-  /// **'Teknologi NanoBubble'**
+  /// In en, this message translates to:
+  /// **'NanoBubble Technology'**
   String get onboardingTitle1;
 
   /// No description provided for @onboardingSubtitle1.
   ///
-  /// In id, this message translates to:
-  /// **'Pelayanan kesehatan pertama di Dunia yang menggunakan Teknologi Nanobubble sebagai alat kesehatan'**
+  /// In en, this message translates to:
+  /// **'World\'s first healthcare service using NanoBubble technology as medical equipment'**
   String get onboardingSubtitle1;
 
   /// No description provided for @onboardingTitle2.
   ///
-  /// In id, this message translates to:
-  /// **'Ahli Kesehatan'**
+  /// In en, this message translates to:
+  /// **'Health Experts'**
   String get onboardingTitle2;
 
   /// No description provided for @onboardingSubtitle2.
   ///
-  /// In id, this message translates to:
-  /// **'Dibantu dengan Dokter yang Profesional di bidang kesehatan'**
+  /// In en, this message translates to:
+  /// **'Supported by professional doctors in the health field'**
   String get onboardingSubtitle2;
 
   /// No description provided for @onboardingTitle3.
   ///
-  /// In id, this message translates to:
-  /// **'Pelayanan Member'**
+  /// In en, this message translates to:
+  /// **'Member Service'**
   String get onboardingTitle3;
 
   /// No description provided for @onboardingSubtitle3.
   ///
-  /// In id, this message translates to:
-  /// **'Dilayani oleh para tenaga medis yang berkualitas dan mengutamakan kesejahteraan Anda'**
+  /// In en, this message translates to:
+  /// **'Served by qualified medical staff who prioritize your well-being'**
   String get onboardingSubtitle3;
 
   /// No description provided for @buttonSkipOnboarding.
   ///
-  /// In id, this message translates to:
-  /// **'Lewati'**
+  /// In en, this message translates to:
+  /// **'Skip'**
   String get buttonSkipOnboarding;
 
   /// No description provided for @buttonCompleteOnboarding.
   ///
-  /// In id, this message translates to:
-  /// **'Selesai'**
+  /// In en, this message translates to:
+  /// **'Complete'**
   String get buttonCompleteOnboarding;
 
   /// No description provided for @buttonNextOnboarding.
   ///
-  /// In id, this message translates to:
-  /// **'Selanjutnya'**
+  /// In en, this message translates to:
+  /// **'Next'**
   String get buttonNextOnboarding;
 
   /// No description provided for @buttonPreviousOnboarding.
   ///
-  /// In id, this message translates to:
-  /// **'Sebelumnya'**
+  /// In en, this message translates to:
+  /// **'Previous'**
   String get buttonPreviousOnboarding;
 
   /// No description provided for @forgotPasswordButton.
   ///
-  /// In id, this message translates to:
-  /// **'Lupa Password?'**
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
   String get forgotPasswordButton;
 
   /// No description provided for @passwordEmptyError.
   ///
-  /// In id, this message translates to:
-  /// **'Password tidak boleh kosong'**
+  /// In en, this message translates to:
+  /// **'Password cannot be empty'**
   String get passwordEmptyError;
 
   /// No description provided for @passwordMinLengthError.
   ///
-  /// In id, this message translates to:
-  /// **'Password minimal 8 karakter'**
+  /// In en, this message translates to:
+  /// **'Password must be at least 8 characters'**
   String get passwordMinLengthError;
 
   /// No description provided for @confirmPasswordLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Konfirmasi Password'**
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
   String get confirmPasswordLabel;
 
   /// No description provided for @confirmPasswordHintText.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan ulang password'**
+  /// In en, this message translates to:
+  /// **'Re-enter password'**
   String get confirmPasswordHintText;
 
   /// No description provided for @confirmPasswordEmptyError.
   ///
-  /// In id, this message translates to:
-  /// **'Konfirmasi password tidak boleh kosong'**
+  /// In en, this message translates to:
+  /// **'Confirm password cannot be empty'**
   String get confirmPasswordEmptyError;
 
   /// No description provided for @passwordMismatchError.
   ///
-  /// In id, this message translates to:
-  /// **'Password tidak sama'**
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
   String get passwordMismatchError;
 
   /// No description provided for @processingText.
   ///
-  /// In id, this message translates to:
-  /// **'Memproses...'**
+  /// In en, this message translates to:
+  /// **'Processing...'**
   String get processingText;
 
   /// No description provided for @verificationTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Verifikasi Member'**
+  /// In en, this message translates to:
+  /// **'Member Verification'**
   String get verificationTitle;
 
   /// No description provided for @verificationSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan ID Registrasi member Anda untuk melakukan verifikasi'**
+  /// In en, this message translates to:
+  /// **'Enter your member registration ID for verification'**
   String get verificationSubtitle;
 
   /// No description provided for @idRegisterHintText.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan ID Registrasi'**
+  /// In en, this message translates to:
+  /// **'Enter Registration ID'**
   String get idRegisterHintText;
 
   /// No description provided for @idRegisterLabel.
   ///
-  /// In id, this message translates to:
-  /// **'ID Registrasi'**
+  /// In en, this message translates to:
+  /// **'Registration ID'**
   String get idRegisterLabel;
 
   /// No description provided for @verificationButton.
   ///
-  /// In id, this message translates to:
-  /// **'Kirim Kode'**
+  /// In en, this message translates to:
+  /// **'Send Code'**
   String get verificationButton;
 
   /// No description provided for @otpTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Kode OTP'**
+  /// In en, this message translates to:
+  /// **'OTP Code'**
   String get otpTitle;
 
   /// No description provided for @otpSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan kode OTP yang terkirim ke nomor {number_phone}'**
+  /// In en, this message translates to:
+  /// **'Enter the OTP code sent to {number_phone}'**
   String otpSubtitle(String number_phone);
 
   /// No description provided for @otpNotReceive.
   ///
-  /// In id, this message translates to:
-  /// **'Tidak menerima kode?'**
+  /// In en, this message translates to:
+  /// **'Didn\'t receive code?'**
   String get otpNotReceive;
 
   /// No description provided for @otpResend.
   ///
-  /// In id, this message translates to:
-  /// **'Kirim ulang'**
+  /// In en, this message translates to:
+  /// **'Resend'**
   String get otpResend;
 
   /// No description provided for @otpButton.
   ///
-  /// In id, this message translates to:
-  /// **'Verifikasi'**
+  /// In en, this message translates to:
+  /// **'Verify'**
   String get otpButton;
 
   /// No description provided for @verifiedNumberTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Verifikasi Berhasil'**
+  /// In en, this message translates to:
+  /// **'Verification Successful'**
   String get verifiedNumberTitle;
 
   /// No description provided for @verifiedNumberSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Selamat Anda sudah terverifikasi sebagai member di sistem kami'**
+  /// In en, this message translates to:
+  /// **'Congratulations! You are now verified as a member in our system'**
   String get verifiedNumberSubtitle;
 
   /// No description provided for @createPassword.
   ///
-  /// In id, this message translates to:
-  /// **'Buat Sandi'**
+  /// In en, this message translates to:
+  /// **'Create Password'**
   String get createPassword;
 
   /// No description provided for @createPasswordSupportText.
   ///
-  /// In id, this message translates to:
-  /// **'Buat kata sandi Anda untuk mendapatkan autentikasi'**
+  /// In en, this message translates to:
+  /// **'Create your password for authentication'**
   String get createPasswordSupportText;
 
   /// No description provided for @createPasswordHintText.
   ///
-  /// In id, this message translates to:
-  /// **'Kata sandi baru'**
+  /// In en, this message translates to:
+  /// **'New password'**
   String get createPasswordHintText;
 
   /// No description provided for @passwordButton.
   ///
-  /// In id, this message translates to:
-  /// **'Buat dan Masuk'**
+  /// In en, this message translates to:
+  /// **'Create & Login'**
   String get passwordButton;
 
   /// No description provided for @loginTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Selamat Datang'**
+  /// In en, this message translates to:
+  /// **'Welcome'**
   String get loginTitle;
 
   /// No description provided for @loginSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Silahkan masuk ke akun Anda'**
+  /// In en, this message translates to:
+  /// **'Please login to your account'**
   String get loginSubtitle;
 
   /// No description provided for @passwordLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Kata Sandi'**
+  /// In en, this message translates to:
+  /// **'Password'**
   String get passwordLabel;
 
   /// No description provided for @passwordHintText.
   ///
-  /// In id, this message translates to:
-  /// **'Masukkan Kata Sandi'**
+  /// In en, this message translates to:
+  /// **'Enter Password'**
   String get passwordHintText;
 
   /// No description provided for @loginButton.
   ///
-  /// In id, this message translates to:
-  /// **'Masuk'**
+  /// In en, this message translates to:
+  /// **'Login'**
   String get loginButton;
 
   /// No description provided for @loginErrorRequiredField.
   ///
-  /// In id, this message translates to:
-  /// **'ID Registrasi dan Kata Sandi wajib diisi'**
+  /// In en, this message translates to:
+  /// **'Registration ID and Password are required'**
   String get loginErrorRequiredField;
 
   /// No description provided for @loginAuthenticationFailed.
   ///
-  /// In id, this message translates to:
-  /// **'ID Registrasi dan Kata Sandi salah'**
+  /// In en, this message translates to:
+  /// **'Invalid Registration ID or Password'**
   String get loginAuthenticationFailed;
 
   /// No description provided for @loginSuccess.
   ///
-  /// In id, this message translates to:
-  /// **'Login Berhasil'**
+  /// In en, this message translates to:
+  /// **'Login Successful'**
   String get loginSuccess;
 
   /// No description provided for @dashboardBottomNavText.
   ///
-  /// In id, this message translates to:
-  /// **'Beranda'**
+  /// In en, this message translates to:
+  /// **'Home'**
   String get dashboardBottomNavText;
 
   /// No description provided for @therapyBottomNavText.
   ///
-  /// In id, this message translates to:
-  /// **'Terapi'**
+  /// In en, this message translates to:
+  /// **'Therapy'**
   String get therapyBottomNavText;
 
   /// No description provided for @transactionBottomNavText.
   ///
-  /// In id, this message translates to:
-  /// **'Transaksi'**
+  /// In en, this message translates to:
+  /// **'Transaction'**
   String get transactionBottomNavText;
 
   /// No description provided for @profileBottomNavText.
   ///
-  /// In id, this message translates to:
-  /// **'Profil'**
+  /// In en, this message translates to:
+  /// **'Profile'**
   String get profileBottomNavText;
 
   /// No description provided for @profilePageTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Profil Saya'**
+  /// In en, this message translates to:
+  /// **'My Profile'**
   String get profilePageTitle;
 
   /// No description provided for @themeDarkLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Gelap'**
+  /// In en, this message translates to:
+  /// **'Dark'**
   String get themeDarkLabel;
 
   /// No description provided for @themeLightLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Terang'**
+  /// In en, this message translates to:
+  /// **'Light'**
   String get themeLightLabel;
 
   /// No description provided for @personalSectionTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Pribadi'**
+  /// In en, this message translates to:
+  /// **'Personal'**
   String get personalSectionTitle;
 
   /// No description provided for @supportSectionTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Dukungan'**
+  /// In en, this message translates to:
+  /// **'Support'**
   String get supportSectionTitle;
 
   /// No description provided for @settingsSectionTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Pengaturan'**
+  /// In en, this message translates to:
+  /// **'Settings'**
   String get settingsSectionTitle;
 
   /// No description provided for @personalDataMenuTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Data Pribadi'**
+  /// In en, this message translates to:
+  /// **'Personal Data'**
   String get personalDataMenuTitle;
 
   /// No description provided for @personalDataMenuSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Kelola informasi pribadi Anda'**
+  /// In en, this message translates to:
+  /// **'Manage your personal information'**
   String get personalDataMenuSubtitle;
 
   /// No description provided for @diagnosisMenuTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Diagnosa Saya'**
+  /// In en, this message translates to:
+  /// **'My Diagnosis'**
   String get diagnosisMenuTitle;
 
   /// No description provided for @diagnosisMenuSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Riwayat diagnosa medis'**
+  /// In en, this message translates to:
+  /// **'Medical diagnosis history'**
   String get diagnosisMenuSubtitle;
 
   /// No description provided for @referenceCodeMenuTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Referensi Code'**
+  /// In en, this message translates to:
+  /// **'Reference Code'**
   String get referenceCodeMenuTitle;
 
   /// No description provided for @referenceCodeMenuSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Kode referensi layanan'**
+  /// In en, this message translates to:
+  /// **'Service reference code'**
   String get referenceCodeMenuSubtitle;
 
   /// No description provided for @branchLocationMenuTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Lokasi Cabang'**
+  /// In en, this message translates to:
+  /// **'Branch Locations'**
   String get branchLocationMenuTitle;
 
   /// No description provided for @branchLocationMenuSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Cari cabang terdekat'**
+  /// In en, this message translates to:
+  /// **'Find nearest branch'**
   String get branchLocationMenuSubtitle;
 
   /// No description provided for @helpMenuTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Bantuan'**
+  /// In en, this message translates to:
+  /// **'Help'**
   String get helpMenuTitle;
 
   /// No description provided for @helpMenuSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Pusat bantuan dan dukungan'**
+  /// In en, this message translates to:
+  /// **'Help center and support'**
   String get helpMenuSubtitle;
 
   /// No description provided for @languageMenuTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Bahasa'**
+  /// In en, this message translates to:
+  /// **'Language'**
   String get languageMenuTitle;
 
   /// No description provided for @languageMenuSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Ubah bahasa aplikasi'**
+  /// In en, this message translates to:
+  /// **'Change app language'**
   String get languageMenuSubtitle;
 
   /// No description provided for @aboutAppMenuTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Tentang Aplikasi'**
+  /// In en, this message translates to:
+  /// **'About App'**
   String get aboutAppMenuTitle;
 
   /// No description provided for @aboutAppMenuSubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Informasi detail aplikasi'**
+  /// In en, this message translates to:
+  /// **'Detailed app information'**
   String get aboutAppMenuSubtitle;
 
   /// No description provided for @logoutButtonLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Keluar'**
+  /// In en, this message translates to:
+  /// **'Logout'**
   String get logoutButtonLabel;
 
   /// No description provided for @personalInfoSectionTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Informasi Pribadi'**
+  /// In en, this message translates to:
+  /// **'Personal Information'**
   String get personalInfoSectionTitle;
 
   /// No description provided for @fieldLabelNIK.
   ///
-  /// In id, this message translates to:
-  /// **'NIK'**
+  /// In en, this message translates to:
+  /// **'National ID'**
   String get fieldLabelNIK;
 
   /// No description provided for @fieldLabelAddress.
   ///
-  /// In id, this message translates to:
-  /// **'Alamat'**
+  /// In en, this message translates to:
+  /// **'Address'**
   String get fieldLabelAddress;
 
   /// No description provided for @fieldLabelCity.
   ///
-  /// In id, this message translates to:
-  /// **'Kota/Kabupaten'**
+  /// In en, this message translates to:
+  /// **'City/District'**
   String get fieldLabelCity;
 
   /// No description provided for @fieldLabelDateOfBirth.
   ///
-  /// In id, this message translates to:
-  /// **'Tanggal Lahir'**
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
   String get fieldLabelDateOfBirth;
 
   /// No description provided for @fieldLabelAge.
   ///
-  /// In id, this message translates to:
-  /// **'Usia'**
+  /// In en, this message translates to:
+  /// **'Age'**
   String get fieldLabelAge;
 
   /// No description provided for @fieldSuffixYears.
   ///
-  /// In id, this message translates to:
-  /// **'Tahun'**
+  /// In en, this message translates to:
+  /// **'Years'**
   String get fieldSuffixYears;
 
   /// No description provided for @fieldLabelGender.
   ///
-  /// In id, this message translates to:
-  /// **'Jenis Kelamin'**
+  /// In en, this message translates to:
+  /// **'Gender'**
   String get fieldLabelGender;
 
   /// No description provided for @fieldLabelPhone.
   ///
-  /// In id, this message translates to:
-  /// **'Nomor WhatsApp'**
+  /// In en, this message translates to:
+  /// **'WhatsApp Number'**
   String get fieldLabelPhone;
 
   /// No description provided for @referenceInfoTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Informasi Referensi'**
+  /// In en, this message translates to:
+  /// **'Reference Information'**
   String get referenceInfoTitle;
 
   /// No description provided for @cardNumberFieldLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Nomor Kartu'**
+  /// In en, this message translates to:
+  /// **'Card Number'**
   String get cardNumberFieldLabel;
 
   /// No description provided for @referralNameFieldLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Nama Referal'**
+  /// In en, this message translates to:
+  /// **'Referral Name'**
   String get referralNameFieldLabel;
 
   /// No description provided for @diagnosisNoteTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Catatan Tambahan'**
+  /// In en, this message translates to:
+  /// **'Additional Notes'**
   String get diagnosisNoteTitle;
 
   /// No description provided for @diagnosisCurrentIllnessTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Keluhan dan Riwayat Penyakit'**
+  /// In en, this message translates to:
+  /// **'Current Complaints and Medical History'**
   String get diagnosisCurrentIllnessTitle;
 
   /// No description provided for @diagnosisPreviousIllnessTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Riwayat Penyakit Terdahulu dan Keluarga'**
+  /// In en, this message translates to:
+  /// **'Previous and Family Medical History'**
   String get diagnosisPreviousIllnessTitle;
 
   /// No description provided for @diagnosisSocialHabitTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Riwayat Sosial dan Kebiasaan'**
+  /// In en, this message translates to:
+  /// **'Social and Lifestyle History'**
   String get diagnosisSocialHabitTitle;
 
   /// No description provided for @diagnosisTreatmentHistoryTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Riwayat Pengobatan'**
+  /// In en, this message translates to:
+  /// **'Treatment History'**
   String get diagnosisTreatmentHistoryTitle;
 
   /// No description provided for @diagnosisPhysicalExamTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Pemeriksaan Fisik'**
+  /// In en, this message translates to:
+  /// **'Physical Examination'**
   String get diagnosisPhysicalExamTitle;
 
   /// No description provided for @aboutDialogTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Tentang Aplikasi'**
+  /// In en, this message translates to:
+  /// **'About App'**
   String get aboutDialogTitle;
 
   /// No description provided for @aboutVersionLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Versi'**
+  /// In en, this message translates to:
+  /// **'Version'**
   String get aboutVersionLabel;
 
   /// No description provided for @aboutCopyrightLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Hak Cipta'**
+  /// In en, this message translates to:
+  /// **'Copyright'**
   String get aboutCopyrightLabel;
 
   /// No description provided for @aboutReleaseDateLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Tanggal Rilis'**
+  /// In en, this message translates to:
+  /// **'Release Date'**
   String get aboutReleaseDateLabel;
 
   /// No description provided for @aboutCloseButton.
   ///
-  /// In id, this message translates to:
-  /// **'Tutup'**
+  /// In en, this message translates to:
+  /// **'Close'**
   String get aboutCloseButton;
 
   /// No description provided for @languageDialogTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Pilih Bahasa'**
+  /// In en, this message translates to:
+  /// **'Select Language'**
   String get languageDialogTitle;
 
   /// No description provided for @languageOptionIndonesian.
   ///
-  /// In id, this message translates to:
-  /// **'Bahasa Indonesia'**
+  /// In en, this message translates to:
+  /// **'Indonesian'**
   String get languageOptionIndonesian;
 
   /// No description provided for @languageOptionEnglish.
   ///
-  /// In id, this message translates to:
-  /// **'Bahasa Inggris'**
+  /// In en, this message translates to:
+  /// **'English'**
   String get languageOptionEnglish;
-
-  /// No description provided for @languageOptionJapanese.
-  ///
-  /// In id, this message translates to:
-  /// **'Bahasa Jepang'**
-  String get languageOptionJapanese;
 
   /// No description provided for @languageOptionChinese.
   ///
-  /// In id, this message translates to:
-  /// **'Bahasa Mandarin'**
+  /// In en, this message translates to:
+  /// **'Chinese'**
   String get languageOptionChinese;
-
-  /// No description provided for @languageOptionArabic.
-  ///
-  /// In id, this message translates to:
-  /// **'Bahasa Arab'**
-  String get languageOptionArabic;
 
   /// No description provided for @languageCancelButton.
   ///
-  /// In id, this message translates to:
-  /// **'Batal'**
+  /// In en, this message translates to:
+  /// **'Cancel'**
   String get languageCancelButton;
 
   /// No description provided for @languageSaveButton.
   ///
-  /// In id, this message translates to:
-  /// **'Simpan'**
+  /// In en, this message translates to:
+  /// **'Save'**
   String get languageSaveButton;
 
   /// No description provided for @logoutDialogTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Konfirmasi Keluar'**
+  /// In en, this message translates to:
+  /// **'Confirm Logout'**
   String get logoutDialogTitle;
 
   /// No description provided for @logoutDialogMessage.
   ///
-  /// In id, this message translates to:
-  /// **'Apakah Anda yakin ingin keluar dari aplikasi?'**
+  /// In en, this message translates to:
+  /// **'Are you sure you want to logout?'**
   String get logoutDialogMessage;
 
   /// No description provided for @logoutCancelButton.
   ///
-  /// In id, this message translates to:
-  /// **'Batal'**
+  /// In en, this message translates to:
+  /// **'Cancel'**
   String get logoutCancelButton;
 
   /// No description provided for @logoutConfirmButton.
   ///
-  /// In id, this message translates to:
-  /// **'Keluar'**
+  /// In en, this message translates to:
+  /// **'Logout'**
   String get logoutConfirmButton;
 
   /// No description provided for @dashboardWelcome.
   ///
-  /// In id, this message translates to:
-  /// **'Selamat Datang'**
+  /// In en, this message translates to:
+  /// **'Welcome'**
   String get dashboardWelcome;
 
   /// No description provided for @dashboardYourVoucher.
   ///
-  /// In id, this message translates to:
-  /// **'Voucher Anda'**
+  /// In en, this message translates to:
+  /// **'Your Vouchers'**
   String get dashboardYourVoucher;
 
   /// No description provided for @dashboardUsedVoucher.
   ///
-  /// In id, this message translates to:
-  /// **'Voucher Terpakai'**
+  /// In en, this message translates to:
+  /// **'Used Vouchers'**
   String get dashboardUsedVoucher;
 
   /// No description provided for @dashboardLastTherapy.
   ///
-  /// In id, this message translates to:
-  /// **'Terapi Terakhir'**
+  /// In en, this message translates to:
+  /// **'Last Therapy'**
   String get dashboardLastTherapy;
 
   /// No description provided for @dashboardEventPromo.
   ///
-  /// In id, this message translates to:
-  /// **'Event dan Promo'**
+  /// In en, this message translates to:
+  /// **'Events and Promos'**
   String get dashboardEventPromo;
 
   /// No description provided for @dashboardTherapyInfusionNumber.
   ///
-  /// In id, this message translates to:
-  /// **'Infus ke-{infusion_number}'**
+  /// In en, this message translates to:
+  /// **'Infusion #{infusion_number}'**
   String dashboardTherapyInfusionNumber(String infusion_number);
 
   /// No description provided for @myVoucherTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Voucher Saya'**
+  /// In en, this message translates to:
+  /// **'My Vouchers'**
   String get myVoucherTitle;
 
   /// No description provided for @voucherFilterDate.
   ///
-  /// In id, this message translates to:
-  /// **'Pilih Tanggal'**
+  /// In en, this message translates to:
+  /// **'Select Date'**
   String get voucherFilterDate;
 
   /// No description provided for @voucherDateAll.
   ///
-  /// In id, this message translates to:
-  /// **'Semua Tanggal'**
+  /// In en, this message translates to:
+  /// **'All Dates'**
   String get voucherDateAll;
 
   /// No description provided for @voucherDateToday.
   ///
-  /// In id, this message translates to:
-  /// **'Hari Ini'**
+  /// In en, this message translates to:
+  /// **'Today'**
   String get voucherDateToday;
 
   /// No description provided for @voucherDate7Days.
   ///
-  /// In id, this message translates to:
-  /// **'7 Hari Terakhir'**
+  /// In en, this message translates to:
+  /// **'Last 7 Days'**
   String get voucherDate7Days;
 
   /// No description provided for @voucherDate30Days.
   ///
-  /// In id, this message translates to:
-  /// **'30 Hari Terakhir'**
+  /// In en, this message translates to:
+  /// **'Last 30 Days'**
   String get voucherDate30Days;
 
   /// No description provided for @voucherDate60Days.
   ///
-  /// In id, this message translates to:
-  /// **'60 Hari Terakhir'**
+  /// In en, this message translates to:
+  /// **'Last 60 Days'**
   String get voucherDate60Days;
 
   /// No description provided for @voucherDate90Days.
   ///
-  /// In id, this message translates to:
-  /// **'90 Hari Terakhir'**
+  /// In en, this message translates to:
+  /// **'Last 90 Days'**
   String get voucherDate90Days;
 
   /// No description provided for @voucherRedeemDate.
   ///
-  /// In id, this message translates to:
-  /// **'Ditukar pada {redeem_date}'**
+  /// In en, this message translates to:
+  /// **'Redeemed on {redeem_date}'**
   String voucherRedeemDate(String redeem_date);
 
   /// No description provided for @voucherRedeemDateLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Tanggal Redeem: {redeem_date}'**
+  /// In en, this message translates to:
+  /// **'Redeem Date: {redeem_date}'**
   String voucherRedeemDateLabel(String redeem_date);
 
   /// No description provided for @transactionDetailTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Rincian Transaksi'**
+  /// In en, this message translates to:
+  /// **'Transaction Details'**
   String get transactionDetailTitle;
 
   /// No description provided for @transactionStatusPaid.
   ///
-  /// In id, this message translates to:
-  /// **'Terbayar'**
+  /// In en, this message translates to:
+  /// **'Paid'**
   String get transactionStatusPaid;
 
   /// No description provided for @transactionTherapyDone.
   ///
-  /// In id, this message translates to:
-  /// **'Layanan terapi sudah dilakukan'**
+  /// In en, this message translates to:
+  /// **'Therapy service completed'**
   String get transactionTherapyDone;
 
   /// No description provided for @transactionAmount.
   ///
-  /// In id, this message translates to:
-  /// **'Rp {amount}'**
+  /// In en, this message translates to:
+  /// **'\${amount}'**
   String transactionAmount(String amount);
 
   /// No description provided for @transactionDetailMemberName.
   ///
-  /// In id, this message translates to:
-  /// **'Nama Member'**
+  /// In en, this message translates to:
+  /// **'Member Name'**
   String get transactionDetailMemberName;
 
   /// No description provided for @transactionDetailInvoiceNumber.
   ///
-  /// In id, this message translates to:
-  /// **'Nomor Invoice'**
+  /// In en, this message translates to:
+  /// **'Invoice Number'**
   String get transactionDetailInvoiceNumber;
 
   /// No description provided for @transactionDetailBranchClinic.
   ///
-  /// In id, this message translates to:
-  /// **'Klinik Cabang'**
+  /// In en, this message translates to:
+  /// **'Branch Clinic'**
   String get transactionDetailBranchClinic;
 
   /// No description provided for @transactionDetailDate.
   ///
-  /// In id, this message translates to:
-  /// **'Tanggal'**
+  /// In en, this message translates to:
+  /// **'Date'**
   String get transactionDetailDate;
 
   /// No description provided for @transactionDetailTherapyType.
   ///
-  /// In id, this message translates to:
-  /// **'Jenis Terapi'**
+  /// In en, this message translates to:
+  /// **'Therapy Type'**
   String get transactionDetailTherapyType;
 
   /// No description provided for @transactionDetailPaymentMethod.
   ///
-  /// In id, this message translates to:
-  /// **'Metode Pembayaran'**
+  /// In en, this message translates to:
+  /// **'Payment Method'**
   String get transactionDetailPaymentMethod;
 
   /// No description provided for @transactionDetailVoucherQty.
   ///
-  /// In id, this message translates to:
-  /// **'Jumlah Voucher'**
+  /// In en, this message translates to:
+  /// **'Voucher Quantity'**
   String get transactionDetailVoucherQty;
 
   /// No description provided for @transactionDetailFreeVoucher.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Free Voucher'**
   String get transactionDetailFreeVoucher;
 
   /// No description provided for @transactionDetailUnitPrice.
   ///
-  /// In id, this message translates to:
-  /// **'Harga Satuan'**
+  /// In en, this message translates to:
+  /// **'Unit Price'**
   String get transactionDetailUnitPrice;
 
   /// No description provided for @transactionDetailTotalAmount.
   ///
-  /// In id, this message translates to:
-  /// **'Total Transaksi'**
+  /// In en, this message translates to:
+  /// **'Total Amount'**
   String get transactionDetailTotalAmount;
 
   /// No description provided for @transactionActionDownload.
   ///
-  /// In id, this message translates to:
-  /// **'Unduh'**
+  /// In en, this message translates to:
+  /// **'Download'**
   String get transactionActionDownload;
 
   /// No description provided for @transactionActionShare.
   ///
-  /// In id, this message translates to:
-  /// **'Bagikan'**
+  /// In en, this message translates to:
+  /// **'Share'**
   String get transactionActionShare;
 
   /// No description provided for @transactionActionSeeRedeemVoucher.
   ///
-  /// In id, this message translates to:
-  /// **'Lihat Redeem Voucher'**
+  /// In en, this message translates to:
+  /// **'View Redeemed Voucher'**
   String get transactionActionSeeRedeemVoucher;
 
   /// No description provided for @therapyDetailTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Rincian Terapi'**
+  /// In en, this message translates to:
+  /// **'Therapy Details'**
   String get therapyDetailTitle;
 
   /// No description provided for @therapyInfoMember.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Member'**
   String get therapyInfoMember;
 
   /// No description provided for @therapyInfoDate.
   ///
-  /// In id, this message translates to:
-  /// **'Tanggal'**
+  /// In en, this message translates to:
+  /// **'Date'**
   String get therapyInfoDate;
 
   /// No description provided for @therapyStartSurvey.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Start Survey'**
   String get therapyStartSurvey;
 
   /// No description provided for @therapyTabHistory.
   ///
-  /// In id, this message translates to:
-  /// **'Riwayat Terapi'**
+  /// In en, this message translates to:
+  /// **'Therapy History'**
   String get therapyTabHistory;
 
   /// No description provided for @therapyTabSurvey.
   ///
-  /// In id, this message translates to:
-  /// **'Riwayat Survey'**
+  /// In en, this message translates to:
+  /// **'Survey History'**
   String get therapyTabSurvey;
 
   /// No description provided for @therapySurveyEmpty.
   ///
-  /// In id, this message translates to:
-  /// **'Belum ada data survey tersedia'**
+  /// In en, this message translates to:
+  /// **'No survey data available'**
   String get therapySurveyEmpty;
 
   /// No description provided for @therapyInfoCardTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Informasi Terapi'**
+  /// In en, this message translates to:
+  /// **'Therapy Information'**
   String get therapyInfoCardTitle;
 
   /// No description provided for @therapyInfusNumber.
   ///
-  /// In id, this message translates to:
-  /// **'Infus ke'**
+  /// In en, this message translates to:
+  /// **'Infusion No.'**
   String get therapyInfusNumber;
 
   /// No description provided for @therapyInfusType.
   ///
-  /// In id, this message translates to:
-  /// **'Jenis Infus'**
+  /// In en, this message translates to:
+  /// **'Infusion Type'**
   String get therapyInfusType;
 
   /// No description provided for @therapyProductionDate.
   ///
-  /// In id, this message translates to:
-  /// **'Tgl. Produksi'**
+  /// In en, this message translates to:
+  /// **'Production Date'**
   String get therapyProductionDate;
 
   /// No description provided for @therapyNextInfusDate.
   ///
-  /// In id, this message translates to:
-  /// **'Infus berikutnya'**
+  /// In en, this message translates to:
+  /// **'Next Infusion'**
   String get therapyNextInfusDate;
 
   /// No description provided for @therapyHealingCrisisTitle.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Healing Crisis'**
   String get therapyHealingCrisisTitle;
 
   /// No description provided for @therapyHealingCrisisComplaint.
   ///
-  /// In id, this message translates to:
-  /// **'Keluhan Healing Crisis'**
+  /// In en, this message translates to:
+  /// **'Healing Crisis Complaint'**
   String get therapyHealingCrisisComplaint;
 
   /// No description provided for @therapyHealingCrisisNote.
   ///
-  /// In id, this message translates to:
-  /// **'Catatan/Tindakan'**
+  /// In en, this message translates to:
+  /// **'Notes/Action'**
   String get therapyHealingCrisisNote;
 
   /// No description provided for @therapyNeedleUsageTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Penggunaan Jarum'**
+  /// In en, this message translates to:
+  /// **'Needle Usage'**
   String get therapyNeedleUsageTitle;
 
   /// No description provided for @therapyNeedleUsageHeaderNeedle.
   ///
-  /// In id, this message translates to:
-  /// **'Jarum'**
+  /// In en, this message translates to:
+  /// **'Needle'**
   String get therapyNeedleUsageHeaderNeedle;
 
   /// No description provided for @therapyNeedleUsageHeaderNakes.
   ///
-  /// In id, this message translates to:
-  /// **'Nakes'**
+  /// In en, this message translates to:
+  /// **'Staff'**
   String get therapyNeedleUsageHeaderNakes;
 
   /// No description provided for @therapyNeedleUsageHeaderStatus.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Status'**
   String get therapyNeedleUsageHeaderStatus;
 
   /// No description provided for @therapyNeedleUsed.
   ///
-  /// In id, this message translates to:
-  /// **'Digunakan'**
+  /// In en, this message translates to:
+  /// **'Used'**
   String get therapyNeedleUsed;
 
   /// No description provided for @therapySectionAnamnesis.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Anamnesis'**
   String get therapySectionAnamnesis;
 
   /// No description provided for @therapySectionLabPhoto.
   ///
-  /// In id, this message translates to:
-  /// **'Foto Lab'**
+  /// In en, this message translates to:
+  /// **'Lab Photos'**
   String get therapySectionLabPhoto;
 
   /// No description provided for @therapyLabPhotoEmpty.
   ///
-  /// In id, this message translates to:
-  /// **'Belum ada foto lab tersedia'**
+  /// In en, this message translates to:
+  /// **'No lab photos available'**
   String get therapyLabPhotoEmpty;
 
   /// No description provided for @therapyComplaintAfter.
   ///
-  /// In id, this message translates to:
-  /// **'Keluhan Setelah Terapi'**
+  /// In en, this message translates to:
+  /// **'Complaints After Therapy'**
   String get therapyComplaintAfter;
 
   /// No description provided for @therapyComplaintBefore.
   ///
-  /// In id, this message translates to:
-  /// **'Keluhan Sebelum Terapi'**
+  /// In en, this message translates to:
+  /// **'Complaints Before Therapy'**
   String get therapyComplaintBefore;
 
   /// No description provided for @therapyNoComplaint.
   ///
-  /// In id, this message translates to:
-  /// **'Tidak Ada Keluhan'**
+  /// In en, this message translates to:
+  /// **'No Complaints'**
   String get therapyNoComplaint;
 
   /// No description provided for @therapyVitalSignBloodPressure.
   ///
-  /// In id, this message translates to:
-  /// **'Tekanan Darah'**
+  /// In en, this message translates to:
+  /// **'Blood Pressure'**
   String get therapyVitalSignBloodPressure;
 
   /// No description provided for @therapyVitalSignSystolic.
   ///
-  /// In id, this message translates to:
-  /// **'Sistolik'**
+  /// In en, this message translates to:
+  /// **'Systolic'**
   String get therapyVitalSignSystolic;
 
   /// No description provided for @therapyVitalSignDiastolic.
   ///
-  /// In id, this message translates to:
-  /// **'Diastolik'**
+  /// In en, this message translates to:
+  /// **'Diastolic'**
   String get therapyVitalSignDiastolic;
 
   /// No description provided for @therapyVitalSignO2AndHR.
   ///
-  /// In id, this message translates to:
-  /// **'Saturasi O2 & Heart Rate'**
+  /// In en, this message translates to:
+  /// **'O2 Saturation & Heart Rate'**
   String get therapyVitalSignO2AndHR;
 
   /// No description provided for @therapyVitalSaturationBefore.
   ///
-  /// In id, this message translates to:
-  /// **'Saturasi Sebelum'**
+  /// In en, this message translates to:
+  /// **'Saturation Before'**
   String get therapyVitalSaturationBefore;
 
   /// No description provided for @therapyVitalSaturationAfter.
   ///
-  /// In id, this message translates to:
-  /// **'Saturasi Sesudah'**
+  /// In en, this message translates to:
+  /// **'Saturation After'**
   String get therapyVitalSaturationAfter;
 
   /// No description provided for @therapyVitalPerfusionBefore.
   ///
-  /// In id, this message translates to:
-  /// **'Index Perfusi Sebelum'**
+  /// In en, this message translates to:
+  /// **'Perfusion Index Before'**
   String get therapyVitalPerfusionBefore;
 
   /// No description provided for @therapyVitalPerfusionAfter.
   ///
-  /// In id, this message translates to:
-  /// **'Index Perfusi Sesudah'**
+  /// In en, this message translates to:
+  /// **'Perfusion Index After'**
   String get therapyVitalPerfusionAfter;
 
   /// No description provided for @therapyVitalHRBefore.
   ///
-  /// In id, this message translates to:
-  /// **'HR Sebelum'**
+  /// In en, this message translates to:
+  /// **'HR Before'**
   String get therapyVitalHRBefore;
 
   /// No description provided for @therapyVitalHRAfter.
   ///
-  /// In id, this message translates to:
-  /// **'HR Sesudah'**
+  /// In en, this message translates to:
+  /// **'HR After'**
   String get therapyVitalHRAfter;
 
   /// No description provided for @historyPageTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Riwayat Saya'**
+  /// In en, this message translates to:
+  /// **'My History'**
   String get historyPageTitle;
 
   /// No description provided for @therapyTabTherapy.
   ///
-  /// In id, this message translates to:
-  /// **'Terapi'**
+  /// In en, this message translates to:
+  /// **'Therapy'**
   String get therapyTabTherapy;
 
   /// No description provided for @therapyTabLab.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Lab'**
   String get therapyTabLab;
 
   /// No description provided for @therapySearchHint.
   ///
-  /// In id, this message translates to:
-  /// **'Cari riwayat terapi...'**
+  /// In en, this message translates to:
+  /// **'Search therapy history...'**
   String get therapySearchHint;
 
   /// No description provided for @labSearchHint.
   ///
-  /// In id, this message translates to:
-  /// **'Cari riwayat laboratorium...'**
+  /// In en, this message translates to:
+  /// **'Search laboratory history...'**
   String get labSearchHint;
 
   /// No description provided for @therapyCardInfusionNumber.
   ///
-  /// In id, this message translates to:
-  /// **'Infus ke-{infusionNumber}'**
+  /// In en, this message translates to:
+  /// **'Infusion #{infusionNumber}'**
   String therapyCardInfusionNumber(String infusionNumber);
 
   /// No description provided for @therapyEmptyTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Belum ada riwayat terapi'**
+  /// In en, this message translates to:
+  /// **'No therapy history'**
   String get therapyEmptyTitle;
 
   /// No description provided for @therapyEmptySubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Riwayat terapi Anda akan muncul di sini'**
+  /// In en, this message translates to:
+  /// **'Your therapy history will appear here'**
   String get therapyEmptySubtitle;
 
   /// No description provided for @labEmptyTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Belum Ada Data Laboratorium'**
+  /// In en, this message translates to:
+  /// **'No Laboratory Data'**
   String get labEmptyTitle;
 
   /// No description provided for @labEmptySubtitle.
   ///
-  /// In id, this message translates to:
-  /// **'Data laboratorium akan muncul di sini setelah Anda menambahkan atau memuat data laboratorium'**
+  /// In en, this message translates to:
+  /// **'Laboratory data will appear here after you add or load laboratory data'**
   String get labEmptySubtitle;
 
   /// No description provided for @filterTitle.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Filter'**
   String get filterTitle;
 
   /// No description provided for @filterClear.
   ///
-  /// In id, this message translates to:
-  /// **'Bersihkan'**
+  /// In en, this message translates to:
+  /// **'Clear'**
   String get filterClear;
 
   /// No description provided for @filterCompany.
   ///
-  /// In id, this message translates to:
-  /// **'Perusahaan'**
+  /// In en, this message translates to:
+  /// **'Company'**
   String get filterCompany;
 
   /// No description provided for @filterProduct.
   ///
-  /// In id, this message translates to:
-  /// **'Produk'**
+  /// In en, this message translates to:
+  /// **'Product'**
   String get filterProduct;
 
   /// No description provided for @filterDateRange.
   ///
-  /// In id, this message translates to:
-  /// **'Rentang Tanggal'**
+  /// In en, this message translates to:
+  /// **'Date Range'**
   String get filterDateRange;
 
   /// No description provided for @selectCompany.
   ///
-  /// In id, this message translates to:
-  /// **'Pilih Perusahaan'**
+  /// In en, this message translates to:
+  /// **'Select Company'**
   String get selectCompany;
 
   /// No description provided for @selectProduct.
   ///
-  /// In id, this message translates to:
-  /// **'Pilih Produk'**
+  /// In en, this message translates to:
+  /// **'Select Product'**
   String get selectProduct;
 
   /// No description provided for @dateFrom.
   ///
-  /// In id, this message translates to:
-  /// **'Dari Tanggal'**
+  /// In en, this message translates to:
+  /// **'From Date'**
   String get dateFrom;
 
   /// No description provided for @dateTo.
   ///
-  /// In id, this message translates to:
-  /// **'Sampai Tanggal'**
+  /// In en, this message translates to:
+  /// **'To Date'**
   String get dateTo;
 
   /// No description provided for @applyFilter.
   ///
-  /// In id, this message translates to:
-  /// **'Terapkan Filter'**
+  /// In en, this message translates to:
+  /// **'Apply Filter'**
   String get applyFilter;
 
   /// No description provided for @retry.
   ///
-  /// In id, this message translates to:
-  /// **'Coba Lagi'**
+  /// In en, this message translates to:
+  /// **'Retry'**
   String get retry;
 
   /// No description provided for @noTransactionsFound.
   ///
-  /// In id, this message translates to:
-  /// **'Tidak ada transaksi ditemukan'**
+  /// In en, this message translates to:
+  /// **'No transactions found'**
   String get noTransactionsFound;
 
   /// No description provided for @noDataAvailable.
   ///
-  /// In id, this message translates to:
-  /// **'Tidak ada data tersedia'**
+  /// In en, this message translates to:
+  /// **'No data available'**
   String get noDataAvailable;
 
   /// No description provided for @transactionStatusPending.
   ///
-  /// In id, this message translates to:
-  /// **'Menunggu'**
+  /// In en, this message translates to:
+  /// **'Pending'**
   String get transactionStatusPending;
 
   /// No description provided for @transactionStatusCancelled.
   ///
-  /// In id, this message translates to:
-  /// **'Dibatalkan'**
+  /// In en, this message translates to:
+  /// **'Cancelled'**
   String get transactionStatusCancelled;
 
   /// No description provided for @transactionDetailAdmin.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Admin'**
   String get transactionDetailAdmin;
 
   /// No description provided for @transactionDetailPaymentStatus.
   ///
-  /// In id, this message translates to:
-  /// **'Status Pembayaran'**
+  /// In en, this message translates to:
+  /// **'Payment Status'**
   String get transactionDetailPaymentStatus;
 
   /// No description provided for @therapyLoadingError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat riwayat terapi'**
+  /// In en, this message translates to:
+  /// **'Failed to load therapy history'**
   String get therapyLoadingError;
 
   /// No description provided for @genericError.
   ///
-  /// In id, this message translates to:
-  /// **'Terjadi kesalahan. Silakan coba lagi nanti.'**
+  /// In en, this message translates to:
+  /// **'An error occurred. Please try again later.'**
   String get genericError;
 
   /// No description provided for @languageChangeSuccess.
   ///
-  /// In id, this message translates to:
-  /// **'Bahasa diubah ke {language}'**
+  /// In en, this message translates to:
+  /// **'Language changed to {language}'**
   String languageChangeSuccess(String language);
 
   /// No description provided for @branchLocationTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Cabang Rahoclub'**
+  /// In en, this message translates to:
+  /// **'Rahoclub Branches'**
   String get branchLocationTitle;
 
   /// No description provided for @branchLocationRetry.
   ///
-  /// In id, this message translates to:
-  /// **'Coba Lagi'**
+  /// In en, this message translates to:
+  /// **'Retry'**
   String get branchLocationRetry;
 
   /// No description provided for @branchLocationLoading.
   ///
-  /// In id, this message translates to:
-  /// **'Memuat data cabang...'**
+  /// In en, this message translates to:
+  /// **'Loading branch data...'**
   String get branchLocationLoading;
 
   /// No description provided for @branchLocationEmpty.
   ///
-  /// In id, this message translates to:
-  /// **'Belum ada data cabang'**
+  /// In en, this message translates to:
+  /// **'No branch data'**
   String get branchLocationEmpty;
 
   /// No description provided for @branchLocationEmptyHint.
   ///
-  /// In id, this message translates to:
-  /// **'Silakan coba lagi nanti'**
+  /// In en, this message translates to:
+  /// **'Please try again later'**
   String get branchLocationEmptyHint;
 
   /// No description provided for @branchLocationReload.
   ///
-  /// In id, this message translates to:
-  /// **'Coba muat ulang'**
+  /// In en, this message translates to:
+  /// **'Try reload'**
   String get branchLocationReload;
 
   /// No description provided for @diagnosisReload.
   ///
-  /// In id, this message translates to:
-  /// **'Coba muat ulang'**
+  /// In en, this message translates to:
+  /// **'Try reload'**
   String get diagnosisReload;
 
   /// No description provided for @diagnosisEmpty.
   ///
-  /// In id, this message translates to:
-  /// **'Belum ada data diagnosa'**
+  /// In en, this message translates to:
+  /// **'No diagnosis data'**
   String get diagnosisEmpty;
 
   /// No description provided for @diagnosisReloadButton.
   ///
-  /// In id, this message translates to:
-  /// **'Muat Ulang'**
+  /// In en, this message translates to:
+  /// **'Reload'**
   String get diagnosisReloadButton;
 
   /// No description provided for @genderMale.
   ///
-  /// In id, this message translates to:
-  /// **'Pria'**
+  /// In en, this message translates to:
+  /// **'Male'**
   String get genderMale;
 
   /// No description provided for @genderFemale.
   ///
-  /// In id, this message translates to:
-  /// **'Wanita'**
+  /// In en, this message translates to:
+  /// **'Female'**
   String get genderFemale;
 
   /// No description provided for @genderSelectLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Pilih Gender'**
+  /// In en, this message translates to:
+  /// **'Select Gender'**
   String get genderSelectLabel;
 
   /// No description provided for @genderSelectTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Pilih Gender'**
+  /// In en, this message translates to:
+  /// **'Select Gender'**
   String get genderSelectTitle;
 
   /// No description provided for @personalDataCancelButton.
   ///
-  /// In id, this message translates to:
-  /// **'Batalkan'**
+  /// In en, this message translates to:
+  /// **'Cancel'**
   String get personalDataCancelButton;
 
   /// No description provided for @personalDataSaveButton.
   ///
-  /// In id, this message translates to:
-  /// **'Simpan'**
+  /// In en, this message translates to:
+  /// **'Save'**
   String get personalDataSaveButton;
 
   /// No description provided for @personalDataEditButton.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Edit'**
   String get personalDataEditButton;
 
   /// No description provided for @referenceErrorMessage.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Error: {message}'**
   String referenceErrorMessage(String message);
 
   /// No description provided for @referenceNoData.
   ///
-  /// In id, this message translates to:
-  /// **'Tidak ada data tersedia'**
+  /// In en, this message translates to:
+  /// **'No data available'**
   String get referenceNoData;
 
   /// No description provided for @companyLoadError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat data cabang'**
+  /// In en, this message translates to:
+  /// **'Failed to load branch data'**
   String get companyLoadError;
 
   /// No description provided for @languageLoadError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat bahasa: {error}'**
+  /// In en, this message translates to:
+  /// **'Failed to load language: {error}'**
   String languageLoadError(String error);
 
   /// No description provided for @languageUnsupported.
   ///
-  /// In id, this message translates to:
-  /// **'Bahasa tidak didukung'**
+  /// In en, this message translates to:
+  /// **'Language not supported'**
   String get languageUnsupported;
 
   /// No description provided for @languageChangeError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal mengubah bahasa: {error}'**
+  /// In en, this message translates to:
+  /// **'Failed to change language: {error}'**
   String languageChangeError(String error);
 
   /// No description provided for @languageResetError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal mengatur ulang bahasa: {error}'**
+  /// In en, this message translates to:
+  /// **'Failed to reset language: {error}'**
   String languageResetError(String error);
 
   /// No description provided for @profileLoadError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat profil'**
+  /// In en, this message translates to:
+  /// **'Failed to load profile'**
   String get profileLoadError;
 
   /// No description provided for @diagnosisLoadError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat diagnosis'**
+  /// In en, this message translates to:
+  /// **'Failed to load diagnosis'**
   String get diagnosisLoadError;
 
   /// No description provided for @profileUpdateSuccess.
   ///
-  /// In id, this message translates to:
-  /// **'Profil berhasil diperbarui'**
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
   String get profileUpdateSuccess;
 
   /// No description provided for @profileUpdateError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memperbarui profil'**
+  /// In en, this message translates to:
+  /// **'Failed to update profile'**
   String get profileUpdateError;
 
   /// No description provided for @needleDataEmpty.
   ///
-  /// In id, this message translates to:
-  /// **'Tidak ada data tersedia'**
+  /// In en, this message translates to:
+  /// **'No data available'**
   String get needleDataEmpty;
 
   /// No description provided for @labTestTitle.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Lab Test'**
   String get labTestTitle;
 
   /// No description provided for @labResultLabel.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Lab Result'**
   String get labResultLabel;
 
   /// No description provided for @errorStateTitle.
   ///
-  /// In id, this message translates to:
-  /// **'Terjadi Kesalahan'**
+  /// In en, this message translates to:
+  /// **'An Error Occurred'**
   String get errorStateTitle;
 
   /// No description provided for @errorStateRetry.
   ///
-  /// In id, this message translates to:
-  /// **'Coba Lagi'**
+  /// In en, this message translates to:
+  /// **'Retry'**
   String get errorStateRetry;
 
   /// No description provided for @labLoadError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat data'**
+  /// In en, this message translates to:
+  /// **'Failed to load data'**
   String get labLoadError;
 
   /// No description provided for @labLoadMoreError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat data tambahan'**
+  /// In en, this message translates to:
+  /// **'Failed to load additional data'**
   String get labLoadMoreError;
 
   /// No description provided for @therapyLoadError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat data'**
+  /// In en, this message translates to:
+  /// **'Failed to load data'**
   String get therapyLoadError;
 
   /// No description provided for @therapyLoadMoreError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat data tambahan'**
+  /// In en, this message translates to:
+  /// **'Failed to load additional data'**
   String get therapyLoadMoreError;
 
   /// No description provided for @transactionLoadError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat transaksi'**
+  /// In en, this message translates to:
+  /// **'Failed to load transactions'**
   String get transactionLoadError;
 
   /// No description provided for @transactionDetailNotFound.
   ///
-  /// In id, this message translates to:
-  /// **'Detail transaksi tidak ditemukan'**
+  /// In en, this message translates to:
+  /// **'Transaction details not found'**
   String get transactionDetailNotFound;
 
   /// No description provided for @transactionIdRequired.
   ///
-  /// In id, this message translates to:
-  /// **'ID transaksi diperlukan'**
+  /// In en, this message translates to:
+  /// **'Transaction ID required'**
   String get transactionIdRequired;
 
   /// No description provided for @transactionTypeInvalid.
   ///
-  /// In id, this message translates to:
-  /// **'Tipe transaksi tidak valid. Harus \'payment\' atau \'faktur\''**
+  /// In en, this message translates to:
+  /// **'Invalid transaction type. Must be \'payment\' or \'faktur\''**
   String get transactionTypeInvalid;
 
   /// No description provided for @transactionNotFound.
   ///
-  /// In id, this message translates to:
-  /// **'Transaksi tidak ditemukan'**
+  /// In en, this message translates to:
+  /// **'Transaction not found'**
   String get transactionNotFound;
 
   /// No description provided for @transactionDetailLoadError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memuat detail transaksi'**
+  /// In en, this message translates to:
+  /// **'Failed to load transaction details'**
   String get transactionDetailLoadError;
 
   /// No description provided for @transactionFilterLabel.
   ///
-  /// In id, this message translates to:
-  /// **'Pilih Transaksi'**
+  /// In en, this message translates to:
+  /// **'Select Transaction'**
   String get transactionFilterLabel;
 
   /// No description provided for @transactionFilterAll.
   ///
-  /// In id, this message translates to:
-  /// **'Semua Transaksi'**
+  /// In en, this message translates to:
+  /// **'All Transactions'**
   String get transactionFilterAll;
 
   /// No description provided for @transactionFilterPayment.
   ///
-  /// In id, this message translates to:
-  /// **'Pembelian'**
+  /// In en, this message translates to:
+  /// **'Purchase'**
   String get transactionFilterPayment;
 
   /// No description provided for @transactionFilterService.
   ///
-  /// In id, this message translates to:
-  /// **'Pelayanan'**
+  /// In en, this message translates to:
+  /// **'Service'**
   String get transactionFilterService;
 
   /// No description provided for @transactionPaymentDefault.
   ///
-  /// In id, this message translates to:
-  /// **'Pembayaran'**
+  /// In en, this message translates to:
+  /// **'Payment'**
   String get transactionPaymentDefault;
 
   /// No description provided for @transactionServiceDefault.
   ///
-  /// In id, this message translates to:
-  /// **'Terapi'**
+  /// In en, this message translates to:
+  /// **'Therapy'**
   String get transactionServiceDefault;
 
   /// No description provided for @transactionNoPaymentFound.
   ///
-  /// In id, this message translates to:
-  /// **'Tidak ada transaksi pembelian ditemukan'**
+  /// In en, this message translates to:
+  /// **'No purchase transactions found'**
   String get transactionNoPaymentFound;
 
   /// No description provided for @transactionNoServiceFound.
   ///
-  /// In id, this message translates to:
-  /// **'Tidak ada transaksi pelayanan ditemukan'**
+  /// In en, this message translates to:
+  /// **'No service transactions found'**
   String get transactionNoServiceFound;
 
   /// No description provided for @transactionErrorMessage.
   ///
-  /// In id, this message translates to:
+  /// In en, this message translates to:
   /// **'Error: {message}'**
   String transactionErrorMessage(String message);
 
   /// No description provided for @authSessionRestored.
   ///
-  /// In id, this message translates to:
-  /// **'Sesi berhasil dipulihkan'**
+  /// In en, this message translates to:
+  /// **'Session restored successfully'**
   String get authSessionRestored;
 
   /// No description provided for @authProfileUpdated.
   ///
-  /// In id, this message translates to:
-  /// **'Profil berhasil diperbarui'**
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
   String get authProfileUpdated;
 
   /// No description provided for @authRefreshError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal memperbarui profil: {error}'**
+  /// In en, this message translates to:
+  /// **'Failed to update profile: {error}'**
   String authRefreshError(String error);
 
   /// No description provided for @authLogoutError.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal keluar: {error}'**
+  /// In en, this message translates to:
+  /// **'Failed to logout: {error}'**
   String authLogoutError(String error);
 
   /// No description provided for @error_server.
   ///
-  /// In id, this message translates to:
-  /// **'Terjadi kesalahan server'**
+  /// In en, this message translates to:
+  /// **'Server error occurred'**
   String get error_server;
 
   /// No description provided for @require_id.
   ///
-  /// In id, this message translates to:
-  /// **'ID Registrasi harus diisi'**
+  /// In en, this message translates to:
+  /// **'Registration ID is required'**
   String get require_id;
 
   /// No description provided for @id_not_found.
   ///
-  /// In id, this message translates to:
-  /// **'ID Registrasi tidak ditemukan'**
+  /// In en, this message translates to:
+  /// **'Registration ID not found'**
   String get id_not_found;
 
   /// No description provided for @otp_failed.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal mengirim OTP'**
+  /// In en, this message translates to:
+  /// **'Failed to send OTP'**
   String get otp_failed;
 
   /// No description provided for @otp_max_attempt.
   ///
-  /// In id, this message translates to:
-  /// **'Maksimal percobaan OTP telah tercapai'**
+  /// In en, this message translates to:
+  /// **'Maximum OTP attempts reached'**
   String get otp_max_attempt;
 
   /// No description provided for @otp_invalid.
   ///
-  /// In id, this message translates to:
-  /// **'Kode OTP tidak valid'**
+  /// In en, this message translates to:
+  /// **'Invalid OTP code'**
   String get otp_invalid;
 
   /// No description provided for @otp_expired.
   ///
-  /// In id, this message translates to:
-  /// **'Kode OTP sudah kadaluarsa'**
+  /// In en, this message translates to:
+  /// **'OTP code expired'**
   String get otp_expired;
 
   /// No description provided for @otp_max_daily.
   ///
-  /// In id, this message translates to:
-  /// **'Maksimal permintaan OTP harian telah tercapai'**
+  /// In en, this message translates to:
+  /// **'Daily OTP request limit reached'**
   String get otp_max_daily;
 
   /// No description provided for @otp_sended.
   ///
-  /// In id, this message translates to:
-  /// **'OTP telah dikirim ke WhatsApp Anda'**
+  /// In en, this message translates to:
+  /// **'OTP sent to your WhatsApp'**
   String get otp_sended;
 
   /// No description provided for @otp_verified.
   ///
-  /// In id, this message translates to:
-  /// **'OTP berhasil diverifikasi'**
+  /// In en, this message translates to:
+  /// **'OTP verified successfully'**
   String get otp_verified;
 
   /// No description provided for @already_verified.
   ///
-  /// In id, this message translates to:
-  /// **'Nomor sudah terverifikasi'**
+  /// In en, this message translates to:
+  /// **'Number already verified'**
   String get already_verified;
 
   /// No description provided for @unknown_error.
   ///
-  /// In id, this message translates to:
-  /// **'Terjadi kesalahan yang tidak diketahui'**
+  /// In en, this message translates to:
+  /// **'Unknown error occurred'**
   String get unknown_error;
 
   /// No description provided for @companies_empty.
   ///
-  /// In id, this message translates to:
-  /// **'Tidak ada data cabang perusahaan'**
+  /// In en, this message translates to:
+  /// **'No company branch data'**
   String get companies_empty;
 
   /// No description provided for @companies_fetch_success.
   ///
-  /// In id, this message translates to:
-  /// **'Data cabang perusahaan berhasil diambil'**
+  /// In en, this message translates to:
+  /// **'Company branch data retrieved successfully'**
   String get companies_fetch_success;
 
   /// No description provided for @dashboard_fetch_success.
   ///
-  /// In id, this message translates to:
-  /// **'Data dashboard berhasil dimuat'**
+  /// In en, this message translates to:
+  /// **'Dashboard data loaded successfully'**
   String get dashboard_fetch_success;
 
   /// No description provided for @profile_fetch_success.
   ///
-  /// In id, this message translates to:
-  /// **'Data profil berhasil diambil'**
+  /// In en, this message translates to:
+  /// **'Profile data retrieved successfully'**
   String get profile_fetch_success;
 
   /// No description provided for @diagnosis_fetch_success.
   ///
-  /// In id, this message translates to:
-  /// **'Data diagnosis berhasil diambil'**
+  /// In en, this message translates to:
+  /// **'Diagnosis data retrieved successfully'**
   String get diagnosis_fetch_success;
 
   /// No description provided for @references_fetch_success.
   ///
-  /// In id, this message translates to:
-  /// **'Data referensi berhasil diambil'**
+  /// In en, this message translates to:
+  /// **'Reference data retrieved successfully'**
   String get references_fetch_success;
 
   /// No description provided for @profile_update_success.
   ///
-  /// In id, this message translates to:
-  /// **'Profil berhasil diperbarui'**
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
   String get profile_update_success;
 
   /// No description provided for @invalid_field_type.
   ///
-  /// In id, this message translates to:
-  /// **'Format field tidak valid'**
+  /// In en, this message translates to:
+  /// **'Invalid field format'**
   String get invalid_field_type;
 
   /// No description provided for @invalid_sex_value.
   ///
-  /// In id, this message translates to:
-  /// **'Nilai field jenis kelamin tidak valid'**
+  /// In en, this message translates to:
+  /// **'Invalid gender field value'**
   String get invalid_sex_value;
 
   /// No description provided for @invalid_date_format.
   ///
-  /// In id, this message translates to:
-  /// **'Format tanggal tidak valid (gunakan DD-MM-YYYY)'**
+  /// In en, this message translates to:
+  /// **'Invalid date format (use DD-MM-YYYY)'**
   String get invalid_date_format;
 
   /// No description provided for @invalid_image_format.
   ///
-  /// In id, this message translates to:
-  /// **'Format gambar tidak valid atau rusak'**
+  /// In en, this message translates to:
+  /// **'Invalid or corrupted image format'**
   String get invalid_image_format;
 
   /// No description provided for @patient_not_found.
   ///
-  /// In id, this message translates to:
-  /// **'Pasien tidak ditemukan'**
+  /// In en, this message translates to:
+  /// **'Patient not found'**
   String get patient_not_found;
 
   /// No description provided for @transaction_fetch_success.
   ///
-  /// In id, this message translates to:
-  /// **'Data transaksi berhasil diambil'**
+  /// In en, this message translates to:
+  /// **'Transaction data retrieved successfully'**
   String get transaction_fetch_success;
 
   /// No description provided for @transaction_detail_fetch_success.
   ///
-  /// In id, this message translates to:
-  /// **'Detail transaksi berhasil diambil'**
+  /// In en, this message translates to:
+  /// **'Transaction details retrieved successfully'**
   String get transaction_detail_fetch_success;
 
   /// No description provided for @invalid_transaction_type.
   ///
-  /// In id, this message translates to:
-  /// **'Jenis transaksi tidak valid'**
+  /// In en, this message translates to:
+  /// **'Invalid transaction type'**
   String get invalid_transaction_type;
 
   /// No description provided for @transaction_not_found.
   ///
-  /// In id, this message translates to:
-  /// **'Transaksi tidak ditemukan'**
+  /// In en, this message translates to:
+  /// **'Transaction not found'**
   String get transaction_not_found;
 
   /// No description provided for @transaction_id_required.
   ///
-  /// In id, this message translates to:
-  /// **'ID transaksi harus diisi'**
+  /// In en, this message translates to:
+  /// **'Transaction ID is required'**
   String get transaction_id_required;
 
   /// No description provided for @therapy_history_success.
   ///
-  /// In id, this message translates to:
-  /// **'Data riwayat terapi berhasil diambil'**
+  /// In en, this message translates to:
+  /// **'Therapy history data retrieved successfully'**
   String get therapy_history_success;
 
   /// No description provided for @therapy_history_failed.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal mengambil data riwayat terapi'**
+  /// In en, this message translates to:
+  /// **'Failed to retrieve therapy history data'**
   String get therapy_history_failed;
 
   /// No description provided for @lab_data_fetched.
   ///
-  /// In id, this message translates to:
-  /// **'Data laboratorium berhasil diambil'**
+  /// In en, this message translates to:
+  /// **'Laboratory data retrieved successfully'**
   String get lab_data_fetched;
 
   /// No description provided for @error_system.
   ///
-  /// In id, this message translates to:
-  /// **'Terjadi kesalahan sistem'**
+  /// In en, this message translates to:
+  /// **'System error occurred'**
   String get error_system;
 
   /// No description provided for @therapy_not_found.
   ///
-  /// In id, this message translates to:
-  /// **'Data terapi tidak ditemukan atau akses ditolak'**
+  /// In en, this message translates to:
+  /// **'Therapy data not found or access denied'**
   String get therapy_not_found;
 
   /// No description provided for @therapy_detail_success.
   ///
-  /// In id, this message translates to:
-  /// **'Detail terapi berhasil diambil'**
+  /// In en, this message translates to:
+  /// **'Therapy details retrieved successfully'**
   String get therapy_detail_success;
 
   /// No description provided for @therapy_detail_failed.
   ///
-  /// In id, this message translates to:
-  /// **'Gagal mengambil detail terapi'**
+  /// In en, this message translates to:
+  /// **'Failed to retrieve therapy details'**
   String get therapy_detail_failed;
 
   /// No description provided for @lab_id_required.
   ///
-  /// In id, this message translates to:
-  /// **'ID laboratorium harus diisi'**
+  /// In en, this message translates to:
+  /// **'Laboratory ID is required'**
   String get lab_id_required;
 
   /// No description provided for @lab_record_not_found.
   ///
-  /// In id, this message translates to:
-  /// **'Data laboratorium tidak ditemukan'**
+  /// In en, this message translates to:
+  /// **'Laboratory data not found'**
   String get lab_record_not_found;
 
   /// No description provided for @lab_detail_fetched.
   ///
-  /// In id, this message translates to:
-  /// **'Detail laboratorium berhasil diambil'**
+  /// In en, this message translates to:
+  /// **'Laboratory details retrieved successfully'**
   String get lab_detail_fetched;
 }
 
@@ -1930,7 +1924,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['id'].contains(locale.languageCode);
+      <String>['en', 'id', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1939,8 +1933,12 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
     case 'id':
       return AppLocalizationsId();
+    case 'zh':
+      return AppLocalizationsZh();
   }
 
   throw FlutterError(

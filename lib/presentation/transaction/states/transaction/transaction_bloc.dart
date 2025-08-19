@@ -36,34 +36,35 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     try {
       emit(TransactionLoading());
 
-      final request = TransactionRequest(
+      final transaction = await _repository.getTransactions(
         page: 1,
         limit: _pageLimit,
-        filters: event.filters,
+        days: event.days,
       );
 
-      final transaction = await _repository.fetchTransaction(request: request);
-
-      if (transaction.isSuccess) {
+      if (transaction.isSuccess && transaction.data != null) {
         emit(
           TransactionLoaded(
-            allPayments: transaction.data?.payment ?? [],
-            paymentPage: transaction.pagination?.payment?.currentPage ?? 1,
-            paymentTotalPages: transaction.pagination?.payment?.totalPages ?? 0,
+            allPayments: transaction.data!.payment,
+            paymentPage: transaction.pagination?.payment.currentPage ?? 1,
+            paymentTotalPages: transaction.pagination?.payment.totalPages ?? 0,
             paymentHasReachedMax:
-                !(transaction.pagination?.payment?.hasNext ?? false),
-            allFakturs: transaction.data?.faktur ?? [],
-            fakturPage: transaction.pagination?.faktur?.currentPage ?? 1,
-            fakturTotalPages: transaction.pagination?.faktur?.totalPages ?? 0,
+                !(transaction.pagination?.payment.hasNext ?? false),
+            allFakturs: transaction.data!.faktur,
+            fakturPage: transaction.pagination?.faktur.currentPage ?? 1,
+            fakturTotalPages: transaction.pagination?.faktur.totalPages ?? 0,
             fakturHasReachedMax:
-                !(transaction.pagination?.faktur?.hasNext ?? false),
-            activeFilters: event.filters,
+                !(transaction.pagination?.faktur.hasNext ?? false),
+            activeDaysFilter: event.days,
           ),
         );
-      } else if (transaction.isError) {
-        emit(TransactionError(messageCode: transaction.messageCode));
       } else {
-        emit(TransactionError(messageCode: 'UNKNOWN_ERROR'));
+        emit(
+          TransactionError(
+            messageCode: transaction.responseCode,
+            debugMessage: transaction.errorMessage,
+          ),
+        );
       }
     } catch (e) {
       emit(
@@ -82,17 +83,20 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     try {
       emit(DetailTransactionLoading());
 
-      final detail = await _repository.fetchDetailTransaction(
+      final detail = await _repository.getTransactionDetail(
         transactionId: event.transactionId,
         transactionType: event.transactionType,
       );
 
       if (detail.isSuccess) {
         emit(DetailTransactionLoaded(detail: detail));
-      } else if (detail.isError) {
-        emit(DetailTransactionError(messageCode: detail.messageCode));
       } else {
-        emit(DetailTransactionError(messageCode: 'UNKNOWN_ERROR'));
+        emit(
+          DetailTransactionError(
+            messageCode: detail.code ?? 'UNKNOWN_ERROR',
+            debugMessage: detail.message,
+          ),
+        );
       }
     } catch (e) {
       emit(
@@ -134,20 +138,16 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
       try {
         final nextPage = currentState.paymentPage + 1;
-        final request = TransactionRequest(
+        final transaction = await _repository.getTransactions(
           page: nextPage,
           limit: _pageLimit,
-          filters: event.filters ?? currentState.activeFilters,
+          days: currentState.activeDaysFilter,
         );
 
-        final transaction = await _repository.fetchTransaction(
-          request: request,
-        );
-
-        if (transaction.isSuccess) {
+        if (transaction.isSuccess && transaction.data != null) {
           final updatedPayments = [
             ...currentState.allPayments,
-            ...(transaction.data?.payment ?? []),
+            ...transaction.data!.payment,
           ];
 
           emit(
@@ -155,9 +155,9 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
               allPayments: updatedPayments,
               paymentPage: nextPage,
               paymentTotalPages:
-                  transaction.pagination?.payment?.totalPages ?? 0,
+                  transaction.pagination?.payment.totalPages ?? 0,
               paymentHasReachedMax:
-                  !(transaction.pagination?.payment?.hasNext ?? false),
+                  !(transaction.pagination?.payment.hasNext ?? false),
               paymentLoading: false,
             ),
           );
@@ -185,29 +185,25 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
 
       try {
         final nextPage = currentState.fakturPage + 1;
-        final request = TransactionRequest(
+        final transaction = await _repository.getTransactions(
           page: nextPage,
           limit: _pageLimit,
-          filters: event.filters ?? currentState.activeFilters,
+          days: currentState.activeDaysFilter,
         );
 
-        final transaction = await _repository.fetchTransaction(
-          request: request,
-        );
-
-        if (transaction.isSuccess) {
+        if (transaction.isSuccess && transaction.data != null) {
           final updatedFakturs = [
             ...currentState.allFakturs,
-            ...(transaction.data?.faktur ?? []),
+            ...transaction.data!.faktur,
           ];
 
           emit(
             currentState.copyWith(
               allFakturs: updatedFakturs,
               fakturPage: nextPage,
-              fakturTotalPages: transaction.pagination?.faktur?.totalPages ?? 0,
+              fakturTotalPages: transaction.pagination?.faktur.totalPages ?? 0,
               fakturHasReachedMax:
-                  !(transaction.pagination?.faktur?.hasNext ?? false),
+                  !(transaction.pagination?.faktur.hasNext ?? false),
               fakturLoading: false,
             ),
           );
@@ -254,12 +250,8 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     FilterTransactionByDaysEvent event,
     Emitter<TransactionState> emit,
   ) async {
-    final filters = event.days != null
-        ? TransactionFilters(days: event.days)
-        : null;
-
     await _onFetchInitialTransaction(
-      FetchInitialTransactionEvent(filters: filters),
+      FetchInitialTransactionEvent(days: event.days),
       emit,
     );
   }
@@ -269,7 +261,7 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     Emitter<TransactionState> emit,
   ) async {
     await _onFetchInitialTransaction(
-      FetchInitialTransactionEvent(filters: event.filters),
+      FetchInitialTransactionEvent(days: event.days),
       emit,
     );
   }

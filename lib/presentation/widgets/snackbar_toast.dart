@@ -9,13 +9,6 @@ enum NotificationType { success, error, warning, info }
 enum NotificationDuration { short, medium, long, persistent }
 
 class AppNotification {
-  static FToast? _fToast;
-
-  static void init(BuildContext context) {
-    _fToast = FToast();
-    _fToast!.init(context);
-  }
-
   static void showSnackBar(
     BuildContext context,
     String message, {
@@ -189,10 +182,8 @@ class AppNotification {
     NotificationType type = NotificationType.info,
     NotificationDuration duration = NotificationDuration.short,
   }) {
-    if (_fToast == null) {
-      init(context);
-    }
-
+    final fToast = FToast();
+    fToast.init(context);
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
@@ -336,7 +327,7 @@ class AppNotification {
       },
     );
 
-    _fToast!.showToast(
+    fToast.showToast(
       child: toast,
       gravity: ToastGravity.TOP,
       toastDuration: toastDuration,
@@ -468,6 +459,6 @@ class AppNotification {
   }
 
   static void hideToast() {
-    _fToast?.removeCustomToast();
+    Fluttertoast.cancel();
   }
 }

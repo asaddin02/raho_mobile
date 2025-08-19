@@ -14,6 +14,7 @@ class TransactionProvider {
         method: 'POST',
         body: queryParams,
       );
+      print(response.data);
       return response.data;
     } catch (e) {
       throw Exception('Failed to get transaction: ${e.toString()}');

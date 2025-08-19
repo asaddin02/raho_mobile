@@ -23,9 +23,7 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
   static const Map<String, Locale> supportedLanguages = {
     'id': Locale('id'),
     'en': Locale('en'),
-    'ja': Locale('ja'),
     'zh': Locale('zh'),
-    'ar': Locale('ar'),
   };
 
   void _onLoadLanguage(LoadLanguage event, Emitter<LanguageState> emit) async {

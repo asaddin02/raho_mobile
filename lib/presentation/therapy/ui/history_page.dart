@@ -13,6 +13,7 @@ import 'package:raho_member_apps/l10n/app_localizations.dart';
 import 'package:raho_member_apps/presentation/template/backdrop_apps.dart';
 import 'package:raho_member_apps/presentation/therapy/states/lab/lab_bloc.dart';
 import 'package:raho_member_apps/presentation/therapy/states/therapy/therapy_bloc.dart';
+import 'package:raho_member_apps/presentation/widgets/snackbar_toast.dart';
 
 part 'widget/dropdown_overlay.dart';
 
@@ -540,19 +541,14 @@ class _OptimizedTherapyContent extends StatelessWidget {
     return BlocConsumer<TherapyBloc, TherapyState>(
       listener: (context, state) {
         if (state is TherapyError && state.therapies == null) {
-          _showErrorSnackBar(context, state.messageCode);
+          AppNotification.error(
+            context,
+            state.getLocalizedMessage(context),
+            showCloseButton: false,
+          );
         }
       },
       builder: (context, state) => _buildTherapyList(context, l10n, state),
-    );
-  }
-
-  void _showErrorSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ),
     );
   }
 
@@ -579,8 +575,8 @@ class _OptimizedTherapyContent extends StatelessWidget {
           therapies: therapies!,
           scrollController: scrollController,
         ),
-      TherapyError(:final messageCode) => _ErrorState(
-        message: messageCode,
+      TherapyError() => _ErrorState(
+        message: state.getLocalizedMessage(context),
         onRetry: () =>
             context.read<TherapyBloc>().add(const FetchTherapyList()),
       ),
@@ -606,19 +602,14 @@ class _OptimizedLabContent extends StatelessWidget {
     return BlocConsumer<LabBloc, LabState>(
       listener: (context, state) {
         if (state is LabError && state.labs == null) {
-          _showErrorSnackBar(context, state.messageCode);
+          AppNotification.error(
+            context,
+            state.getLocalizedMessage(context),
+            showCloseButton: false,
+          );
         }
       },
       builder: (context, state) => _buildLabList(context, l10n, state),
-    );
-  }
-
-  void _showErrorSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ),
     );
   }
 
@@ -641,8 +632,8 @@ class _OptimizedLabContent extends StatelessWidget {
       ),
       LabError(:final labs) when labs?.isNotEmpty == true =>
         _OptimizedLabListView(labs: labs!, scrollController: scrollController),
-      LabError(:final messageCode) => _ErrorState(
-        message: messageCode,
+      LabError() => _ErrorState(
+        message: state.getLocalizedMessage(context),
         onRetry: () => context.read<LabBloc>().add(const FetchLabList()),
       ),
       _ => _EmptyState(

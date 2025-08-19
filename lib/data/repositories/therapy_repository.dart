@@ -36,9 +36,9 @@ class TherapyRepository {
   Future<DetailTherapyModel?> fetchDetailTherapy(int id) async {
     try {
       final response = await _provider.getDetailTherapy(id);
-
       if (response['data'] != null) {
-        return DetailTherapyModel.fromJson(response['data']);
+        final result = DetailTherapyModel.fromJson(response['data']);
+        return result;
       }
 
       return null;

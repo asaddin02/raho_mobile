@@ -24,7 +24,7 @@ import 'package:raho_member_apps/presentation/transaction/ui/transaction_page.da
 
 class AppRouter {
   late final router = GoRouter(
-    initialLocation: AppRoutes.verification.path,
+    initialLocation: AppRoutes.splash.path,
     refreshListenable: GoRouterRefreshStream(sl<AuthBloc>().stream),
     routes: [
       GoRoute(

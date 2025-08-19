@@ -70,9 +70,7 @@ class _TransactionPageState extends State<TransactionPage> {
           }
 
           if (shouldLoadMore) {
-            context.read<TransactionBloc>().add(
-              LoadMorePaymentEvent(filters: state.activeFilters),
-            );
+            context.read<TransactionBloc>().add(const LoadMorePaymentEvent());
           }
         }
       }
@@ -86,7 +84,7 @@ class _TransactionPageState extends State<TransactionPage> {
             !state.fakturLoading) {
           bool shouldLoadMore = false;
 
-          if (state.transactionType == TransactionType.service) {
+          if (state.transactionType == TransactionType.faktur) {
             shouldLoadMore = true;
           } else if (state.transactionType == TransactionType.all &&
               state.expandedSection == ExpandedSection.faktur) {
@@ -94,9 +92,7 @@ class _TransactionPageState extends State<TransactionPage> {
           }
 
           if (shouldLoadMore) {
-            context.read<TransactionBloc>().add(
-              LoadMoreFakturEvent(filters: state.activeFilters),
-            );
+            context.read<TransactionBloc>().add(const LoadMoreFakturEvent());
           }
         }
       }
@@ -139,9 +135,11 @@ class _TransactionPageState extends State<TransactionPage> {
     if (state is TransactionLoaded) {
       if (state.transactionType == TransactionType.all) {
         if (state.expandedSection == ExpandedSection.payment) {
-          context.read<TransactionBloc>().add(CollapseSectionEvent());
+          context.read<TransactionBloc>().add(const CollapseSectionEvent());
         } else {
-          context.read<TransactionBloc>().add(ExpandPaymentSectionEvent());
+          context.read<TransactionBloc>().add(
+            const ExpandPaymentSectionEvent(),
+          );
           _scrollToSection(_paymentHeaderKey);
         }
       }
@@ -153,9 +151,9 @@ class _TransactionPageState extends State<TransactionPage> {
     if (state is TransactionLoaded) {
       if (state.transactionType == TransactionType.all) {
         if (state.expandedSection == ExpandedSection.faktur) {
-          context.read<TransactionBloc>().add(CollapseSectionEvent());
+          context.read<TransactionBloc>().add(const CollapseSectionEvent());
         } else {
-          context.read<TransactionBloc>().add(ExpandFakturSectionEvent());
+          context.read<TransactionBloc>().add(const ExpandFakturSectionEvent());
           _scrollToSection(_fakturHeaderKey);
         }
       }
@@ -212,8 +210,10 @@ class _TransactionPageState extends State<TransactionPage> {
                     return RefreshIndicator(
                       onRefresh: () async {
                         context.read<TransactionBloc>().add(
-                          RefreshTransactionEvent(filters: state.activeFilters),
+                          RefreshTransactionEvent(days: state.activeDaysFilter),
                         );
+                        // Wait for the refresh to complete
+                        await Future.delayed(const Duration(seconds: 1));
                       },
                       child: _buildOptimizedTransactionList(
                         state,
@@ -262,7 +262,7 @@ class _TransactionPageState extends State<TransactionPage> {
                     if (value == l10n.transactionFilterPayment) {
                       transactionType = TransactionType.payment;
                     } else if (value == l10n.transactionFilterService) {
-                      transactionType = TransactionType.service;
+                      transactionType = TransactionType.faktur;
                     } else {
                       transactionType = TransactionType.all;
                     }
@@ -353,12 +353,12 @@ class _TransactionPageState extends State<TransactionPage> {
           _buildSectionHeader(
             key: _paymentHeaderKey,
             title: l10n.transactionStatusPaid,
-            onTap: state.canExpandPayment ? _togglePaymentSection : null,
+            onTap: state.allPayments.length > 3 ? _togglePaymentSection : null,
             colorScheme: colorScheme,
-            showArrow: state.canExpandPayment,
+            showArrow: state.allPayments.length > 3,
           ),
           SizedBox(height: AppSizes.spacingMedium),
-          ...state.paymentsToDisplay.map(
+          ...state.displayedPayments.map(
             (payment) => _buildPaymentItem(payment, colorScheme, l10n),
           ),
         ],
@@ -368,16 +368,17 @@ class _TransactionPageState extends State<TransactionPage> {
             state.shouldShowFakturs &&
             state.allFakturs.isNotEmpty)
           SizedBox(height: AppSizes.spacingXl),
+
         if (state.shouldShowFakturs && state.allFakturs.isNotEmpty) ...[
           _buildSectionHeader(
             key: _fakturHeaderKey,
             title: l10n.transactionTherapyDone,
-            onTap: state.canExpandFaktur ? _toggleFakturSection : null,
+            onTap: state.allFakturs.length > 3 ? _toggleFakturSection : null,
             colorScheme: colorScheme,
-            showArrow: state.canExpandFaktur,
+            showArrow: state.allFakturs.length > 3,
           ),
           SizedBox(height: AppSizes.spacingMedium),
-          ...state.faktursToDisplay.map(
+          ...state.displayedFakturs.map(
             (faktur) => _buildFakturItem(faktur, colorScheme, l10n),
           ),
         ],
@@ -416,12 +417,12 @@ class _TransactionPageState extends State<TransactionPage> {
               vertical: AppSizes.paddingMedium,
             ),
             itemCount:
-                state.displayPayments.length +
+                state.displayedPayments.length +
                 (state.paymentLoading ? 1 : 0) +
                 (state.allFakturs.isNotEmpty ? 1 : 0),
             itemBuilder: (context, index) {
               // Show loading at the bottom
-              if (index == state.displayPayments.length &&
+              if (index == state.displayedPayments.length &&
                   state.paymentLoading) {
                 return const Padding(
                   padding: EdgeInsets.all(16.0),
@@ -431,7 +432,7 @@ class _TransactionPageState extends State<TransactionPage> {
 
               // Show faktur header at the bottom
               if (index ==
-                  state.displayPayments.length +
+                  state.displayedPayments.length +
                       (state.paymentLoading ? 1 : 0)) {
                 return Column(
                   children: [
@@ -441,7 +442,7 @@ class _TransactionPageState extends State<TransactionPage> {
                       title: l10n.transactionTherapyDone,
                       onTap: _toggleFakturSection,
                       colorScheme: colorScheme,
-                      showArrow: state.canExpandFaktur,
+                      showArrow: state.allFakturs.length > 3,
                     ),
                   ],
                 );
@@ -449,7 +450,7 @@ class _TransactionPageState extends State<TransactionPage> {
 
               // Show payment items
               return _buildPaymentItem(
-                state.displayPayments[index],
+                state.displayedPayments[index],
                 colorScheme,
                 l10n,
               );
@@ -479,7 +480,7 @@ class _TransactionPageState extends State<TransactionPage> {
               title: l10n.transactionStatusPaid,
               onTap: _togglePaymentSection,
               colorScheme: colorScheme,
-              showArrow: state.canExpandPayment,
+              showArrow: state.allPayments.length > 3,
             ),
           ),
 
@@ -509,10 +510,11 @@ class _TransactionPageState extends State<TransactionPage> {
               vertical: AppSizes.paddingMedium,
             ),
             itemCount:
-                state.displayFakturs.length + (state.fakturLoading ? 1 : 0),
+                state.displayedFakturs.length + (state.fakturLoading ? 1 : 0),
             itemBuilder: (context, index) {
               // Show loading at the bottom
-              if (index == state.displayFakturs.length && state.fakturLoading) {
+              if (index == state.displayedFakturs.length &&
+                  state.fakturLoading) {
                 return const Padding(
                   padding: EdgeInsets.all(16.0),
                   child: Center(child: CircularProgressIndicator()),
@@ -521,7 +523,7 @@ class _TransactionPageState extends State<TransactionPage> {
 
               // Show faktur items
               return _buildFakturItem(
-                state.displayFakturs[index],
+                state.displayedFakturs[index],
                 colorScheme,
                 l10n,
               );
@@ -562,7 +564,7 @@ class _TransactionPageState extends State<TransactionPage> {
                   child: Icon(
                     Icons.arrow_forward_ios,
                     size: 16,
-                    color: colorScheme.onSurface.withAlpha(150),
+                    color: colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
             ],
@@ -573,7 +575,7 @@ class _TransactionPageState extends State<TransactionPage> {
   }
 
   Widget _buildPaymentItem(
-    PaymentData payment,
+    PaymentItem payment,
     ColorScheme colorScheme,
     AppLocalizations l10n,
   ) {
@@ -612,17 +614,17 @@ class _TransactionPageState extends State<TransactionPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        payment.paymentName ?? '',
+                        payment.paymentName,
                         style: AppTextStyle.supportText.withColor(
-                          colorScheme.onSurface.withAlpha(150),
+                          colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(height: AppSizes.paddingTiny),
                       Text(
-                        (payment.paymentFor?.isNotEmpty == true)
-                            ? payment.paymentFor!
+                        payment.paymentFor.isNotEmpty
+                            ? payment.paymentFor
                             : l10n.transactionPaymentDefault,
                         style: AppTextStyle.body.withColor(
                           colorScheme.onSurface,
@@ -632,9 +634,9 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       SizedBox(height: AppSizes.paddingTiny),
                       Text(
-                        formatDate(payment.datePayment ?? '', context),
+                        payment.formattedDate,
                         style: AppTextStyle.caption.withColor(
-                          colorScheme.onSurface.withAlpha(120),
+                          colorScheme.onSurface.withValues(alpha: 0.5),
                         ),
                       ),
                     ],
@@ -642,7 +644,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 ),
                 SizedBox(width: AppSizes.spacingMedium),
                 Text(
-                  'Rp ${formatCurrency(payment.amountPayment ?? 0)}',
+                  payment.formattedAmount,
                   style: AppTextStyle.body.withColor(AppColor.green),
                 ),
               ],
@@ -654,15 +656,14 @@ class _TransactionPageState extends State<TransactionPage> {
   }
 
   Widget _buildFakturItem(
-    FakturData faktur,
+    FakturItem faktur,
     ColorScheme colorScheme,
     AppLocalizations l10n,
   ) {
     Widget iconWidget;
     Color iconColor;
 
-    if (faktur.fakturFor != null &&
-        faktur.fakturFor!.toLowerCase().contains('voucher')) {
+    if (faktur.fakturFor.toLowerCase().contains('voucher')) {
       iconColor = AppColor.orange;
       iconWidget = Stack(
         alignment: Alignment.center,
@@ -672,7 +673,22 @@ class _TransactionPageState extends State<TransactionPage> {
             color: AppColor.white,
             size: 20,
           ),
-          Icon(FontAwesomeIcons.percent, size: 12, color: AppColor.orange),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                color: AppColor.orange,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                FontAwesomeIcons.percent,
+                size: 8,
+                color: AppColor.white,
+              ),
+            ),
+          ),
         ],
       );
     } else {
@@ -715,17 +731,17 @@ class _TransactionPageState extends State<TransactionPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        faktur.fakturName ?? '',
+                        faktur.fakturName,
                         style: AppTextStyle.supportText.withColor(
-                          colorScheme.onSurface.withAlpha(150),
+                          colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(height: AppSizes.paddingTiny),
                       Text(
-                        (faktur.fakturFor?.isNotEmpty == true)
-                            ? faktur.fakturFor!
+                        faktur.fakturFor.isNotEmpty
+                            ? faktur.fakturFor
                             : l10n.transactionServiceDefault,
                         style: AppTextStyle.body.withColor(
                           colorScheme.onSurface,
@@ -735,9 +751,9 @@ class _TransactionPageState extends State<TransactionPage> {
                       ),
                       SizedBox(height: AppSizes.paddingTiny),
                       Text(
-                        formatDate(faktur.dateFaktur ?? '', context),
+                        faktur.formattedDate,
                         style: AppTextStyle.caption.withColor(
-                          colorScheme.onSurface.withAlpha(120),
+                          colorScheme.onSurface.withValues(alpha: 0.5),
                         ),
                       ),
                     ],
@@ -745,7 +761,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 ),
                 SizedBox(width: AppSizes.spacingMedium),
                 Text(
-                  '-Rp ${formatCurrency(faktur.amountFaktur ?? 0)}',
+                  '-${faktur.formattedAmount}',
                   style: AppTextStyle.body.withColor(colorScheme.error),
                 ),
               ],
@@ -770,7 +786,7 @@ class _TransactionPageState extends State<TransactionPage> {
             Icon(Icons.error_outline, size: 64, color: colorScheme.error),
             SizedBox(height: AppSizes.spacingMedium),
             Text(
-              l10n.transactionErrorMessage(state.messageCode),
+              state.getLocalizedMessage(context),
               textAlign: TextAlign.center,
               style: AppTextStyle.body.withColor(colorScheme.error),
             ),
@@ -792,7 +808,7 @@ class _TransactionPageState extends State<TransactionPage> {
     switch (transactionType) {
       case TransactionType.payment:
         return l10n.transactionNoPaymentFound;
-      case TransactionType.service:
+      case TransactionType.faktur:
         return l10n.transactionNoServiceFound;
       case TransactionType.all:
         return l10n.noTransactionsFound;

@@ -27,7 +27,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
 
     try {
       final dashboardModel = await _repository.getDashboardData();
-
       if (dashboardModel.hasError) {
         emit(
           DashboardError(

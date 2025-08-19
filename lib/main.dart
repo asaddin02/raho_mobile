@@ -38,13 +38,11 @@ class RahoMemberApps extends StatelessWidget {
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, themeState) {
-          AppNotification.init(context);
-
           return BlocBuilder<LanguageBloc, LanguageState>(
             builder: (context, languageState) {
               final appRouter = AppRouter();
 
-              Locale currentLocale = const Locale('id');
+              Locale currentLocale = const Locale('en');
               if (languageState is LanguageChanged) {
                 currentLocale = languageState.locale;
               }
@@ -53,6 +51,8 @@ class RahoMemberApps extends StatelessWidget {
                 locale: currentLocale,
                 supportedLocales: const [
                   Locale('id'),
+                  Locale('en'),
+                  Locale('zh'),
                 ],
                 localizationsDelegates: const [
                   AppLocalizations.delegate,

@@ -326,13 +326,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get languageOptionEnglish => 'Bahasa Inggris';
 
   @override
-  String get languageOptionJapanese => 'Bahasa Jepang';
-
-  @override
   String get languageOptionChinese => 'Bahasa Mandarin';
-
-  @override
-  String get languageOptionArabic => 'Bahasa Arab';
 
   @override
   String get languageCancelButton => 'Batal';

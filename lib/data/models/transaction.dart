@@ -1,153 +1,220 @@
-import 'package:flutter/material.dart';
-import 'package:raho_member_apps/l10n/app_localizations.dart';
+import 'package:raho_member_apps/core/utils/helper.dart';
 
 class TransactionModel {
-  final String? success;
-  final String? error;
+  final String? status;
+  final String? code;
+  final String? message;
   final TransactionData? data;
   final TransactionPagination? pagination;
 
-  TransactionModel({this.success, this.error, this.data, this.pagination});
+  TransactionModel({
+    this.status,
+    this.code,
+    this.message,
+    this.data,
+    this.pagination,
+  });
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) {
     return TransactionModel(
-      success: json['success'],
-      error: json['error'],
+      status: json['status'],
+      code: json['code'],
+      message: json['message'],
       data: json['data'] != null
-          ? TransactionData.fromJson(json['data'] as Map<String, dynamic>)
+          ? TransactionData.fromJson(json['data'])
           : null,
       pagination: json['pagination'] != null
-          ? TransactionPagination.fromJson(
-              json['pagination'] as Map<String, dynamic>,
-            )
+          ? TransactionPagination.fromJson(json['pagination'])
           : null,
     );
   }
 
-  bool get isSuccess => success != null && error == null;
-
-  bool get isError => error != null;
-
-  String get messageCode {
-    if (success != null) return success!;
-    if (error != null) return error!;
-    return 'UNKNOWN_ERROR';
+  Map<String, dynamic> toJson() {
+    return {
+      if (status != null) 'status': status,
+      if (code != null) 'code': code,
+      if (message != null) 'message': message,
+      if (data != null) 'data': data!.toJson(),
+      if (pagination != null) 'pagination': pagination!.toJson(),
+    };
   }
 
-  String getLocalizedMessage(BuildContext context) {
-    final localizations = AppLocalizations.of(context)!;
+  // Helper methods
+  bool get isSuccess => status == 'success' && data != null;
 
-    switch (messageCode) {
-      case 'TRANSACTION_FETCH_SUCCESS':
-        return localizations.transaction_fetch_success;
-      case 'ERROR_SERVER':
-        return localizations.error_server;
-      default:
-        return localizations.unknown_error;
-    }
-  }
+  bool get hasError => status == 'error';
 
-  bool get isPartnerNotFound => error == 'PARTNER_NOT_FOUND';
+  String get errorMessage => message ?? 'Unknown error';
 
-  bool get isServerError => error == 'ERROR_SERVER';
+  String get responseCode => code ?? '';
 }
 
+// Transaction Data - Contains both payment and faktur lists
 class TransactionData {
-  final List<PaymentData> payment;
-  final List<FakturData> faktur;
+  final List<PaymentItem> payment;
+  final List<FakturItem> faktur;
 
   TransactionData({required this.payment, required this.faktur});
 
   factory TransactionData.fromJson(Map<String, dynamic> json) {
     return TransactionData(
-      payment: (json['payment'] as List<dynamic>? ?? [])
-          .map((e) => PaymentData.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      faktur: (json['faktur'] as List<dynamic>? ?? [])
-          .map((e) => FakturData.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      payment:
+          (json['payment'] as List<dynamic>?)
+              ?.map(
+                (item) => PaymentItem.fromJson(item as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
+      faktur:
+          (json['faktur'] as List<dynamic>?)
+              ?.map((item) => FakturItem.fromJson(item as Map<String, dynamic>))
+              .toList() ??
+          [],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'payment': payment.map((item) => item.toJson()).toList(),
+      'faktur': faktur.map((item) => item.toJson()).toList(),
+    };
+  }
+
+  bool get hasPayments => payment.isNotEmpty;
+
+  bool get hasFaktur => faktur.isNotEmpty;
+
+  bool get isEmpty => payment.isEmpty && faktur.isEmpty;
 }
 
-class PaymentData {
+// Payment Item Model
+class PaymentItem {
   final int id;
-  final String? paymentName;
-  final double? amountPayment;
-  final String? paymentFor;
-  final String? datePayment;
+  final String paymentName;
+  final double amountPayment;
+  final String paymentFor;
+  final String datePayment;
 
-  PaymentData({
+  PaymentItem({
     required this.id,
-    this.paymentName,
-    this.amountPayment,
-    this.paymentFor,
-    this.datePayment,
+    required this.paymentName,
+    required this.amountPayment,
+    required this.paymentFor,
+    required this.datePayment,
   });
 
-  factory PaymentData.fromJson(Map<String, dynamic> json) {
-    return PaymentData(
+  factory PaymentItem.fromJson(Map<String, dynamic> json) {
+    return PaymentItem(
       id: json['id'] ?? 0,
-      paymentName: json['payment_name'],
-      amountPayment: json['amount_payment']?.toDouble(),
-      paymentFor: json['payment_for'],
-      datePayment: json['date_payment'],
+      paymentName: json['payment_name'] ?? '',
+      amountPayment: parseToDouble(json['amount_payment']),
+      paymentFor: json['payment_for'] ?? '',
+      datePayment: json['date_payment'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'payment_name': paymentName,
+      'amount_payment': amountPayment,
+      'payment_for': paymentFor,
+      'date_payment': datePayment,
+    };
+  }
+
+  // Helper methods
+  String get formattedAmount => 'Rp ${amountPayment.toStringAsFixed(0)}';
+
+  String get formattedDate {
+    if (datePayment.isEmpty) return '-';
+    try {
+      final date = DateTime.parse(datePayment);
+      return '${date.day}/${date.month}/${date.year}';
+    } catch (e) {
+      return datePayment;
+    }
   }
 }
 
-class FakturData {
+// Faktur Item Model
+class FakturItem {
   final int id;
-  final String? fakturName;
-  final double? amountFaktur;
-  final String? fakturFor;
-  final String? dateFaktur;
+  final String fakturName;
+  final double amountFaktur;
+  final String fakturFor;
+  final String dateFaktur;
 
-  FakturData({
+  FakturItem({
     required this.id,
-    this.fakturName,
-    this.amountFaktur,
-    this.fakturFor,
-    this.dateFaktur,
+    required this.fakturName,
+    required this.amountFaktur,
+    required this.fakturFor,
+    required this.dateFaktur,
   });
 
-  factory FakturData.fromJson(Map<String, dynamic> json) {
-    return FakturData(
+  factory FakturItem.fromJson(Map<String, dynamic> json) {
+    return FakturItem(
       id: json['id'] ?? 0,
-      fakturName: json['faktur_name'],
-      amountFaktur: json['amount_faktur']?.toDouble(),
-      fakturFor: json['faktur_for'],
-      dateFaktur: json['date_faktur'],
+      fakturName: json['faktur_name'] ?? '',
+      amountFaktur: parseToDouble(json['amount_faktur']),
+      fakturFor: json['faktur_for'] ?? '',
+      dateFaktur: json['date_faktur'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'faktur_name': fakturName,
+      'amount_faktur': amountFaktur,
+      'faktur_for': fakturFor,
+      'date_faktur': dateFaktur,
+    };
+  }
+
+  // Helper methods
+  String get formattedAmount => 'Rp ${amountFaktur.toStringAsFixed(0)}';
+
+  String get formattedDate {
+    if (dateFaktur.isEmpty) return '-';
+    try {
+      final date = DateTime.parse(dateFaktur);
+      return '${date.day}/${date.month}/${date.year}';
+    } catch (e) {
+      return dateFaktur;
+    }
   }
 }
 
+// Transaction Pagination - Contains pagination for both payment and faktur
 class TransactionPagination {
-  final PaginationDetail? payment;
-  final PaginationDetail? faktur;
+  final PaginationInfo payment;
+  final PaginationInfo faktur;
 
-  TransactionPagination({this.payment, this.faktur});
+  TransactionPagination({required this.payment, required this.faktur});
 
   factory TransactionPagination.fromJson(Map<String, dynamic> json) {
     return TransactionPagination(
-      payment: json['payment'] != null
-          ? PaginationDetail.fromJson(json['payment'] as Map<String, dynamic>)
-          : null,
-      faktur: json['faktur'] != null
-          ? PaginationDetail.fromJson(json['faktur'] as Map<String, dynamic>)
-          : null,
+      payment: PaginationInfo.fromJson(json['payment'] ?? {}),
+      faktur: PaginationInfo.fromJson(json['faktur'] ?? {}),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'payment': payment.toJson(), 'faktur': faktur.toJson()};
   }
 }
 
-class PaginationDetail {
+// Pagination Info Model
+class PaginationInfo {
   final int currentPage;
   final int totalPages;
   final int totalRecords;
   final bool hasNext;
   final bool hasPrev;
 
-  PaginationDetail({
+  PaginationInfo({
     required this.currentPage,
     required this.totalPages,
     required this.totalRecords,
@@ -155,8 +222,8 @@ class PaginationDetail {
     required this.hasPrev,
   });
 
-  factory PaginationDetail.fromJson(Map<String, dynamic> json) {
-    return PaginationDetail(
+  factory PaginationInfo.fromJson(Map<String, dynamic> json) {
+    return PaginationInfo(
       currentPage: json['current_page'] ?? 1,
       totalPages: json['total_pages'] ?? 0,
       totalRecords: json['total_records'] ?? 0,
@@ -164,40 +231,32 @@ class PaginationDetail {
       hasPrev: json['has_prev'] ?? false,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'current_page': currentPage,
+      'total_pages': totalPages,
+      'total_records': totalRecords,
+      'has_next': hasNext,
+      'has_prev': hasPrev,
+    };
+  }
 }
 
+// Transaction Request Model
 class TransactionRequest {
   final int page;
   final int limit;
-  final TransactionFilters? filters;
-
-  TransactionRequest({this.page = 1, this.limit = 10, this.filters});
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {'page': page, 'limit': limit};
-
-    if (filters != null) {
-      data['filters'] = filters!.toJson();
-    }
-
-    return data;
-  }
-}
-
-class TransactionFilters {
   final int? days;
 
-  TransactionFilters({this.days});
+  TransactionRequest({this.page = 1, this.limit = 10, this.days});
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
+    final data = {'page': page, 'limit': limit};
 
     if (days != null) {
-      data['days'] = days;
+      data['days'] = days!;
     }
-
     return data;
   }
 }
-
-enum TransactionType { all, payment, service }

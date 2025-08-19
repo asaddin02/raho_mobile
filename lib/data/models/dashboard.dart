@@ -1,18 +1,16 @@
 class DashboardModel {
-  final String? success;
-  final String? error;
+  final String? status; // Changed from 'success' to 'status'
+  final String? code; // Added 'code' field
+  final String? message; // Added 'message' for error cases
   final DashboardData? data;
 
-  DashboardModel({
-    this.success,
-    this.error,
-    this.data,
-  });
+  DashboardModel({this.status, this.code, this.message, this.data});
 
   factory DashboardModel.fromJson(Map<String, dynamic> json) {
     return DashboardModel(
-      success: json['success'],
-      error: json['error'],
+      status: json['status'],
+      code: json['code'],
+      message: json['message'],
       data: json['data'] != null ? DashboardData.fromJson(json['data']) : null,
     );
   }
@@ -20,33 +18,39 @@ class DashboardModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> result = {};
 
-    if (success != null) result['success'] = success;
-    if (error != null) result['error'] = error;
+    if (status != null) result['status'] = status;
+    if (code != null) result['code'] = code;
+    if (message != null) result['message'] = message;
     if (data != null) result['data'] = data!.toJson();
 
     return result;
   }
 
-  bool get isSuccess => success != null && error == null;
-  bool get hasError => error != null;
-  String get responseCode => error ?? success ?? '';
+  // Helper methods
+  bool get isSuccess => status == 'success' && data != null;
+
+  bool get hasError => status == 'error';
+
+  String get responseCode => code ?? '';
+
+  String get errorMessage => message ?? 'Unknown error';
 }
 
 class DashboardData {
   final VoucherInfo voucher;
   final List<HistoryItem> history;
 
-  DashboardData({
-    required this.voucher,
-    required this.history,
-  });
+  DashboardData({required this.voucher, required this.history});
 
   factory DashboardData.fromJson(Map<String, dynamic> json) {
     return DashboardData(
       voucher: VoucherInfo.fromJson(json['voucher'] ?? {}),
-      history: (json['history'] as List<dynamic>?)
-          ?.map((item) => HistoryItem.fromJson(item as Map<String, dynamic>))
-          .toList() ??
+      history:
+          (json['history'] as List<dynamic>?)
+              ?.map(
+                (item) => HistoryItem.fromJson(item as Map<String, dynamic>),
+              )
+              .toList() ??
           [],
     );
   }
@@ -70,9 +74,18 @@ class VoucherInfo {
 
   factory VoucherInfo.fromJson(Map<String, dynamic> json) {
     return VoucherInfo(
-      voucherBalance: (json['voucher_balance'] ?? 0.0).toDouble(),
-      voucherUsedThisMonth: (json['voucher_used_this_month'] ?? 0.0).toDouble(),
+      voucherBalance: _parseToDouble(json['voucher_balance']),
+      voucherUsedThisMonth: _parseToDouble(json['voucher_used_this_month']),
     );
+  }
+
+  // Helper method to safely parse to double
+  static double _parseToDouble(dynamic value) {
+    if (value == null) return 0.0;
+    if (value is double) return value;
+    if (value is int) return value.toDouble();
+    if (value is String) return double.tryParse(value) ?? 0.0;
+    return 0.0;
   }
 
   Map<String, dynamic> toJson() {
@@ -81,12 +94,18 @@ class VoucherInfo {
       'voucher_used_this_month': voucherUsedThisMonth,
     };
   }
+
+  // Helper getters for display
+  String get formattedBalance => 'Rp ${voucherBalance.toStringAsFixed(0)}';
+
+  String get formattedUsedThisMonth =>
+      'Rp ${voucherUsedThisMonth.toStringAsFixed(0)}';
 }
 
 class HistoryItem {
   final int id;
   final String companyName;
-  final dynamic infus;
+  final dynamic infus; // Keep as dynamic since it can be string or int
   final String date;
   final String nameProduct;
   final String variant;
@@ -126,5 +145,12 @@ class HistoryItem {
     };
   }
 
-  String get infusDisplay => infus.toString();
+  // Helper getters
+  String get infusDisplay {
+    if (infus == null || infus == '-') return '-';
+    return 'Infus ke-${infus.toString()}';
+  }
+
+  bool get hasValidData =>
+      companyName != '-' && nameProduct != '-' && date.isNotEmpty;
 }

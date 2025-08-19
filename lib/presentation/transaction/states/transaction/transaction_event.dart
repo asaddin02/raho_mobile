@@ -8,12 +8,12 @@ abstract class TransactionEvent extends Equatable {
 }
 
 class FetchInitialTransactionEvent extends TransactionEvent {
-  final TransactionFilters? filters;
+  final int? days;
 
-  const FetchInitialTransactionEvent({this.filters});
+  const FetchInitialTransactionEvent({this.days});
 
   @override
-  List<Object?> get props => [filters];
+  List<Object?> get props => [days];
 }
 
 class FilterTransactionByTypeEvent extends TransactionEvent {
@@ -22,32 +22,28 @@ class FilterTransactionByTypeEvent extends TransactionEvent {
   const FilterTransactionByTypeEvent({required this.transactionType});
 
   @override
-  List<Object> get props => [transactionType];
+  List<Object?> get props => [transactionType];
 }
 
 class LoadMorePaymentEvent extends TransactionEvent {
-  final TransactionFilters? filters;
-
-  const LoadMorePaymentEvent({this.filters});
-
-  @override
-  List<Object?> get props => [filters];
+  const LoadMorePaymentEvent();
 }
 
 class LoadMoreFakturEvent extends TransactionEvent {
-  final TransactionFilters? filters;
-
-  const LoadMoreFakturEvent({this.filters});
-
-  @override
-  List<Object?> get props => [filters];
+  const LoadMoreFakturEvent();
 }
 
-class ExpandPaymentSectionEvent extends TransactionEvent {}
+class ExpandPaymentSectionEvent extends TransactionEvent {
+  const ExpandPaymentSectionEvent();
+}
 
-class ExpandFakturSectionEvent extends TransactionEvent {}
+class ExpandFakturSectionEvent extends TransactionEvent {
+  const ExpandFakturSectionEvent();
+}
 
-class CollapseSectionEvent extends TransactionEvent {}
+class CollapseSectionEvent extends TransactionEvent {
+  const CollapseSectionEvent();
+}
 
 class FilterTransactionByDaysEvent extends TransactionEvent {
   final int? days;
@@ -60,7 +56,7 @@ class FilterTransactionByDaysEvent extends TransactionEvent {
 
 class FetchDetailTransactionEvent extends TransactionEvent {
   final int transactionId;
-  final String transactionType;
+  final String transactionType; // 'payment' or 'faktur'
 
   const FetchDetailTransactionEvent({
     required this.transactionId,
@@ -72,10 +68,10 @@ class FetchDetailTransactionEvent extends TransactionEvent {
 }
 
 class RefreshTransactionEvent extends TransactionEvent {
-  final TransactionFilters? filters;
+  final int? days;
 
-  const RefreshTransactionEvent({this.filters});
+  const RefreshTransactionEvent({this.days});
 
   @override
-  List<Object?> get props => [filters];
+  List<Object?> get props => [days];
 }

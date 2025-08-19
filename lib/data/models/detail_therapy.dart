@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:raho_member_apps/core/utils/helper.dart';
 import 'package:raho_member_apps/l10n/app_localizations.dart';
 
 class DetailTherapyModel {
-  final String? success;
-  final String? error;
-  final String? code;
-  final String? message;
+  final String? status; // 'success' or 'error' from backend
+  final String? code; // Error/success code
+  final String? message; // Error message (only for errors)
   final int? id;
   final String? memberName;
   final String? therapyDate;
@@ -20,8 +20,7 @@ class DetailTherapyModel {
   final List<MonitoringModel>? monitoring;
 
   DetailTherapyModel({
-    this.success,
-    this.error,
+    this.status,
     this.code,
     this.message,
     this.id,
@@ -39,89 +38,127 @@ class DetailTherapyModel {
   });
 
   factory DetailTherapyModel.fromJson(Map<String, dynamic> json) {
-    // Handle both 'status' and 'success'/'error' patterns
-    String? success;
-    String? error;
+    try {
+      // Extract status information directly from backend response
+      final String? status = json['status'];
+      final String? code = json['code'];
+      final String? message = json['message'];
 
-    if (json['status'] == 'success') {
-      success = json['code']; // Use code as success value
-    } else if (json['status'] == 'error') {
-      error = json['code']; // Use code as error value
-    } else {
-      success = json['success'];
-      error = json['error'];
+      // Extract data object
+      final Map<String, dynamic>? data = json['data'];
+
+      return DetailTherapyModel(
+        status: status,
+        code: code,
+        message: message,
+        id: data?['id'],
+        memberName: data?['member_name'],
+        therapyDate: data?['therapy_date'],
+        productionDate: data?['production_date'],
+        infus: data?['infus'],
+        complaintPrevious: data?['complaint_previous'],
+        complaintAfter: data?['complaint_after'],
+        healingCrisis: data?['healing_crisis'],
+        actionForHealing: data?['action_for_healing'],
+        layanan: data?['layanan'] != null
+            ? (data!['layanan'] as List)
+                  .map((item) => LayananModel.fromJson(item))
+                  .toList()
+            : null,
+        jarum: data?['jarum'] != null
+            ? (data!['jarum'] as List)
+                  .map((item) => JarumModel.fromJson(item))
+                  .toList()
+            : null,
+        monitoring: data?['monitoring'] != null
+            ? (data!['monitoring'] as List)
+                  .map((item) => MonitoringModel.fromJson(item))
+                  .toList()
+            : null,
+      );
+    } catch (e) {
+      // Return error model if parsing fails
+      return DetailTherapyModel(
+        status: 'error',
+        code: 'PARSING_ERROR',
+        message: 'Failed to parse response: $e',
+      );
     }
-
-    final data = json['data'];
-
-    return DetailTherapyModel(
-      success: success,
-      error: error,
-      code: json['code'],
-      message: json['message'],
-      id: data?['id'],
-      memberName: data?['member_name'],
-      therapyDate: data?['therapy_date'],
-      productionDate: data?['production_date'],
-      infus: data?['infus'],
-      complaintPrevious: data?['complaint_previous'],
-      complaintAfter: data?['complaint_after'],
-      healingCrisis: data?['healing_crisis'],
-      actionForHealing: data?['action_for_healing'],
-      layanan: data?['layanan'] != null
-          ? (data['layanan'] as List)
-                .map((item) => LayananModel.fromJson(item))
-                .toList()
-          : null,
-      jarum: data?['jarum'] != null
-          ? (data['jarum'] as List)
-                .map((item) => JarumModel.fromJson(item))
-                .toList()
-          : null,
-      monitoring: data?['monitoring'] != null
-          ? (data['monitoring'] as List)
-                .map((item) => MonitoringModel.fromJson(item))
-                .toList()
-          : null,
-    );
   }
 
-  bool get isSuccess => success != null && error == null;
+  // Helper methods for checking status
+  bool get isSuccess => status == 'success';
 
-  bool get isError => error != null;
+  bool get isError => status == 'error';
 
-  String get messageCode {
-    if (success != null) return success!;
-    if (error != null) return error!;
-    return 'UNKNOWN_ERROR';
+  bool get hasData => data != null;
+
+  // Get data as a map for easier access
+  Map<String, dynamic>? get data {
+    if (!isSuccess) return null;
+
+    return {
+      'id': id,
+      'member_name': memberName,
+      'therapy_date': therapyDate,
+      'production_date': productionDate,
+      'infus': infus,
+      'complaint_previous': complaintPrevious,
+      'complaint_after': complaintAfter,
+      'healing_crisis': healingCrisis,
+      'action_for_healing': actionForHealing,
+      'layanan': layanan,
+      'jarum': jarum,
+      'monitoring': monitoring,
+    };
   }
 
+  // Get localized message based on code
   String getLocalizedMessage(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
 
-    switch (messageCode) {
+    if (code == null) {
+      return localizations.unknown_error;
+    }
+
+    switch (code!) {
+      // Success codes
       case 'THERAPY_DETAIL_SUCCESS':
         return localizations.therapy_detail_success;
+
+      // Error codes
       case 'THERAPY_NOT_FOUND':
         return localizations.therapy_not_found;
       case 'THERAPY_DETAIL_FAILED':
         return localizations.therapy_detail_failed;
+      case 'PATIENT_NOT_FOUND':
+        return localizations.patient_not_found;
       case 'ERROR_SYSTEM':
         return localizations.error_system;
       case 'ERROR_SERVER':
         return localizations.error_server;
+      case 'PARSING_ERROR':
+        return 'Data parsing error occurred';
+
       default:
-        return localizations.unknown_error;
+        return message ?? localizations.unknown_error;
     }
   }
 
-  bool get isTherapyNotFound => error == 'THERAPY_NOT_FOUND';
+  // Specific error type checkers
+  bool get isTherapyNotFound => code == 'THERAPY_NOT_FOUND';
 
-  bool get isLabIdRequired => error == 'LAB_ID_REQUIRED';
+  bool get isPatientNotFound => code == 'PATIENT_NOT_FOUND';
 
-  bool get isLabRecordNotFound => error == 'LAB_RECORD_NOT_FOUND';
+  bool get isSystemError =>
+      code == 'ERROR_SYSTEM' || code == 'THERAPY_DETAIL_FAILED';
 
-  bool get isSystemError => error == 'ERROR_SYSTEM';
+  bool get isParsingError => code == 'PARSING_ERROR';
+
+  @override
+  String toString() {
+    return 'DetailTherapyModel{status: $status, code: $code, message: $message, hasData: $hasData}';
+  }
 }
 
 class LayananModel {
@@ -139,8 +176,13 @@ class LayananModel {
       product: json['product'] != null
           ? ProductModel.fromJson(json['product'])
           : null,
-      priceUnit: json['price_unit']?.toDouble(),
+      priceUnit: parseToDouble(json['price_unit']),
     );
+  }
+
+  @override
+  String toString() {
+    return 'LayananModel{id: $id, name: $name, product: $product, priceUnit: $priceUnit}';
   }
 }
 
@@ -157,6 +199,11 @@ class ProductModel {
       name: json['name'],
       defaultCode: json['default_code']?.toString(),
     );
+  }
+
+  @override
+  String toString() {
+    return 'ProductModel{id: $id, name: $name, defaultCode: $defaultCode}';
   }
 }
 
@@ -184,6 +231,11 @@ class JarumModel {
       keterangan: json['keterangan'],
     );
   }
+
+  @override
+  String toString() {
+    return 'JarumModel{id: $id, name: $name, nakes: $nakes, status: $status}';
+  }
 }
 
 class MonitoringModel {
@@ -195,16 +247,16 @@ class MonitoringModel {
   MonitoringModel({required this.id, this.pencatatan, this.waktu, this.hasil});
 
   factory MonitoringModel.fromJson(Map<String, dynamic> json) {
-    double? parsedHasil;
-    if (json['hasil'] != null && json['hasil'].toString().trim() != '-') {
-      parsedHasil = double.tryParse(json['hasil'].toString());
-    }
-
     return MonitoringModel(
       id: json['id'] ?? 0,
       pencatatan: json['pencatatan'],
       waktu: json['waktu'],
-      hasil: parsedHasil,
+      hasil: parseToDouble(json['hasil']),
     );
+  }
+
+  @override
+  String toString() {
+    return 'MonitoringModel{id: $id, pencatatan: $pencatatan, waktu: $waktu, hasil: $hasil}';
   }
 }

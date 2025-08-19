@@ -4,8 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:raho_member_apps/core/constants/app_assets.dart';
 import 'package:raho_member_apps/core/constants/app_routes.dart';
 import 'package:raho_member_apps/core/di/service_locator.dart';
+import 'package:raho_member_apps/core/storage/language_storage_service.dart';
 import 'package:raho_member_apps/core/utils/extensions.dart';
 import 'package:raho_member_apps/presentation/appstart/states/cubit/app_start/app_start_cubit.dart';
+import 'package:raho_member_apps/presentation/appstart/ui/language_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenWrapper extends StatelessWidget {
   const SplashScreenWrapper({super.key});
@@ -28,17 +31,51 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   static const Duration splashDelay = Duration(seconds: 2);
+  bool _languageSelectionShown = false;
+  bool _canProceedToNext = false;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Future.delayed(splashDelay, () {
-        if (mounted) {
-          context.read<AppStartCubit>().checkAppStart();
-        }
-      });
+      _initializeSplash();
     });
+  }
+
+  Future<void> _initializeSplash() async {
+    if (!mounted) return;
+    await Future.delayed(const Duration(milliseconds: 800));
+    if (!mounted) return;
+    final shouldShowLanguageSelection =
+        await LanguageService.isFirstTimeLanguageSelection();
+
+    if (!mounted) return;
+    if (shouldShowLanguageSelection) {
+      if (mounted) {
+        setState(() {
+          _languageSelectionShown = true;
+        });
+      }
+      if (mounted) {
+        await LanguageSelectionDialog.showAndWait(context);
+      }
+      if (mounted) {
+        setState(() {
+          _canProceedToNext = true;
+        });
+      }
+    } else {
+      if (mounted) {
+        setState(() {
+          _canProceedToNext = true;
+        });
+      }
+    }
+    await Future.delayed(splashDelay);
+
+    if (mounted && _canProceedToNext) {
+      context.read<AppStartCubit>().checkAppStart();
+    }
   }
 
   @override
@@ -62,6 +99,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         child: BlocListener<AppStartCubit, AppStartState>(
           listener: (context, state) {
+            if (!_canProceedToNext) return;
             if (state is AppStartOnboarding) {
               context.goNamed(AppRoutes.onboarding.name);
             } else if (state is AppStartDashboard) {

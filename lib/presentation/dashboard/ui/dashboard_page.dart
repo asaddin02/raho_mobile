@@ -249,7 +249,9 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               SizedBox(height: AppSizes.spacingTiny),
               Text(
-                voucher.voucherBalance.toInt().toString(),
+                voucher.voucherBalance.isNaN
+                    ? "0"
+                    : voucher.voucherBalance.toInt().toString(),
                 style: AppTextStyle.title
                     .withColor(Colors.white)
                     .withWeight(AppFontWeight.bold),
@@ -273,7 +275,9 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
               SizedBox(height: AppSizes.spacingTiny),
               Text(
-                voucher.voucherUsedThisMonth.toInt().toString(),
+                voucher.voucherUsedThisMonth.isNaN
+                    ? "0"
+                    : voucher.voucherUsedThisMonth.toInt().toString(),
                 style: AppTextStyle.title
                     .withColor(Colors.white)
                     .withWeight(AppFontWeight.bold),

@@ -149,6 +149,7 @@ class _VerificationPageState extends State<VerificationPage> {
                         duration: NotificationDuration.short,
                         showCloseButton: false,
                       );
+                      return;
                     }
                     context.read<VerifyNumberBloc>().add(
                       ValidateNumberEvent(

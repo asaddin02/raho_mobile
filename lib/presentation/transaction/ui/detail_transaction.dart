@@ -6,7 +6,6 @@ import 'package:raho_member_apps/core/constants/app_sizes.dart';
 import 'package:raho_member_apps/core/di/service_locator.dart';
 import 'package:raho_member_apps/core/styles/app_color.dart';
 import 'package:raho_member_apps/core/styles/app_text_style.dart';
-import 'package:raho_member_apps/core/utils/helper.dart';
 import 'package:raho_member_apps/data/models/detail_transaction.dart';
 import 'package:raho_member_apps/data/repositories/transaction_repository.dart';
 import 'package:raho_member_apps/l10n/app_localizations.dart';
@@ -65,7 +64,7 @@ class DetailTransaction extends StatelessWidget {
           preferredSize: const Size.fromHeight(72),
           child: Container(
             padding: EdgeInsets.only(
-              top: AppSizes.spacingXl,
+              top: MediaQuery.of(context).padding.top + AppSizes.spacingMedium,
               left: AppSizes.paddingLarge,
               right: AppSizes.paddingLarge,
               bottom: AppSizes.paddingMedium,
@@ -117,10 +116,8 @@ class DetailTransaction extends StatelessWidget {
                       ),
                       SizedBox(height: AppSizes.spacingMedium),
                       Text(
-                        state.messageCode,
-                        style: AppTextStyle.caption.withColor(
-                          colorScheme.error,
-                        ),
+                        state.getLocalizedMessage(context),
+                        style: AppTextStyle.body.withColor(colorScheme.error),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: AppSizes.spacingLarge),
@@ -133,13 +130,13 @@ class DetailTransaction extends StatelessWidget {
                             ),
                           );
                         },
-                        child: Text(l10n.retry, style: AppTextStyle.caption),
+                        child: Text(l10n.retry),
                       ),
                     ],
                   ),
                 ),
               );
-            } else if (state is DetailTransactionLoaded) {
+            } else if (state is DetailTransactionLoaded && state.data != null) {
               return SingleChildScrollView(
                 padding: EdgeInsets.symmetric(
                   horizontal: AppSizes.paddingMedium,
@@ -149,7 +146,7 @@ class DetailTransaction extends StatelessWidget {
                   context,
                   colorScheme,
                   l10n,
-                  state.detail,
+                  state.data!,
                 ),
               );
             }
@@ -165,23 +162,32 @@ class DetailTransaction extends StatelessWidget {
     BuildContext context,
     ColorScheme colorScheme,
     AppLocalizations l10n,
-    DetailTransactionModel detail,
+    TransactionDetailData detail,
   ) {
+    final isFaktur = transactionType == 'faktur';
+    final isPayment = transactionType == 'payment';
+
     return Card(
       elevation: 2,
-      shadowColor: AppColor.black.withAlpha(25), // Reduced shadow
+      shadowColor: AppColor.black.withValues(alpha: 0.1),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizes.radiusMedium),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildHeader(colorScheme, detail, l10n),
-          if (detail.isFaktur) _buildPaymentStatus(colorScheme, l10n, detail),
-          _buildTransactionDetails(colorScheme, l10n, detail),
+          _buildHeader(colorScheme, l10n),
+          if (isFaktur) _buildPaymentStatus(colorScheme, l10n, detail),
+          _buildTransactionDetails(
+            colorScheme,
+            l10n,
+            detail,
+            isFaktur,
+            isPayment,
+          ),
           SizedBox(height: AppSizes.spacingLarge),
           _buildActionButtons(context, colorScheme, l10n),
-          if (detail.isVoucherTransaction) ...[
+          if (detail.isVoucherPayment) ...[
             SizedBox(height: AppSizes.spacingSmall),
             _buildVoucherButton(context, colorScheme, l10n),
           ],
@@ -191,11 +197,7 @@ class DetailTransaction extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(
-    ColorScheme colorScheme,
-    DetailTransactionModel detail,
-    AppLocalizations l10n,
-  ) {
+  Widget _buildHeader(ColorScheme colorScheme, AppLocalizations l10n) {
     return Container(
       padding: EdgeInsets.all(AppSizes.paddingMedium),
       decoration: BoxDecoration(
@@ -238,7 +240,7 @@ class DetailTransaction extends StatelessWidget {
   Widget _buildPaymentStatus(
     ColorScheme colorScheme,
     AppLocalizations l10n,
-    DetailTransactionModel detail,
+    TransactionDetailData detail,
   ) {
     String bannerText = l10n.transactionStatusPending;
     Color bannerColor = AppColor.orange;
@@ -285,17 +287,15 @@ class DetailTransaction extends StatelessWidget {
               ),
             SizedBox(height: AppSizes.spacingSmall),
             Text(
-              detail.dateTransaction ?? '',
+              _formatDate(detail.dateTransaction),
               style: AppTextStyle.supportText.withColor(
-                colorScheme.onSurface.withAlpha(153),
+                colorScheme.onSurface.withValues(alpha: 0.6),
               ),
               textAlign: TextAlign.center,
             ),
             SizedBox(height: AppSizes.spacingMedium),
             Text(
-              l10n.transactionAmount(
-                detail.totalAmount?.toStringAsFixed(0) ?? '',
-              ),
+              detail.formattedTotalAmount,
               style: AppTextStyle.title.withColor(colorScheme.onSurface),
               textAlign: TextAlign.center,
             ),
@@ -308,33 +308,38 @@ class DetailTransaction extends StatelessWidget {
   Widget _buildTransactionDetails(
     ColorScheme colorScheme,
     AppLocalizations l10n,
-    DetailTransactionModel detail,
+    TransactionDetailData detail,
+    bool isFaktur,
+    bool isPayment,
   ) {
     final List<(String, String)> details = [];
 
     // Common fields
-    details.add((l10n.transactionDetailMemberName, detail.memberName ?? ''));
-    details.add((l10n.transactionDetailInvoiceNumber, detail.invoice ?? ''));
-    details.add((l10n.transactionDetailDate, detail.dateTransaction ?? ''));
+    details.add((l10n.transactionDetailMemberName, detail.memberName));
+    details.add((l10n.transactionDetailInvoiceNumber, detail.invoice));
+    details.add((
+      l10n.transactionDetailDate,
+      _formatDate(detail.dateTransaction),
+    ));
 
     // Payment specific fields
-    if (detail.isPayment) {
-      if (detail.companyName != null) {
+    if (isPayment) {
+      if (detail.companyName != null && detail.companyName!.isNotEmpty) {
         details.add((l10n.transactionDetailBranchClinic, detail.companyName!));
       }
 
       // Voucher specific fields
-      if (detail.isVoucherTransaction) {
+      if (detail.isVoucherPayment) {
         if (detail.qtyVoucherNormal != null) {
           details.add((
             l10n.transactionDetailVoucherQty,
-            detail.qtyVoucherNormal.toString(),
+            detail.qtyVoucherNormal!.toStringAsFixed(0),
           ));
         }
-        if (detail.qtyVoucherFree != null) {
+        if (detail.qtyVoucherFree != null && detail.qtyVoucherFree! > 0) {
           details.add((
             l10n.transactionDetailFreeVoucher,
-            detail.qtyVoucherFree.toString(),
+            detail.qtyVoucherFree!.toStringAsFixed(0),
           ));
         }
         if (detail.amountPerPcs != null) {
@@ -347,8 +352,8 @@ class DetailTransaction extends StatelessWidget {
     }
 
     // Faktur specific fields
-    if (detail.isFaktur) {
-      if (detail.admin != null) {
+    if (isFaktur) {
+      if (detail.admin != null && detail.admin!.isNotEmpty) {
         details.add((l10n.transactionDetailAdmin, detail.admin!));
       }
       if (detail.paymentState != null) {
@@ -362,7 +367,7 @@ class DetailTransaction extends StatelessWidget {
     // Total amount (common)
     details.add((
       l10n.transactionDetailTotalAmount,
-      'Rp ${formatCurrency(detail.totalAmount ?? 0)}',
+      detail.formattedTotalAmount,
     ));
 
     return Container(
@@ -392,7 +397,7 @@ class DetailTransaction extends StatelessWidget {
             child: Text(
               label,
               style: AppTextStyle.caption.withColor(
-                colorScheme.onSurface.withAlpha(153),
+                colorScheme.onSurface.withValues(alpha: 0.6),
               ),
             ),
           ),
@@ -400,7 +405,7 @@ class DetailTransaction extends StatelessWidget {
           Text(
             ":",
             style: AppTextStyle.supportText.withColor(
-              colorScheme.onSurface.withAlpha(153),
+              colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
           SizedBox(width: AppSizes.spacingTiny),
@@ -441,7 +446,10 @@ class DetailTransaction extends StatelessWidget {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    // Download functionality
+                    // TODO: Implement download functionality
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("l10n.featureComingSoon")),
+                    );
                   },
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(AppSizes.radiusSmall),
@@ -478,7 +486,10 @@ class DetailTransaction extends StatelessWidget {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
-                    // Share functionality
+                    // TODO: Implement share functionality
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("l10n.featureComingSoon")),
+                    );
                   },
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(AppSizes.radiusSmall),
@@ -526,7 +537,10 @@ class DetailTransaction extends StatelessWidget {
         width: double.infinity,
         child: OutlinedButton(
           onPressed: () {
-            // Navigate to voucher redemption
+            // TODO: Navigate to voucher redemption
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text("l10n.featureComingSoon")));
           },
           style: OutlinedButton.styleFrom(
             padding: EdgeInsets.symmetric(vertical: AppSizes.paddingMedium),
@@ -561,5 +575,24 @@ class DetailTransaction extends StatelessWidget {
       default:
         return l10n.transactionStatusPending;
     }
+  }
+
+  String _formatDate(String date) {
+    if (date.isEmpty) return '-';
+    try {
+      final dateObj = DateTime.parse(date);
+      return '${dateObj.day}/${dateObj.month}/${dateObj.year}';
+    } catch (e) {
+      return date;
+    }
+  }
+
+  String formatCurrency(double amount) {
+    return amount
+        .toStringAsFixed(0)
+        .replaceAllMapped(
+          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+          (Match m) => '${m[1]}.',
+        );
   }
 }
