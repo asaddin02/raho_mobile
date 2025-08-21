@@ -940,13 +940,12 @@ class _LabCardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final l10n = AppLocalizations.of(context)!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          l10n.labTestTitle,
+          lab.displayLabNumber,
           style: AppTextStyle.subtitle
               .withColor(theme.colorScheme.onSurface)
               .withWeight(AppFontWeight.semiBold),
@@ -960,17 +959,31 @@ class _LabCardContent extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    lab.companyName ?? '',
-                    style: AppTextStyle.caption.withColor(
-                      theme.colorScheme.tertiary,
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSizes.paddingSmall,
+                      vertical: AppSizes.paddingTiny,
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.tertiary.withValues(
+                        alpha: 0.1,
+                      ),
+                      borderRadius: BorderRadius.circular(
+                        AppSizes.radiusTiny,
+                      ),
+                    ),
+                    child: Text(
+                      lab.displayCompany,
+                      style: AppTextStyle.caption.withColor(
+                        theme.colorScheme.tertiary,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   SizedBox(height: AppSizes.paddingTiny),
                   Text(
-                    lab.date ?? '',
+                    lab.displayDate,
                     style: AppTextStyle.supportText.withColor(
                       theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
@@ -981,25 +994,8 @@ class _LabCardContent extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppSizes.paddingSmall,
-                    vertical: AppSizes.paddingTiny,
-                  ),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.tertiary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(AppSizes.radiusTiny),
-                  ),
-                  child: Text(
-                    l10n.labResultLabel,
-                    style: AppTextStyle.supportText
-                        .withColor(theme.colorScheme.tertiary)
-                        .withWeight(AppFontWeight.medium),
-                  ),
-                ),
-                SizedBox(height: AppSizes.paddingTiny),
                 Text(
-                  lab.labType ?? '',
+                  lab.displayDoctor,
                   style: AppTextStyle.supportText.withColor(
                     theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),

@@ -87,7 +87,8 @@ class LabError extends LabState {
     final localizations = AppLocalizations.of(context)!;
     switch (messageCode) {
       case 'LAB_DATA_FETCHED':
-        return localizations.lab_data_fetched;
+        return localizations.lab_data_fetched ??
+            'Lab data fetched successfully';
       case 'PATIENT_NOT_FOUND':
         return localizations.patient_not_found;
       case 'ERROR_SYSTEM':
@@ -120,41 +121,53 @@ class LabDetailLoaded extends LabState {
 
   const LabDetailLoaded({required this.labDetail, this.labs});
 
+  // Helper getters for easier access
+  bool get hasLabResults => labDetail.hasLabResults;
+
+  int get labResultsCount => labDetail.labResultsCount;
+
+  List<DetailDataLabModel>? get detailDataLab => labDetail.detailDataLab;
+
   @override
   List<Object?> get props => [labDetail, labs];
 }
 
 class LabDetailError extends LabState {
-  final String messageCode;
+  final String code;
+  final String? message;
   final String? debugMessage;
   final List<LabData>? labs;
 
   const LabDetailError({
-    required this.messageCode,
+    required this.code,
+    this.message,
     this.debugMessage,
     this.labs,
   });
 
   String getLocalizedMessage(BuildContext context) {
     final localizations = AppLocalizations.of(context)!;
-    switch (messageCode) {
+    switch (code) {
       case 'LAB_DETAIL_FETCHED':
-        return localizations.lab_detail_fetched;
+        return localizations.lab_detail_fetched ??
+            'Lab detail fetched successfully';
       case 'LAB_ID_REQUIRED':
-        return localizations.lab_id_required;
+        return localizations.lab_id_required ?? 'Lab ID is required';
       case 'LAB_RECORD_NOT_FOUND':
-        return localizations.lab_record_not_found;
+        return localizations.lab_record_not_found ?? 'Lab record not found';
       case 'ERROR_SYSTEM':
         return localizations.error_system;
       case 'ERROR_SERVER':
         return localizations.error_server;
+      case 'PARSING_ERROR':
+        return 'Data parsing error occurred';
       case 'UNKNOWN_ERROR':
         return localizations.unknown_error;
       default:
-        return localizations.unknown_error;
+        return message ?? localizations.unknown_error;
     }
   }
 
   @override
-  List<Object?> get props => [messageCode, debugMessage, labs];
+  List<Object?> get props => [code, message, debugMessage, labs];
 }

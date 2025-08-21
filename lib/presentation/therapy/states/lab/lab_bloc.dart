@@ -1,14 +1,13 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:raho_member_apps/data/models/detail_lab.dart';
 import 'package:raho_member_apps/data/models/lab.dart';
 import 'package:raho_member_apps/data/repositories/lab_repository.dart';
-import 'package:raho_member_apps/l10n/app_localizations.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:raho_member_apps/l10n/app_localizations.dart';
 
 part 'lab_event.dart';
-
 part 'lab_state.dart';
 
 class LabBloc extends Bloc<LabEvent, LabState> {
@@ -16,8 +15,8 @@ class LabBloc extends Bloc<LabEvent, LabState> {
   final _searchDebounce = BehaviorSubject<String>();
 
   LabBloc({required LabRepository repository})
-    : _repository = repository,
-      super(LabInitial()) {
+      : _repository = repository,
+        super(LabInitial()) {
     on<FetchLabList>(_onFetchLabList);
     on<LoadMoreLab>(_onLoadMoreLab);
     on<RefreshLabList>(_onRefreshLabList);
@@ -27,16 +26,16 @@ class LabBloc extends Bloc<LabEvent, LabState> {
     on<FetchLabDetail>(_onFetchLabDetail);
 
     _searchDebounce.debounceTime(const Duration(milliseconds: 500)).listen((
-      query,
-    ) {
+        query,
+        ) {
       add(FetchLabList(search: query));
     });
   }
 
   Future<void> _onFetchLabList(
-    FetchLabList event,
-    Emitter<LabState> emit,
-  ) async {
+      FetchLabList event,
+      Emitter<LabState> emit,
+      ) async {
     try {
       emit(LabLoading());
 
@@ -57,8 +56,7 @@ class LabBloc extends Bloc<LabEvent, LabState> {
         emit(
           LabListLoaded(
             labs: response.data ?? [],
-            pagination:
-                response.pagination ??
+            pagination: response.pagination ??
                 PaginationModelLab(
                   currentPage: 1,
                   totalPages: 0,
@@ -83,7 +81,10 @@ class LabBloc extends Bloc<LabEvent, LabState> {
     }
   }
 
-  Future<void> _onLoadMoreLab(LoadMoreLab event, Emitter<LabState> emit) async {
+  Future<void> _onLoadMoreLab(
+      LoadMoreLab event,
+      Emitter<LabState> emit,
+      ) async {
     if (state is LabListLoaded) {
       final currentState = state as LabListLoaded;
 
@@ -128,9 +129,9 @@ class LabBloc extends Bloc<LabEvent, LabState> {
   }
 
   Future<void> _onRefreshLabList(
-    RefreshLabList event,
-    Emitter<LabState> emit,
-  ) async {
+      RefreshLabList event,
+      Emitter<LabState> emit,
+      ) async {
     if (state is LabListLoaded) {
       final currentState = state as LabListLoaded;
       emit(LabRefreshing(labs: currentState.labs));
@@ -166,9 +167,9 @@ class LabBloc extends Bloc<LabEvent, LabState> {
   }
 
   Future<void> _onClearFilters(
-    ClearLabFilters event,
-    Emitter<LabState> emit,
-  ) async {
+      ClearLabFilters event,
+      Emitter<LabState> emit,
+      ) async {
     add(
       FetchLabList(
         search: state is LabListLoaded
@@ -179,14 +180,19 @@ class LabBloc extends Bloc<LabEvent, LabState> {
   }
 
   Future<void> _onFetchLabDetail(
-    FetchLabDetail event,
-    Emitter<LabState> emit,
-  ) async {
+      FetchLabDetail event,
+      Emitter<LabState> emit,
+      ) async {
     try {
+      // Preserve current labs list if available
       List<LabData>? currentLabs;
       final currentState = state;
 
       if (currentState is LabListLoaded) {
+        currentLabs = currentState.labs;
+      } else if (currentState is LabDetailLoaded) {
+        currentLabs = currentState.labs;
+      } else if (currentState is LabDetailError) {
         currentLabs = currentState.labs;
       }
 
@@ -194,16 +200,40 @@ class LabBloc extends Bloc<LabEvent, LabState> {
 
       final response = await _repository.getDetailLab(event.id);
 
-      if (response!.isSuccess) {
-        emit(LabDetailLoaded(labDetail: response, labs: currentLabs));
-      } else if (response.isError) {
-        emit(
-          LabDetailError(messageCode: response.messageCode, labs: currentLabs),
-        );
+      if (response != null) {
+        if (response.isSuccess) {
+          emit(LabDetailLoaded(
+            labDetail: response,
+            labs: currentLabs,
+          ));
+        } else if (response.isError) {
+          emit(
+            LabDetailError(
+              code: response.code ?? 'UNKNOWN_ERROR',
+              message: response.message,
+              labs: currentLabs,
+            ),
+          );
+        } else {
+          emit(
+            LabDetailError(
+              code: 'UNKNOWN_ERROR',
+              message: 'An unexpected error occurred',
+              labs: currentLabs,
+            ),
+          );
+        }
       } else {
-        emit(LabDetailError(messageCode: 'UNKNOWN_ERROR', labs: currentLabs));
+        emit(
+          LabDetailError(
+            code: 'NULL_RESPONSE',
+            message: 'No response from server',
+            labs: currentLabs,
+          ),
+        );
       }
     } catch (e) {
+      // Preserve labs list even on error
       List<LabData>? currentLabs;
       if (state is LabDetailLoading) {
         currentLabs = (state as LabDetailLoading).labs;
@@ -211,7 +241,8 @@ class LabBloc extends Bloc<LabEvent, LabState> {
 
       emit(
         LabDetailError(
-          messageCode: 'ERROR_SERVER',
+          code: 'ERROR_SERVER',
+          message: 'Server error occurred',
           debugMessage: e.toString(),
           labs: currentLabs,
         ),

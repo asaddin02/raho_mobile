@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:raho_member_apps/data/models/detail_transaction.dart';
 import 'package:raho_member_apps/data/models/transaction.dart';
 import 'package:raho_member_apps/data/providers/transaction_provider.dart';
@@ -23,7 +21,6 @@ class TransactionRepository {
       if (search != null && search.isNotEmpty) {
         queryParams['search'] = search;
       }
-      debugPrint('Transaction Request Params: ${jsonEncode(queryParams)}');
       final response = await _provider.getTransaction(queryParams: queryParams);
       final model = TransactionModel.fromJson(response);
       if (model.hasError) {
@@ -65,11 +62,6 @@ class TransactionRepository {
           message: 'Transaction type must be either "payment" or "faktur"',
         );
       }
-
-      debugPrint(
-        'Fetching transaction detail: ID=$transactionId, Type=$transactionType',
-      );
-
       // Get response from provider
       final response = await _provider.getDetailTransaction(
         transactionId: transactionId,

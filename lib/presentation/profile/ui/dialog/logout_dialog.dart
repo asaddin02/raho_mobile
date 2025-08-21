@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:raho_member_apps/core/constants/app_routes.dart';
 import 'package:raho_member_apps/core/constants/app_sizes.dart';
 import 'package:raho_member_apps/core/styles/app_text_style.dart';
 import 'package:raho_member_apps/presentation/authentication/states/auth/auth_bloc.dart';
@@ -112,7 +114,11 @@ class LogoutDialog extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        context.read<AuthBloc>().add(AuthLogoutRequested());
+                        try {
+                          context.read<AuthBloc>().add(AuthLogoutRequested());
+                        } finally {
+                          context.pushReplacementNamed(AppRoutes.splash.name);
+                        }
                       },
                       borderRadius: BorderRadius.circular(AppSizes.radiusLarge),
                       child: Container(

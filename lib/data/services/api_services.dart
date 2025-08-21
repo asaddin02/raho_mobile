@@ -35,6 +35,7 @@ class ApiService implements IApiService {
           if (await secureStorageService.hasToken()) {
             String? accessToken = await secureStorageService.getToken();
             if (accessToken != null) {
+              print(accessToken);
               options.headers['Authorization'] = 'Bearer $accessToken';
             }
           }

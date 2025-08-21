@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:raho_member_apps/data/models/detail_therapy.dart';
 import 'package:raho_member_apps/data/models/therapy.dart';
 import 'package:raho_member_apps/data/providers/therapy_provider.dart';
@@ -37,7 +38,7 @@ class TherapyRepository {
     try {
       final response = await _provider.getDetailTherapy(id);
       if (response['data'] != null) {
-        final result = DetailTherapyModel.fromJson(response['data']);
+        final result = DetailTherapyModel.fromJson(response);
         return result;
       }
 

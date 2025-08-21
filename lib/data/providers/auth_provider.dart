@@ -44,7 +44,7 @@ class AuthProvider {
       final response = await _apiService.authenticatedRequest(
         AppEndpoints.logout,
         method: 'POST',
-        body: refreshToken != null ? {'refresh_token': refreshToken} : null,
+        body: {'refresh_token': refreshToken},
       );
       return response.data;
     } catch (e) {

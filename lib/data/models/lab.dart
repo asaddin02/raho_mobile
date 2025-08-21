@@ -21,14 +21,13 @@ class LabModel {
   });
 
   factory LabModel.fromJson(Map<String, dynamic> json) {
-    // Handle both 'status' and 'success'/'error' patterns
     String? success;
     String? error;
 
     if (json['status'] == 'success') {
-      success = json['code']; // Use code as success value
+      success = json['code'];
     } else if (json['status'] == 'error') {
-      error = json['code']; // Use code as error value
+      error = json['code'];
     } else {
       success = json['success'];
       error = json['error'];
@@ -91,17 +90,15 @@ class LabData {
   final int id;
   final String? companyName;
   final String? date;
-  final String? labType;
-  final String? status;
-  final String? results;
+  final String? labNumber;
+  final String? doctor;
 
   LabData({
     required this.id,
     this.companyName,
     this.date,
-    this.labType,
-    this.status,
-    this.results,
+    this.labNumber,
+    this.doctor,
   });
 
   factory LabData.fromJson(Map<String, dynamic> json) {
@@ -109,11 +106,18 @@ class LabData {
       id: json['id'] ?? 0,
       companyName: json['company_name'],
       date: json['date'],
-      labType: json['lab_type'],
-      status: json['status'],
-      results: json['results'],
+      labNumber: json['lab_number'],
+      doctor: json['doctor'],
     );
   }
+
+  String get displayLabNumber => labNumber ?? '-';
+
+  String get displayDoctor => doctor ?? '-';
+
+  String get displayCompany => companyName ?? '-';
+
+  String get displayDate => date ?? '-';
 }
 
 class PaginationModelLab {

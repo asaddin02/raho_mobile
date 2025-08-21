@@ -3,9 +3,9 @@ import 'package:raho_member_apps/core/utils/helper.dart';
 import 'package:raho_member_apps/l10n/app_localizations.dart';
 
 class DetailTherapyModel {
-  final String? status; // 'success' or 'error' from backend
-  final String? code; // Error/success code
-  final String? message; // Error message (only for errors)
+  final String? status;
+  final String? code;
+  final String? message;
   final int? id;
   final String? memberName;
   final String? therapyDate;
