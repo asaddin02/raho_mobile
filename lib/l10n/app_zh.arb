@@ -399,5 +399,36 @@
   "therapy_detail_failed": "获取治疗详情失败",
   "lab_id_required": "化验ID为必填项",
   "lab_record_not_found": "未找到化验数据",
-  "lab_detail_fetched": "化验详情获取成功"
+  "lab_detail_fetched": "化验详情获取成功",
+  "labDetailTitle": "实验室结果详情",
+  "labNumber": "实验编号",
+  "labPatient": "病人",
+  "labDoctor": "医生",
+  "labDate": "日期",
+  "labOfficer": "实验员",
+  "labDiagnosis": "初步诊断",
+  "labTestResults": "检测结果",
+  "searchLabResults": "搜索检测结果...",
+  "noLabResults": "没有实验结果",
+  "noLabResultsDesc": "没有可用的检测结果",
+  "noSearchResults": "未找到结果",
+  "noSearchResultsFor": "关于 \"{search_query}\"",
+  "@noSearchResultsFor": {
+    "placeholders": {
+      "search_query": {
+        "type": "String"
+      }
+    }
+  },
+  "otherTests": "其他检测",
+  "testsCount": "{count} 项检测",
+  "@testsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "labResult": "结果",
+  "labNormalRange": "正常范围"
 }

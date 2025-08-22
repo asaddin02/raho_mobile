@@ -958,4 +958,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lab_detail_fetched => 'Laboratory details retrieved successfully';
+
+  @override
+  String get labDetailTitle => 'Lab Result Detail';
+
+  @override
+  String get labNumber => 'Lab Number';
+
+  @override
+  String get labPatient => 'Patient';
+
+  @override
+  String get labDoctor => 'Doctor';
+
+  @override
+  String get labDate => 'Date';
+
+  @override
+  String get labOfficer => 'Lab Officer';
+
+  @override
+  String get labDiagnosis => 'Initial Diagnosis';
+
+  @override
+  String get labTestResults => 'Test Results';
+
+  @override
+  String get searchLabResults => 'Search test results...';
+
+  @override
+  String get noLabResults => 'No Lab Results';
+
+  @override
+  String get noLabResultsDesc => 'No test results available';
+
+  @override
+  String get noSearchResults => 'No results found';
+
+  @override
+  String noSearchResultsFor(String search_query) {
+    return 'for \"$search_query\"';
+  }
+
+  @override
+  String get otherTests => 'Other Tests';
+
+  @override
+  String testsCount(int count) {
+    return '$count tests';
+  }
+
+  @override
+  String get labResult => 'Result';
+
+  @override
+  String get labNormalRange => 'Normal Range';
 }

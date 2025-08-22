@@ -941,4 +941,59 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get lab_detail_fetched => '化验详情获取成功';
+
+  @override
+  String get labDetailTitle => '实验室结果详情';
+
+  @override
+  String get labNumber => '实验编号';
+
+  @override
+  String get labPatient => '病人';
+
+  @override
+  String get labDoctor => '医生';
+
+  @override
+  String get labDate => '日期';
+
+  @override
+  String get labOfficer => '实验员';
+
+  @override
+  String get labDiagnosis => '初步诊断';
+
+  @override
+  String get labTestResults => '检测结果';
+
+  @override
+  String get searchLabResults => '搜索检测结果...';
+
+  @override
+  String get noLabResults => '没有实验结果';
+
+  @override
+  String get noLabResultsDesc => '没有可用的检测结果';
+
+  @override
+  String get noSearchResults => '未找到结果';
+
+  @override
+  String noSearchResultsFor(String search_query) {
+    return '关于 \"$search_query\"';
+  }
+
+  @override
+  String get otherTests => '其他检测';
+
+  @override
+  String testsCount(int count) {
+    return '$count 项检测';
+  }
+
+  @override
+  String get labResult => '结果';
+
+  @override
+  String get labNormalRange => '正常范围';
 }

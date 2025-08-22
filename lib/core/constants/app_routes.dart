@@ -30,6 +30,10 @@ class AppRoutes {
     "/therapy/detail-therapy/:id",
     "detail-therapy",
   );
+  static const detailLab = AppRoutes._(
+    "/therapy/detail-lab/:id",
+    "detail-lab",
+  );
   static const personalData = AppRoutes._(
     "/profile/personal-data",
     "personal-data",

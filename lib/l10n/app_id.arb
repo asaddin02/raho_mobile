@@ -399,5 +399,36 @@
   "therapy_detail_failed": "Gagal mengambil detail terapi",
   "lab_id_required": "ID laboratorium harus diisi",
   "lab_record_not_found": "Data laboratorium tidak ditemukan",
-  "lab_detail_fetched": "Detail laboratorium berhasil diambil"
+  "lab_detail_fetched": "Detail laboratorium berhasil diambil",
+  "labDetailTitle": "Detail Hasil Lab",
+  "labNumber": "Nomor Lab",
+  "labPatient": "Pasien",
+  "labDoctor": "Dokter",
+  "labDate": "Tanggal",
+  "labOfficer": "Petugas Lab",
+  "labDiagnosis": "Diagnosa Awal",
+  "labTestResults": "Hasil Tes",
+  "searchLabResults": "Cari hasil tes...",
+  "noLabResults": "Tidak Ada Hasil Lab",
+  "noLabResultsDesc": "Tidak ada hasil tes tersedia",
+  "noSearchResults": "Hasil tidak ditemukan",
+  "noSearchResultsFor": "untuk \"{search_query}\"",
+  "@noSearchResultsFor": {
+    "placeholders": {
+      "search_query": {
+        "type": "String"
+      }
+    }
+  },
+  "otherTests": "Tes Lainnya",
+  "testsCount": "{count} tes",
+  "@testsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "labResult": "Hasil",
+  "labNormalRange": "Rentang Normal"
 }

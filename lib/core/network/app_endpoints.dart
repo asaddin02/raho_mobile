@@ -16,7 +16,7 @@ class AppEndpoints {
   static const String therapy = 'therapy';
   static const String lab = 'lab';
   static const String detailTherapy = 'therapy/detail';
-  static const String detailLab = 'therapy/lab';
+  static const String detailLab = 'lab/detail';
   static const String transaction = 'transaction';
   static const String detailTransaction = 'transaction/detail';
 }

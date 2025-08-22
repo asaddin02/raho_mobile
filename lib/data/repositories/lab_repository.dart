@@ -33,7 +33,7 @@ class LabRepository {
       final response = await _provider.getDetailLab(id);
 
       if (response['data'] != null) {
-        return DetailLabModel.fromJson(response['data']);
+        return DetailLabModel.fromJson(response);
       }
 
       return null;

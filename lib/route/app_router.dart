@@ -17,6 +17,7 @@ import 'package:raho_member_apps/presentation/profile/ui/my_diagnosis_page.dart'
 import 'package:raho_member_apps/presentation/profile/ui/personal_data_page.dart';
 import 'package:raho_member_apps/presentation/profile/ui/profile_page.dart';
 import 'package:raho_member_apps/presentation/profile/ui/reference_code_page.dart';
+import 'package:raho_member_apps/presentation/therapy/ui/detail_lab_page.dart';
 import 'package:raho_member_apps/presentation/therapy/ui/detail_therapy_page.dart';
 import 'package:raho_member_apps/presentation/therapy/ui/history_page.dart';
 import 'package:raho_member_apps/presentation/transaction/ui/detail_transaction.dart';
@@ -60,7 +61,7 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.login.path,
         name: AppRoutes.login.name,
-        builder: (context, state) => LoginWrapper(),
+        builder: (context, state) => const LoginWrapper(),
       ),
       ShellRoute(
         builder: (context, state, child) {
@@ -76,34 +77,34 @@ class AppRouter {
           GoRoute(
             path: AppRoutes.profile.path,
             name: AppRoutes.profile.name,
-            builder: (context, state) => const ProfilePage(),
+            builder: (context, state) => const ProfilePageWrapper(),
             routes: [
               GoRoute(
                 path: AppRoutes.personalData.path,
                 name: AppRoutes.personalData.name,
-                builder: (context, state) => PersonalDataPage(),
+                builder: (context, state) => const PersonalDataPage(),
               ),
               GoRoute(
                 path: AppRoutes.myDiagnosis.path,
                 name: AppRoutes.myDiagnosis.name,
-                builder: (context, state) => MyDiagnosisWrapper(),
+                builder: (context, state) => const MyDiagnosisWrapper(),
               ),
               GoRoute(
                 path: AppRoutes.referenceCode.path,
                 name: AppRoutes.referenceCode.name,
-                builder: (context, state) => ReferenceCodeWrapper(),
+                builder: (context, state) => const ReferenceCodeWrapper(),
               ),
               GoRoute(
                 path: AppRoutes.branchLocation.path,
                 name: AppRoutes.branchLocation.name,
-                builder: (context, state) => BranchLocationPage(),
+                builder: (context, state) => const BranchLocationPage(),
               ),
             ],
           ),
           GoRoute(
             path: AppRoutes.therapy.path,
             name: AppRoutes.therapy.name,
-            builder: (context, state) => HistoryPageWrapper(),
+            builder: (context, state) => const HistoryPageWrapper(),
             routes: [
               GoRoute(
                 path: AppRoutes.detailTherapy.path,
@@ -112,6 +113,15 @@ class AppRouter {
                   final therapyId =
                       int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
                   return DetailTherapyPageWrapper(therapyId: therapyId);
+                },
+              ),
+              GoRoute(
+                path: AppRoutes.detailLab.path,
+                name: AppRoutes.detailLab.name,
+                builder: (context, state) {
+                  final labId =
+                      int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+                  return DetailLabPageWrapper(labId: labId);
                 },
               ),
             ],

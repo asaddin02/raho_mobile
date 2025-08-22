@@ -4,15 +4,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:raho_member_apps/core/constants/app_routes.dart';
 import 'package:raho_member_apps/core/constants/app_sizes.dart';
+import 'package:raho_member_apps/core/di/service_locator.dart';
 import 'package:raho_member_apps/core/styles/app_text_style.dart';
+import 'package:raho_member_apps/core/utils/helper.dart';
+import 'package:raho_member_apps/data/repositories/user_repository.dart';
 import 'package:raho_member_apps/l10n/app_localizations.dart';
 import 'package:raho_member_apps/presentation/authentication/states/auth/auth_bloc.dart';
 import 'package:raho_member_apps/presentation/profile/model/menu_item_data.dart';
+import 'package:raho_member_apps/presentation/profile/states/profile/profile_bloc.dart';
 import 'package:raho_member_apps/presentation/profile/ui/dialog/info_app_dialog.dart';
 import 'package:raho_member_apps/presentation/profile/ui/dialog/language_dialog.dart';
 import 'package:raho_member_apps/presentation/profile/ui/dialog/logout_dialog.dart';
 import 'package:raho_member_apps/presentation/template/backdrop_apps.dart';
 import 'package:raho_member_apps/presentation/theme/states/cubit/theme_cubit.dart';
+
+class ProfilePageWrapper extends StatelessWidget {
+  const ProfilePageWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => ProfileBloc(repository: sl<UserRepository>())
+        ..add(GetProfile()),
+      child: const ProfilePage(),
+    );
+  }
+}
+
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -224,70 +242,95 @@ class _ProfilePageState extends State<ProfilePage>
     return Container(
       padding: EdgeInsets.all(AppSizes.paddingLarge),
       child: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
+        builder: (context, authState) {
           final user = context.read<AuthBloc>().currentUser;
-          return Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    colors: [const Color(0xFFE03A47), const Color(0xFFD32F2F)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFFE03A47).withValues(alpha: 0.3),
-                      blurRadius: 16,
-                      offset: const Offset(0, 4),
+
+          return BlocBuilder<ProfileBloc, ProfileState>(
+            builder: (context, profState) {
+              String? b64;
+              if (profState is ProfileLoaded) {
+                b64 = profState.profile.profileImage;
+              }
+
+              final bytes = decodeBase64Image(b64);
+
+              return Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFE03A47), Color(0xFFD32F2F)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFFE03A47).withAlpha(77),
+                          blurRadius: 16,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                child: Container(
-                  padding: EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: colorScheme.surface,
+                    child: Container(
+                      padding: EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: colorScheme.surface,
+                      ),
+                      child: CircleAvatar(
+                        radius: 48,
+                        backgroundColor: colorScheme.surfaceContainerHighest,
+                        child: ClipOval(
+                          child: bytes != null
+                              ? Image.memory(
+                            bytes,
+                            width: 96,
+                            height: 96,
+                            fit: BoxFit.cover,
+                            gaplessPlayback: true,
+                            filterQuality: FilterQuality.medium,
+                          )
+                              : Image.asset(
+                            "assets/images/person.jpg",
+                            width: 96,
+                            height: 96,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  child: CircleAvatar(
-                    radius: 48,
-                    backgroundColor: colorScheme.surfaceContainerHighest,
-                    backgroundImage: AssetImage("assets/images/person.jpg"),
+                  SizedBox(height: AppSizes.spacingLarge),
+                  Text(
+                    user?.name ?? '',
+                    style: AppTextStyle.title.withColor(colorScheme.onSurface),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-              ),
-              SizedBox(height: AppSizes.spacingLarge),
-              Text(
-                user?.name ?? '',
-                style: AppTextStyle.title.withColor(colorScheme.onSurface),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: AppSizes.spacingSmall),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: AppSizes.paddingMedium,
-                  vertical: AppSizes.paddingSmall,
-                ),
-                decoration: BoxDecoration(
-                  color: colorScheme.surfaceContainerHighest.withValues(
-                    alpha: 0.6,
+                  SizedBox(height: AppSizes.spacingSmall),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: AppSizes.paddingMedium,
+                      vertical: AppSizes.paddingSmall,
+                    ),
+                    decoration: BoxDecoration(
+                      color: colorScheme.surfaceContainerHighest.withAlpha(153),
+                      borderRadius: BorderRadius.circular(AppSizes.radiusSmall),
+                      border: Border.all(
+                        color: colorScheme.outline.withAlpha(26),
+                        width: 1,
+                      ),
+                    ),
+                    child: Text(
+                      user?.id ?? '',
+                      style: AppTextStyle.caption
+                          .withColor(colorScheme.onSurface.withAlpha(179)),
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(AppSizes.radiusSmall),
-                  border: Border.all(
-                    color: colorScheme.outline.withValues(alpha: 0.1),
-                    width: 1,
-                  ),
-                ),
-                child: Text(
-                  user?.id ?? '',
-                  style: AppTextStyle.caption.withColor(
-                    colorScheme.onSurface.withValues(alpha: 0.7),
-                  ),
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           );
         },
       ),

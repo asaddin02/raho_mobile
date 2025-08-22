@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:raho_member_apps/core/utils/helper.dart';
 import 'package:raho_member_apps/l10n/app_localizations.dart';
 
 class DetailLabModel {
@@ -7,9 +6,10 @@ class DetailLabModel {
   final String? code;
   final String? message;
   final String? numberLab;
-  final String? member;
+  final String member;
   final String? diagnosa;
   final String? dokter;
+
   // final String? keterangan; // Commented as requested, but kept in model
   final String? date;
   final String? petugas;
@@ -20,7 +20,7 @@ class DetailLabModel {
     this.code,
     this.message,
     this.numberLab,
-    this.member,
+    required this.member,
     this.diagnosa,
     this.dokter,
     // this.keterangan,
@@ -31,38 +31,69 @@ class DetailLabModel {
 
   factory DetailLabModel.fromJson(Map<String, dynamic> json) {
     try {
-      // Extract status information directly from backend response
-      final String? status = json['status'];
-      final String? code = json['code'];
-      final String? message = json['message'];
+      final String? status = json['status']?.toString();
+      final String? code = json['code']?.toString();
+      final String? message = json['message']?.toString();
+      final Map<String, dynamic>? data = json['data'] as Map<String, dynamic>?;
 
-      // Extract data object
-      final Map<String, dynamic>? data = json['data'];
+      final memberValue = _parseMember(data?['member']);
+      if (memberValue == null || memberValue.isEmpty) {
+        throw Exception('Member field is required and cannot be empty');
+      }
 
       return DetailLabModel(
         status: status,
         code: code,
         message: message,
-        numberLab: data?['number_lab'],
-        member: data?['member'],
-        diagnosa: data?['diagnosa'],
-        dokter: data?['dokter'],
-        // keterangan: data?['keterangan'],
-        date: data?['date'],
-        petugas: data?['petugas'],
-        detailDataLab: data?['detail_data_lab'] != null
-            ? (data!['detail_data_lab'] as List)
-            .map((item) => DetailDataLabModel.fromJson(item))
-            .toList()
-            : null,
+        numberLab: data?['number_lab']?.toString(),
+        member: memberValue,
+        diagnosa: data?['diagnosa']?.toString(),
+        dokter: data?['dokter']?.toString(),
+        // keterangan: data?['keterangan']?.toString(),
+        date: data?['date']?.toString(),
+        petugas: data?['petugas']?.toString(),
+        detailDataLab: _parseDetailDataLab(data?['detail_data_lab']),
       );
     } catch (e) {
-      // Return error model if parsing fails
       return DetailLabModel(
         status: 'error',
         code: 'PARSING_ERROR',
         message: 'Failed to parse response: $e',
+        member: 'Unknown',
       );
+    }
+  }
+
+  static String? _parseMember(dynamic memberData) {
+    if (memberData == null) return null;
+
+    String memberStr;
+    if (memberData is bool) {
+      memberStr = memberData ? 'Member' : 'Non-Member';
+    } else {
+      memberStr = memberData.toString().trim();
+    }
+
+    return memberStr.isEmpty ? null : memberStr;
+  }
+
+  static List<DetailDataLabModel>? _parseDetailDataLab(dynamic detailData) {
+    if (detailData == null) return null;
+    if (detailData is! List) return null;
+
+    try {
+      return detailData
+          .map((item) {
+            if (item is Map<String, dynamic>) {
+              return DetailDataLabModel.fromJson(item);
+            }
+            return null;
+          })
+          .where((item) => item != null)
+          .cast<DetailDataLabModel>()
+          .toList();
+    } catch (e) {
+      return null;
     }
   }
 
@@ -98,15 +129,15 @@ class DetailLabModel {
     }
 
     switch (code!) {
-    // Success codes
+      // Success codes
       case 'LAB_DETAIL_FETCHED':
-        return localizations.lab_detail_fetched ?? 'Lab detail successfully fetched';
+        return localizations.lab_detail_fetched;
 
-    // Error codes
+      // Error codes
       case 'LAB_ID_REQUIRED':
-        return localizations.lab_id_required ?? 'Lab ID is required';
+        return localizations.lab_id_required;
       case 'LAB_RECORD_NOT_FOUND':
-        return localizations.lab_record_not_found ?? 'Lab record not found';
+        return localizations.lab_record_not_found;
       case 'ERROR_SYSTEM':
         return localizations.error_system;
       case 'ERROR_SERVER':
@@ -119,7 +150,6 @@ class DetailLabModel {
     }
   }
 
-  // Specific error type checkers
   bool get isLabNotFound => code == 'LAB_RECORD_NOT_FOUND';
 
   bool get isLabIdRequired => code == 'LAB_ID_REQUIRED';
@@ -128,10 +158,8 @@ class DetailLabModel {
 
   bool get isParsingError => code == 'PARSING_ERROR';
 
-  // Check if has lab results
   bool get hasLabResults => detailDataLab != null && detailDataLab!.isNotEmpty;
 
-  // Get total lab results count
   int get labResultsCount => detailDataLab?.length ?? 0;
 
   @override
@@ -141,69 +169,96 @@ class DetailLabModel {
 }
 
 class DetailDataLabModel {
-  final String? subName;
-  final String? item;
-  final double? result;
-  final String? satuan;
-  final String? normalValue;
-  final String? keterangan;
+  final String subName;
+  final String item;
+  final String result;
+  final String satuan;
+  final String normalValue;
+  final String keterangan;
 
   DetailDataLabModel({
-    this.subName,
-    this.item,
-    this.result,
-    this.satuan,
-    this.normalValue,
-    this.keterangan,
+    required this.subName,
+    required this.item,
+    required this.result,
+    required this.satuan,
+    required this.normalValue,
+    required this.keterangan,
   });
 
   factory DetailDataLabModel.fromJson(Map<String, dynamic> json) {
-    return DetailDataLabModel(
-      subName: json['sub_name'],
-      item: json['item'],
-      result: parseToDouble(json['result']),
-      satuan: json['satuan'],
-      normalValue: json['normal_value'],
-      keterangan: json['keterangan'],
-    );
+    try {
+      return DetailDataLabModel(
+        subName: json['sub_name']?.toString() ?? '-',
+        item: json['item']?.toString() ?? '-',
+        result: json['result']?.toString() ?? '0',
+        // Keep as string
+        satuan: json['satuan']?.toString() ?? '-',
+        normalValue: json['normal_value']?.toString() ?? '-',
+        keterangan: json['keterangan']?.toString() ?? '-',
+      );
+    } catch (e) {
+      return DetailDataLabModel(
+        subName: 'Error',
+        item: 'Parsing Error',
+        result: '0',
+        satuan: '-',
+        normalValue: '-',
+        keterangan: 'Error parsing: $e',
+      );
+    }
   }
 
-  // Check if result is normal based on normal value range
+  double? get resultAsDouble {
+    if (result == '-' || result.isEmpty) return null;
+
+    String cleanResult = result.replaceAll(RegExp(r'[^\d.-]'), '');
+    return double.tryParse(cleanResult.replaceAll(',', '.'));
+  }
+
   bool? get isNormal {
-    if (normalValue == null || normalValue == '-' || result == null) {
-      return null;
-    }
+    if (normalValue == '-' || normalValue.isEmpty) return null;
+
+    final resultDouble = resultAsDouble;
+    if (resultDouble == null) return null;
 
     try {
-      // Parse normal value range (e.g., "80-120", "< 100", "> 50")
-      if (normalValue!.contains('-')) {
-        final parts = normalValue!.split('-');
+      if (normalValue.contains('-')) {
+        final parts = normalValue.split('-');
         if (parts.length == 2) {
-          final min = double.tryParse(parts[0].trim());
-          final max = double.tryParse(parts[1].trim());
+          final min = double.tryParse(parts[0].trim().replaceAll(',', '.'));
+          final max = double.tryParse(parts[1].trim().replaceAll(',', '.'));
           if (min != null && max != null) {
-            return result! >= min && result! <= max;
+            return resultDouble >= min && resultDouble <= max;
           }
         }
-      } else if (normalValue!.contains('<')) {
+      } else if (normalValue.contains('<')) {
         final maxValue = double.tryParse(
-            normalValue!.replaceAll('<', '').replaceAll('=', '').trim());
+          normalValue
+              .replaceAll('<', '')
+              .replaceAll('=', '')
+              .replaceAll(',', '.')
+              .trim(),
+        );
         if (maxValue != null) {
-          return normalValue!.contains('=')
-              ? result! <= maxValue
-              : result! < maxValue;
+          return normalValue.contains('=')
+              ? resultDouble <= maxValue
+              : resultDouble < maxValue;
         }
-      } else if (normalValue!.contains('>')) {
+      } else if (normalValue.contains('>')) {
         final minValue = double.tryParse(
-            normalValue!.replaceAll('>', '').replaceAll('=', '').trim());
+          normalValue
+              .replaceAll('>', '')
+              .replaceAll('=', '')
+              .replaceAll(',', '.')
+              .trim(),
+        );
         if (minValue != null) {
-          return normalValue!.contains('=')
-              ? result! >= minValue
-              : result! > minValue;
+          return normalValue.contains('=')
+              ? resultDouble >= minValue
+              : resultDouble > minValue;
         }
       }
     } catch (e) {
-      // If parsing fails, return null
       return null;
     }
 
@@ -226,9 +281,8 @@ class DetailDataLabModel {
 
   // Format result with unit
   String get formattedResult {
-    if (result == null) return '-';
-    final resultStr = result!.toStringAsFixed(result! % 1 == 0 ? 0 : 2);
-    return satuan != null && satuan != '-' ? '$resultStr $satuan' : resultStr;
+    if (result == '-' || result.isEmpty) return '-';
+    return satuan != '-' && satuan.isNotEmpty ? '$result $satuan' : result;
   }
 
   @override

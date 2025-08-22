@@ -959,4 +959,59 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get lab_detail_fetched => 'Detail laboratorium berhasil diambil';
+
+  @override
+  String get labDetailTitle => 'Detail Hasil Lab';
+
+  @override
+  String get labNumber => 'Nomor Lab';
+
+  @override
+  String get labPatient => 'Pasien';
+
+  @override
+  String get labDoctor => 'Dokter';
+
+  @override
+  String get labDate => 'Tanggal';
+
+  @override
+  String get labOfficer => 'Petugas Lab';
+
+  @override
+  String get labDiagnosis => 'Diagnosa Awal';
+
+  @override
+  String get labTestResults => 'Hasil Tes';
+
+  @override
+  String get searchLabResults => 'Cari hasil tes...';
+
+  @override
+  String get noLabResults => 'Tidak Ada Hasil Lab';
+
+  @override
+  String get noLabResultsDesc => 'Tidak ada hasil tes tersedia';
+
+  @override
+  String get noSearchResults => 'Hasil tidak ditemukan';
+
+  @override
+  String noSearchResultsFor(String search_query) {
+    return 'untuk \"$search_query\"';
+  }
+
+  @override
+  String get otherTests => 'Tes Lainnya';
+
+  @override
+  String testsCount(int count) {
+    return '$count tes';
+  }
+
+  @override
+  String get labResult => 'Hasil';
+
+  @override
+  String get labNormalRange => 'Rentang Normal';
 }

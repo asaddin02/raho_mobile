@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
@@ -185,4 +188,15 @@ String formatCurrency(double amount) {
         RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
         (Match m) => '${m[1]}.',
       );
+}
+
+// Base 64
+Uint8List? decodeBase64Image(String? b64) {
+  if (b64 == null || b64.isEmpty) return null;
+  final cleaned = b64.split(',').last.trim();
+  try {
+    return base64Decode(cleaned);
+  } catch (_) {
+    return null;
+  }
 }

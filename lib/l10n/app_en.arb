@@ -399,5 +399,36 @@
   "therapy_detail_failed": "Failed to retrieve therapy details",
   "lab_id_required": "Laboratory ID is required",
   "lab_record_not_found": "Laboratory data not found",
-  "lab_detail_fetched": "Laboratory details retrieved successfully"
+  "lab_detail_fetched": "Laboratory details retrieved successfully",
+  "labDetailTitle": "Lab Result Detail",
+  "labNumber": "Lab Number",
+  "labPatient": "Patient",
+  "labDoctor": "Doctor",
+  "labDate": "Date",
+  "labOfficer": "Lab Officer",
+  "labDiagnosis": "Initial Diagnosis",
+  "labTestResults": "Test Results",
+  "searchLabResults": "Search test results...",
+  "noLabResults": "No Lab Results",
+  "noLabResultsDesc": "No test results available",
+  "noSearchResults": "No results found",
+  "noSearchResultsFor": "for \"{search_query}\"",
+  "@noSearchResultsFor": {
+    "placeholders": {
+      "search_query": {
+        "type": "String"
+      }
+    }
+  },
+  "otherTests": "Other Tests",
+  "testsCount": "{count} tests",
+  "@testsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "labResult": "Result",
+  "labNormalRange": "Normal Range"
 }

@@ -13,6 +13,7 @@ import 'package:raho_member_apps/core/utils/loading.dart';
 import 'package:raho_member_apps/data/models/profile.dart';
 import 'package:raho_member_apps/l10n/app_localizations.dart';
 import 'package:raho_member_apps/presentation/profile/states/profile/profile_bloc.dart';
+import 'package:raho_member_apps/presentation/profile/ui/widget/profile_avatar_widget.dart';
 import 'package:raho_member_apps/presentation/template/backdrop_apps.dart';
 import 'package:raho_member_apps/presentation/widgets/snackbar_toast.dart';
 
@@ -24,6 +25,7 @@ class PersonalDataPage extends StatefulWidget {
 }
 
 class _PersonalDataPageState extends State<PersonalDataPage> {
+  String? _cachedImage;
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -107,6 +109,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
             genderController.value = state.profile.gender ?? '-';
             noHPController.text =
                 state.profile.noHpWa?.replaceAll('-', '') ?? '-';
+            _cachedImage = state.profile.profileImage ?? '';
           } else if (state is ProfileUpdateSuccess) {
             AppNotification.success(
               context,
@@ -274,10 +277,21 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
             child: CircleAvatar(
               radius: 36,
               backgroundColor: Colors.transparent,
-              child: CircleAvatar(
-                radius: 34,
-                backgroundColor: colorScheme.surfaceContainerHighest,
-                backgroundImage: const AssetImage("assets/images/person.jpg"),
+              child: BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  if (state is ProfileLoaded || state is ProfileEditMode) {
+                    return ProfileAvatarWidget(
+                      base64Image: _cachedImage,
+                    );
+                  }
+                  return CircleAvatar(
+                    radius: 34,
+                    backgroundColor: colorScheme.surfaceContainerHighest,
+                    backgroundImage: const AssetImage(
+                      "assets/images/person.jpg",
+                    ),
+                  );
+                },
               ),
             ),
           ),

@@ -894,7 +894,7 @@ class _OptimizedLabCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          // Navigate to lab detail
+          context.goNamed(AppRoutes.detailLab.name,pathParameters: {'id':lab.id.toString()});
         },
         borderRadius: BorderRadius.circular(AppSizes.radiusMedium),
         child: Padding(

@@ -1911,6 +1911,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Laboratory details retrieved successfully'**
   String get lab_detail_fetched;
+
+  /// No description provided for @labDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Lab Result Detail'**
+  String get labDetailTitle;
+
+  /// No description provided for @labNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Lab Number'**
+  String get labNumber;
+
+  /// No description provided for @labPatient.
+  ///
+  /// In en, this message translates to:
+  /// **'Patient'**
+  String get labPatient;
+
+  /// No description provided for @labDoctor.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor'**
+  String get labDoctor;
+
+  /// No description provided for @labDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get labDate;
+
+  /// No description provided for @labOfficer.
+  ///
+  /// In en, this message translates to:
+  /// **'Lab Officer'**
+  String get labOfficer;
+
+  /// No description provided for @labDiagnosis.
+  ///
+  /// In en, this message translates to:
+  /// **'Initial Diagnosis'**
+  String get labDiagnosis;
+
+  /// No description provided for @labTestResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Test Results'**
+  String get labTestResults;
+
+  /// No description provided for @searchLabResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Search test results...'**
+  String get searchLabResults;
+
+  /// No description provided for @noLabResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No Lab Results'**
+  String get noLabResults;
+
+  /// No description provided for @noLabResultsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'No test results available'**
+  String get noLabResultsDesc;
+
+  /// No description provided for @noSearchResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No results found'**
+  String get noSearchResults;
+
+  /// No description provided for @noSearchResultsFor.
+  ///
+  /// In en, this message translates to:
+  /// **'for \"{search_query}\"'**
+  String noSearchResultsFor(String search_query);
+
+  /// No description provided for @otherTests.
+  ///
+  /// In en, this message translates to:
+  /// **'Other Tests'**
+  String get otherTests;
+
+  /// No description provided for @testsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} tests'**
+  String testsCount(int count);
+
+  /// No description provided for @labResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Result'**
+  String get labResult;
+
+  /// No description provided for @labNormalRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal Range'**
+  String get labNormalRange;
 }
 
 class _AppLocalizationsDelegate

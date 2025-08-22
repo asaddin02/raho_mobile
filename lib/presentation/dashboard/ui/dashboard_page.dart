@@ -36,7 +36,6 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   void initState() {
     context.read<AuthBloc>().add(AuthCheckRequested());
-    // Load dashboard data saat init
     context.read<DashboardBloc>().add(LoadDashboardData());
     super.initState();
   }
@@ -72,27 +71,27 @@ class _DashboardPageState extends State<DashboardPage> {
                         Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: AppSizes.paddingTiny,
-                        horizontal: AppSizes.paddingLarge,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          AppSizes.radiusMedium,
-                        ),
-                        border: Border.all(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.onSurface.withValues(alpha: 0.3),
-                        ),
-                      ),
-                      child: Icon(
-                        Icons.notifications_outlined,
-                        color: Theme.of(context).colorScheme.onSurface,
-                        size: 20,
-                      ),
-                    ),
+                    // Container(
+                    //   padding: EdgeInsets.symmetric(
+                    //     vertical: AppSizes.paddingTiny,
+                    //     horizontal: AppSizes.paddingLarge,
+                    //   ),
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(
+                    //       AppSizes.radiusMedium,
+                    //     ),
+                    //     border: Border.all(
+                    //       color: Theme.of(
+                    //         context,
+                    //       ).colorScheme.onSurface.withValues(alpha: 0.3),
+                    //     ),
+                    //   ),
+                    //   child: Icon(
+                    //     Icons.notifications_outlined,
+                    //     color: Theme.of(context).colorScheme.onSurface,
+                    //     size: 20,
+                    //   ),
+                    // ),
                   ],
                 ),
                 SizedBox(height: AppSizes.spacingTiny),
