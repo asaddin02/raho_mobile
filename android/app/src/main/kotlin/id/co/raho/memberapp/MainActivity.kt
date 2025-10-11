@@ -1,4 +1,4 @@
-package com.example.raho_member_apps
+package id.co.raho.memberapp
 
 import io.flutter.embedding.android.FlutterActivity
 

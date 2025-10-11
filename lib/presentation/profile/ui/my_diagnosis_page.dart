@@ -267,7 +267,7 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
           CircleAvatar(
             radius: AppSizes.spacingXl + AppSizes.paddingLarge,
             backgroundColor: theme.colorScheme.primary.withAlpha(30),
-            backgroundImage: AssetImage("assets/images/person.jpg"),
+            backgroundImage: AssetImage("assets/images/person.png"),
           ),
           SizedBox(width: AppSizes.paddingMedium),
           Expanded(

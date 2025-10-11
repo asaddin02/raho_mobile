@@ -36,25 +36,25 @@ class AppLocalizationsId extends AppLocalizations {
   String get info => 'Informasi';
 
   @override
-  String get onboardingTitle1 => 'Teknologi NanoBubble';
+  String get onboardingTitle1 => 'Teknologi Nano Bubble';
 
   @override
   String get onboardingSubtitle1 =>
-      'Pelayanan kesehatan pertama di Dunia yang menggunakan Teknologi Nanobubble sebagai alat kesehatan';
+      'RAHO Club hadir dengan memberikan pelayanan kesehatan berbasis riset di Dunia dengan menggunakan Teknologi Nanobubble dengan Riset yang dihasilkan dari lembaga Penelitian Institut Molekul Indonesia.';
 
   @override
-  String get onboardingTitle2 => 'Ahli Kesehatan';
+  String get onboardingTitle2 => 'Tenaga Medis Profesional';
 
   @override
   String get onboardingSubtitle2 =>
-      'Dibantu dengan Dokter yang Profesional di bidang kesehatan';
+      'Bersama Tenaga medis profesional pada bidangnya membantu member RAHO Club mewujudkan kehidupan yang lebih baik di hari tua.';
 
   @override
-  String get onboardingTitle3 => 'Pelayanan Member';
+  String get onboardingTitle3 => 'Cabang Seluruh Indonesia';
 
   @override
   String get onboardingSubtitle3 =>
-      'Dilayani oleh para tenaga medis yang berkualitas dan mengutamakan kesejahteraan Anda';
+      'RAHO Club hadir dengan 11 cabang di seluruh Indonesia dan akan terus bertambah dengan berkembangnya riset dan teknologi medis saat ini.';
 
   @override
   String get buttonSkipOnboarding => 'Lewati';
@@ -348,24 +348,98 @@ class AppLocalizationsId extends AppLocalizations {
   String get logoutConfirmButton => 'Keluar';
 
   @override
-  String get dashboardWelcome => 'Selamat Datang';
+  String get noEventsAvailable => 'Belum ada event';
+
+  @override
+  String get eventLoadingError => 'Gagal memuat event';
+
+  @override
+  String get eventFull => 'PENUH';
+
+  @override
+  String get dashboardWelcome => 'Selamat datang';
 
   @override
   String get dashboardYourVoucher => 'Voucher Anda';
 
   @override
-  String get dashboardUsedVoucher => 'Voucher Terpakai';
+  String get dashboardUsedVoucher => 'Voucher Dipakai (bulan ini)';
 
   @override
-  String get dashboardLastTherapy => 'Terapi Terakhir';
+  String get dashboardLastTherapy => 'Riwayat Terapi Terakhir';
 
   @override
-  String get dashboardEventPromo => 'Event dan Promo';
+  String get dashboardEventPromo => 'Event & Promo';
 
   @override
   String dashboardTherapyInfusionNumber(String infusion_number) {
-    return 'Infus ke-$infusion_number';
+    return 'Jumlah infus: $infusion_number';
   }
+
+  @override
+  String get tryAgain => 'Coba Lagi';
+
+  @override
+  String get back => 'Kembali';
+
+  @override
+  String get activeEvent => 'Aktif';
+
+  @override
+  String get upcomingEvent => 'Akan Datang';
+
+  @override
+  String get ongoingEvent => 'Berlangsung';
+
+  @override
+  String get fullEvent => 'Penuh';
+
+  @override
+  String get description => 'Deskripsi';
+
+  @override
+  String get eventDetails => 'Detail Acara';
+
+  @override
+  String get participants => 'Peserta';
+
+  @override
+  String get eventDate => 'Tanggal Acara';
+
+  @override
+  String get location => 'Lokasi';
+
+  @override
+  String get registrationPeriod => 'Periode Pendaftaran';
+
+  @override
+  String get totalParticipants => 'Total Peserta';
+
+  @override
+  String get registerNow => 'Daftar Sekarang';
+
+  @override
+  String get registrationClosed => 'Pendaftaran Ditutup';
+
+  @override
+  String get eventFullMessage => 'Acara sudah penuh';
+
+  @override
+  String get toBeAnnounced => 'Akan Diumumkan';
+
+  @override
+  String availableSlots(int count) {
+    return 'Tersedia $count slot';
+  }
+
+  @override
+  String get eventsTitle => 'Acara';
+
+  @override
+  String get noEventsDescription => 'Belum ada acara tersedia saat ini';
+
+  @override
+  String get refresh => 'Muat ulang';
 
   @override
   String get myVoucherTitle => 'Voucher Saya';
@@ -685,10 +759,10 @@ class AppLocalizationsId extends AppLocalizations {
   String get diagnosisReloadButton => 'Muat Ulang';
 
   @override
-  String get genderMale => 'Pria';
+  String get genderMale => 'Laki-Laki';
 
   @override
-  String get genderFemale => 'Wanita';
+  String get genderFemale => 'Perempuan';
 
   @override
   String get genderSelectLabel => 'Pilih Gender';
@@ -709,6 +783,9 @@ class AppLocalizationsId extends AppLocalizations {
   String referenceErrorMessage(String message) {
     return 'Error: $message';
   }
+
+  @override
+  String get whatsappOpenError => 'Tidak dapat membuka WhatsApp';
 
   @override
   String get referenceNoData => 'Tidak ada data tersedia';
@@ -1014,4 +1091,16 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get labNormalRange => 'Rentang Normal';
+
+  @override
+  String get notificationTypeEvent => 'Acara';
+
+  @override
+  String get notificationTypeDefault => 'Notifikasi';
+
+  @override
+  String get timeNow => 'sekarang';
+
+  @override
+  String get notificationTitle => 'Notifikasi';
 }

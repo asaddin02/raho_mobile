@@ -36,25 +36,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get info => 'Information';
 
   @override
-  String get onboardingTitle1 => 'NanoBubble Technology';
+  String get onboardingTitle1 => 'Nanobubble Technology';
 
   @override
   String get onboardingSubtitle1 =>
-      'World\'s first healthcare service using NanoBubble technology as medical equipment';
+      'RAHO Club provides research-based healthcare services using Nanobubble Technology, supported by research from Indonesia’s Institute of Molecular Research.';
 
   @override
-  String get onboardingTitle2 => 'Health Experts';
+  String get onboardingTitle2 => 'Professional Medical Team';
 
   @override
   String get onboardingSubtitle2 =>
-      'Supported by professional doctors in the health field';
+      'Our professional medical team helps RAHO Club members achieve a better quality of life in their later years.';
 
   @override
-  String get onboardingTitle3 => 'Member Service';
+  String get onboardingTitle3 => 'Branches Across Indonesia';
 
   @override
   String get onboardingSubtitle3 =>
-      'Served by qualified medical staff who prioritize your well-being';
+      'RAHO Club currently has 11 branches across Indonesia and will continue to grow as medical research and technology advance.';
 
   @override
   String get buttonSkipOnboarding => 'Skip';
@@ -347,6 +347,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logoutConfirmButton => 'Logout';
 
   @override
+  String get noEventsAvailable => 'No events available';
+
+  @override
+  String get eventLoadingError => 'Failed to load events';
+
+  @override
+  String get eventFull => 'FULL';
+
+  @override
   String get dashboardWelcome => 'Welcome';
 
   @override
@@ -365,6 +374,71 @@ class AppLocalizationsEn extends AppLocalizations {
   String dashboardTherapyInfusionNumber(String infusion_number) {
     return 'Infusion #$infusion_number';
   }
+
+  @override
+  String get tryAgain => 'Try Again';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get activeEvent => 'Active';
+
+  @override
+  String get upcomingEvent => 'Upcoming';
+
+  @override
+  String get ongoingEvent => 'Ongoing';
+
+  @override
+  String get fullEvent => 'Full';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get eventDetails => 'Event Details';
+
+  @override
+  String get participants => 'Participants';
+
+  @override
+  String get eventDate => 'Event Date';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get registrationPeriod => 'Registration Period';
+
+  @override
+  String get totalParticipants => 'Total Participants';
+
+  @override
+  String get registerNow => 'Register Now';
+
+  @override
+  String get registrationClosed => 'Registration Closed';
+
+  @override
+  String get eventFullMessage => 'Event is full';
+
+  @override
+  String get toBeAnnounced => 'To Be Announced';
+
+  @override
+  String availableSlots(int count) {
+    return '$count slots available';
+  }
+
+  @override
+  String get eventsTitle => 'Events';
+
+  @override
+  String get noEventsDescription => 'No events are currently available';
+
+  @override
+  String get refresh => 'Refresh';
 
   @override
   String get myVoucherTitle => 'My Vouchers';
@@ -710,6 +784,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get whatsappOpenError => 'Cannot open WhatsApp';
+
+  @override
   String get referenceNoData => 'No data available';
 
   @override
@@ -1013,4 +1090,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get labNormalRange => 'Normal Range';
+
+  @override
+  String get notificationTypeEvent => 'Event';
+
+  @override
+  String get notificationTypeDefault => 'Notification';
+
+  @override
+  String get timeNow => 'now';
+
+  @override
+  String get notificationTitle => 'Notifications';
 }

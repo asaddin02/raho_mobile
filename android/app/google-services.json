@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "858035915036",
+    "project_id": "raho-member-apps",
+    "storage_bucket": "raho-member-apps.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858035915036:android:baf9bdc10c761d222492d9",
+        "android_client_info": {
+          "package_name": "id.co.raho.memberapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWzsh8h9aANigL2F15da5HSpRmbUVDX-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

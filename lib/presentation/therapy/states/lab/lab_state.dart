@@ -87,8 +87,7 @@ class LabError extends LabState {
     final localizations = AppLocalizations.of(context)!;
     switch (messageCode) {
       case 'LAB_DATA_FETCHED':
-        return localizations.lab_data_fetched ??
-            'Lab data fetched successfully';
+        return localizations.lab_data_fetched;
       case 'PATIENT_NOT_FOUND':
         return localizations.patient_not_found;
       case 'ERROR_SYSTEM':
@@ -149,12 +148,11 @@ class LabDetailError extends LabState {
     final localizations = AppLocalizations.of(context)!;
     switch (code) {
       case 'LAB_DETAIL_FETCHED':
-        return localizations.lab_detail_fetched ??
-            'Lab detail fetched successfully';
+        return localizations.lab_detail_fetched;
       case 'LAB_ID_REQUIRED':
-        return localizations.lab_id_required ?? 'Lab ID is required';
+        return localizations.lab_id_required;
       case 'LAB_RECORD_NOT_FOUND':
-        return localizations.lab_record_not_found ?? 'Lab record not found';
+        return localizations.lab_record_not_found;
       case 'ERROR_SYSTEM':
         return localizations.error_system;
       case 'ERROR_SERVER':

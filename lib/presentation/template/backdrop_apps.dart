@@ -18,8 +18,8 @@ class BackdropApps extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              theme.colorScheme.primary.withValues(alpha: 0.1),
-              theme.colorScheme.primary.withValues(alpha: 0.05),
+              theme.highlightColor.withValues(alpha: 0.1),
+              theme.highlightColor.withValues(alpha: 0.05),
               theme.scaffoldBackgroundColor,
             ],
             stops: [0.0, 0.3, 1.0],

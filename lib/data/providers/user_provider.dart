@@ -40,6 +40,7 @@ class UserProvider {
       );
       return response.data;
     } catch (e) {
+      print(e);
       throw Exception('Failed to update profile: ${e.toString()}');
     }
   }

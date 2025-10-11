@@ -5,22 +5,28 @@ import 'package:raho_member_apps/core/storage/app_storage_service.dart';
 import 'package:raho_member_apps/core/storage/secure_storage_service.dart';
 import 'package:raho_member_apps/data/providers/company_provider.dart';
 import 'package:raho_member_apps/data/providers/dashboard_provider.dart';
+import 'package:raho_member_apps/data/providers/event_provider.dart';
 import 'package:raho_member_apps/data/providers/lab_provider.dart';
 import 'package:raho_member_apps/data/providers/otp_provider.dart';
 import 'package:raho_member_apps/data/providers/therapy_provider.dart';
 import 'package:raho_member_apps/data/providers/transaction_provider.dart';
 import 'package:raho_member_apps/data/repositories/company_repository.dart';
 import 'package:raho_member_apps/data/repositories/dashboard_repository.dart';
+import 'package:raho_member_apps/data/repositories/event_repository.dart';
 import 'package:raho_member_apps/data/repositories/lab_repository.dart';
 import 'package:raho_member_apps/data/repositories/otp_repository.dart';
 import 'package:raho_member_apps/data/repositories/therapy_repository.dart';
 import 'package:raho_member_apps/data/repositories/transaction_repository.dart';
 import 'package:raho_member_apps/data/services/api_services.dart';
+import 'package:raho_member_apps/data/services/firebase_service.dart';
 import 'package:raho_member_apps/presentation/appstart/states/cubit/app_start/app_start_cubit.dart';
 import 'package:raho_member_apps/presentation/authentication/states/auth/auth_bloc.dart';
 import 'package:raho_member_apps/presentation/authentication/states/password/create_password_bloc.dart';
 import 'package:raho_member_apps/presentation/authentication/states/password_visibility/password_visibility_cubit.dart';
+import 'package:raho_member_apps/presentation/authentication/states/verification_number/verify_number_bloc.dart';
 import 'package:raho_member_apps/presentation/dashboard/states/dashboard/dashboard_bloc.dart';
+import 'package:raho_member_apps/presentation/dashboard/states/event/event_bloc.dart';
+import 'package:raho_member_apps/presentation/dashboard/states/notification/notification_bloc.dart';
 import 'package:raho_member_apps/presentation/profile/states/company/company_bloc.dart';
 import 'package:raho_member_apps/presentation/profile/states/language/language_bloc.dart';
 import 'package:raho_member_apps/presentation/profile/states/profile/profile_bloc.dart';
@@ -48,6 +54,7 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton<IApiService>(
     () => ApiService(baseUrl: AppConfig.baseUrl),
   );
+  sl.registerLazySingleton<FirebaseService>(() => FirebaseService());
 
   // Service Data - Lazy load
   sl.registerLazySingleton<AppStorageService>(
@@ -64,6 +71,7 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton<TherapyProvider>(() => TherapyProvider());
   sl.registerLazySingleton<LabProvider>(() => LabProvider());
   sl.registerLazySingleton<TransactionProvider>(() => TransactionProvider());
+  sl.registerLazySingleton<EventProvider>(() => EventProvider());
 
   // Repository - Lazy load
   sl.registerLazySingleton<OtpRepository>(
@@ -93,6 +101,9 @@ Future<void> setupLocator() async {
   sl.registerLazySingleton<TransactionRepository>(
     () => TransactionRepository(provider: sl<TransactionProvider>()),
   );
+  sl.registerLazySingleton<EventRepository>(
+    () => EventRepository(provider: sl<EventProvider>()),
+  );
 
   // Global State Management - SINGLETON
   sl.registerLazySingleton<ThemeCubit>(
@@ -106,6 +117,12 @@ Future<void> setupLocator() async {
   // Per-Screen/Temporary Blocs - FACTORY
   sl.registerFactory<AppStartCubit>(
     () => AppStartCubit(sl<AppStorageService>(), sl<SecureStorageService>()),
+  );
+  sl.registerFactory<VerifyNumberBloc>(
+    () => VerifyNumberBloc(
+      sl<AppStorageService>(),
+      repository: sl<OtpRepository>(),
+    ),
   );
   sl.registerFactory<PasswordVisibilityCubit>(() => PasswordVisibilityCubit());
   sl.registerFactory<CreatePasswordBloc>(
@@ -129,5 +146,14 @@ Future<void> setupLocator() async {
   sl.registerFactory<LabBloc>(() => LabBloc(repository: sl<LabRepository>()));
   sl.registerFactory<TransactionBloc>(
     () => TransactionBloc(repository: sl<TransactionRepository>()),
+  );
+  sl.registerFactory<EventBloc>(
+    () => EventBloc(repository: sl<EventRepository>()),
+  );
+  sl.registerFactory<NotificationBloc>(
+    () => NotificationBloc(
+      repository: sl<EventRepository>(),
+      firebaseService: sl<FirebaseService>(),
+    ),
   );
 }

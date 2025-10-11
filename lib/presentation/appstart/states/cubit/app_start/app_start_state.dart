@@ -11,6 +11,8 @@ class AppStartInitial extends AppStartState {}
 
 class AppStartOnboarding extends AppStartState {}
 
+class AppStartVerification extends AppStartState {}
+
 class AppStartLogin extends AppStartState {}
 
 class AppStartDashboard extends AppStartState {}

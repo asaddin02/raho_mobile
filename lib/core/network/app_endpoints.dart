@@ -7,6 +7,13 @@ class AppEndpoints {
   static const String me = 'me';
   static const String logout = 'logout';
   static const String dashboard = 'dashboard';
+  static const String eventsAll = 'events';
+  static const String eventRegister = 'events/register';
+  static const String eventDetail = 'events/detail';
+  static const String registerToken = 'notification/register-token';
+  static const String subscribeToTopic = 'notification/subscribe';
+  static const String unsubscribeFromTopic = 'notification/unsubscribe';
+  static const String notificationTopics = 'notification/topics';
   static const String refreshToken = 'refresh-token';
   static const String profile = 'profile';
   static const String diagnosis = 'diagnosis';

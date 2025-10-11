@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-  static const Color primary = Color(0xffF03A47);
-  static const Color primaryDark = Color(0xffD32F2F);
+  static const Color primary = Color(0xFFCB0000);
+  static const Color primaryDark = Color(0xFFB40000);
+  static const Color redSoft = Color(0xFFFFC8CD);
+  static const Color redDark = Color(0xFF2A1217);
   static const Color surfaceDark = Color(0xff1E1E1E);
   static const Color black = Color(0xff121212);
   static const Color grey = Color(0xffA3A3A3);
@@ -23,8 +25,8 @@ class AppGradientColor {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [
-      Color.lerp(AppColor.primary, AppColor.white, 0.6)!,
-      Color.lerp(AppColor.primary, AppColor.white, 0.8)!,
+      AppColor.redSoft.withValues(alpha: 0.03),
+      AppColor.redSoft.withValues(alpha: 0.03),
       AppColor.white,
     ],
     stops: [0.0, 0.3, 1.0],

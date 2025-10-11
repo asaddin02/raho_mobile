@@ -157,37 +157,37 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingTitle1.
   ///
   /// In en, this message translates to:
-  /// **'NanoBubble Technology'**
+  /// **'Nanobubble Technology'**
   String get onboardingTitle1;
 
   /// No description provided for @onboardingSubtitle1.
   ///
   /// In en, this message translates to:
-  /// **'World\'s first healthcare service using NanoBubble technology as medical equipment'**
+  /// **'RAHO Club provides research-based healthcare services using Nanobubble Technology, supported by research from Indonesia’s Institute of Molecular Research.'**
   String get onboardingSubtitle1;
 
   /// No description provided for @onboardingTitle2.
   ///
   /// In en, this message translates to:
-  /// **'Health Experts'**
+  /// **'Professional Medical Team'**
   String get onboardingTitle2;
 
   /// No description provided for @onboardingSubtitle2.
   ///
   /// In en, this message translates to:
-  /// **'Supported by professional doctors in the health field'**
+  /// **'Our professional medical team helps RAHO Club members achieve a better quality of life in their later years.'**
   String get onboardingSubtitle2;
 
   /// No description provided for @onboardingTitle3.
   ///
   /// In en, this message translates to:
-  /// **'Member Service'**
+  /// **'Branches Across Indonesia'**
   String get onboardingTitle3;
 
   /// No description provided for @onboardingSubtitle3.
   ///
   /// In en, this message translates to:
-  /// **'Served by qualified medical staff who prioritize your well-being'**
+  /// **'RAHO Club currently has 11 branches across Indonesia and will continue to grow as medical research and technology advance.'**
   String get onboardingSubtitle3;
 
   /// No description provided for @buttonSkipOnboarding.
@@ -754,6 +754,24 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logoutConfirmButton;
 
+  /// No description provided for @noEventsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No events available'**
+  String get noEventsAvailable;
+
+  /// No description provided for @eventLoadingError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load events'**
+  String get eventLoadingError;
+
+  /// No description provided for @eventFull.
+  ///
+  /// In en, this message translates to:
+  /// **'FULL'**
+  String get eventFull;
+
   /// No description provided for @dashboardWelcome.
   ///
   /// In en, this message translates to:
@@ -789,6 +807,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Infusion #{infusion_number}'**
   String dashboardTherapyInfusionNumber(String infusion_number);
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try Again'**
+  String get tryAgain;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @activeEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get activeEvent;
+
+  /// No description provided for @upcomingEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get upcomingEvent;
+
+  /// No description provided for @ongoingEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Ongoing'**
+  String get ongoingEvent;
+
+  /// No description provided for @fullEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Full'**
+  String get fullEvent;
+
+  /// No description provided for @description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get description;
+
+  /// No description provided for @eventDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Details'**
+  String get eventDetails;
+
+  /// No description provided for @participants.
+  ///
+  /// In en, this message translates to:
+  /// **'Participants'**
+  String get participants;
+
+  /// No description provided for @eventDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Date'**
+  String get eventDate;
+
+  /// No description provided for @location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// No description provided for @registrationPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration Period'**
+  String get registrationPeriod;
+
+  /// No description provided for @totalParticipants.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Participants'**
+  String get totalParticipants;
+
+  /// No description provided for @registerNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Register Now'**
+  String get registerNow;
+
+  /// No description provided for @registrationClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration Closed'**
+  String get registrationClosed;
+
+  /// No description provided for @eventFullMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Event is full'**
+  String get eventFullMessage;
+
+  /// No description provided for @toBeAnnounced.
+  ///
+  /// In en, this message translates to:
+  /// **'To Be Announced'**
+  String get toBeAnnounced;
+
+  /// No description provided for @availableSlots.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} slots available'**
+  String availableSlots(int count);
+
+  /// No description provided for @eventsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Events'**
+  String get eventsTitle;
+
+  /// No description provided for @noEventsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'No events are currently available'**
+  String get noEventsDescription;
+
+  /// No description provided for @refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refresh;
 
   /// No description provided for @myVoucherTitle.
   ///
@@ -1450,6 +1594,12 @@ abstract class AppLocalizations {
   /// **'Error: {message}'**
   String referenceErrorMessage(String message);
 
+  /// No description provided for @whatsappOpenError.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot open WhatsApp'**
+  String get whatsappOpenError;
+
   /// No description provided for @referenceNoData.
   ///
   /// In en, this message translates to:
@@ -2013,6 +2163,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Normal Range'**
   String get labNormalRange;
+
+  /// No description provided for @notificationTypeEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Event'**
+  String get notificationTypeEvent;
+
+  /// No description provided for @notificationTypeDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification'**
+  String get notificationTypeDefault;
+
+  /// No description provided for @timeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'now'**
+  String get timeNow;
+
+  /// No description provided for @notificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationTitle;
 }
 
 class _AppLocalizationsDelegate

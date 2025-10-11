@@ -5,6 +5,7 @@ import 'package:raho_member_apps/core/constants/app_assets.dart';
 import 'package:raho_member_apps/core/constants/app_routes.dart';
 import 'package:raho_member_apps/core/constants/app_sizes.dart';
 import 'package:raho_member_apps/core/di/service_locator.dart';
+import 'package:raho_member_apps/core/storage/app_storage_service.dart';
 import 'package:raho_member_apps/core/styles/app_color.dart';
 import 'package:raho_member_apps/core/styles/app_text_style.dart';
 import 'package:raho_member_apps/core/utils/extensions.dart';
@@ -37,7 +38,7 @@ class _VerificationPageState extends State<VerificationPage> {
     final l10n = AppLocalizations.of(context)!;
 
     return BlocProvider(
-      create: (context) => VerifyNumberBloc(repository: sl<OtpRepository>()),
+      create: (context) => sl<VerifyNumberBloc>(),
       child: BlocConsumer<VerifyNumberBloc, VerifyNumberState>(
         listener: (context, state) {
           if (state is ValidateNumberOtpSent) {
@@ -57,7 +58,7 @@ class _VerificationPageState extends State<VerificationPage> {
               state is VerifyNumberError) {
             AppNotification.error(
               context,
-              state.messageCode,
+              state.getLocalizedMessage(context),
               duration: NotificationDuration.medium,
               showCloseButton: false,
             );

@@ -10,11 +10,11 @@
   "warning": "警告",
   "info": "信息",
   "onboardingTitle1": "纳米气泡技术",
-  "onboardingSubtitle1": "全球首个使用纳米气泡技术作为医疗设备的保健服务",
-  "onboardingTitle2": "健康专家",
-  "onboardingSubtitle2": "由健康领域专业医生支持",
-  "onboardingTitle3": "会员服务",
-  "onboardingSubtitle3": "由优质医疗团队为您服务，优先考虑您的福祉",
+  "onboardingSubtitle1": "RAHO Club 采用纳米气泡技术，提供以科研为基础的健康服务，并得到印度尼西亚分子研究机构的研究支持。",
+  "onboardingTitle2": "专业医疗团队",
+  "onboardingSubtitle2": "专业的医疗团队帮助 RAHO Club 会员在晚年拥有更好的生活品质。",
+  "onboardingTitle3": "遍布印度尼西亚的分支机构",
+  "onboardingSubtitle3": "RAHO Club 在印度尼西亚拥有 11 家分支机构，并将随着医学研究与技术的发展不断增加。",
   "buttonSkipOnboarding": "跳过",
   "buttonCompleteOnboarding": "完成",
   "buttonNextOnboarding": "下一步",
@@ -116,6 +116,9 @@
   "logoutDialogMessage": "您确定要登出吗？",
   "logoutCancelButton": "取消",
   "logoutConfirmButton": "登出",
+  "noEventsAvailable": "暂无活动",
+  "eventLoadingError": "活动加载失败",
+  "eventFull": "已满",
   "dashboardWelcome": "欢迎",
   "dashboardYourVoucher": "您的优惠券",
   "dashboardUsedVoucher": "已使用优惠券",
@@ -129,6 +132,34 @@
       }
     }
   },
+  "tryAgain": "重试",
+  "back": "返回",
+  "activeEvent": "活跃",
+  "upcomingEvent": "即将开始",
+  "ongoingEvent": "进行中",
+  "fullEvent": "已满",
+  "description": "描述",
+  "eventDetails": "活动详情",
+  "participants": "参与者",
+  "eventDate": "活动日期",
+  "location": "地点",
+  "registrationPeriod": "报名期间",
+  "totalParticipants": "总参与者",
+  "registerNow": "立即报名",
+  "registrationClosed": "报名已关闭",
+  "eventFullMessage": "活动已满员",
+  "toBeAnnounced": "待公布",
+  "availableSlots": "还有 {count} 个名额",
+  "@availableSlots": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventsTitle": "活动",
+  "noEventsDescription": "目前没有可用的活动",
+  "refresh": "刷新",
   "myVoucherTitle": "我的优惠券",
   "voucherFilterDate": "选择日期",
   "voucherDateAll": "所有日期",
@@ -281,6 +312,7 @@
       }
     }
   },
+  "whatsappOpenError": "无法打开 WhatsApp",
   "referenceNoData": "暂无数据",
   "companyLoadError": "加载分店数据失败",
   "languageLoadError": "加载语言失败：{error}",
@@ -430,5 +462,9 @@
     }
   },
   "labResult": "结果",
-  "labNormalRange": "正常范围"
+  "labNormalRange": "正常范围",
+  "notificationTypeEvent": "活动",
+  "notificationTypeDefault": "通知",
+  "timeNow": "现在",
+  "notificationTitle": "通知"
 }

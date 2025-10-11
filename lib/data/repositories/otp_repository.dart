@@ -14,7 +14,6 @@ class OtpRepository {
     try {
       final queryParams = request.toJson();
       final response = await _provider.validateMember(queryParams: queryParams);
-      print(response);
       return ValidateNumberModel.fromJson(response);
     } catch (e) {
       throw Exception('Validate number error: ${e.toString()}');

@@ -26,6 +26,7 @@ class PersonalDataPage extends StatefulWidget {
 
 class _PersonalDataPageState extends State<PersonalDataPage> {
   String? _cachedImage;
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -71,7 +72,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
     dobController = TextEditingController();
     ageController = TextEditingController();
     noHPController = TextEditingController();
-    genderController = ValueNotifier<String>("Pria");
+    genderController = ValueNotifier<String>("Laki-laki");
   }
 
   @override
@@ -280,15 +281,13 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
               child: BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) {
                   if (state is ProfileLoaded || state is ProfileEditMode) {
-                    return ProfileAvatarWidget(
-                      base64Image: _cachedImage,
-                    );
+                    return ProfileAvatarWidget(base64Image: _cachedImage);
                   }
                   return CircleAvatar(
                     radius: 34,
                     backgroundColor: colorScheme.surfaceContainerHighest,
                     backgroundImage: const AssetImage(
-                      "assets/images/person.jpg",
+                      "assets/images/person.png",
                     ),
                   );
                 },
@@ -390,7 +389,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                     colorScheme: colorScheme,
                   ),
                 ),
-                SizedBox(width: AppSizes.spacingMedium),
+                SizedBox(width: AppSizes.spacingTiny),
                 Expanded(
                   child: _buildAnimatedTextField(
                     label: l10n.fieldLabelAge,
@@ -565,6 +564,14 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
         ValueListenableBuilder<String>(
           valueListenable: genderController,
           builder: (context, value, child) {
+            final displayText = value.isEmpty
+                ? l10n.genderSelectLabel
+                : value == "Laki-laki"
+                ? l10n.genderMale
+                : l10n.genderFemale;
+
+            final icon = value == "Laki-laki" ? Icons.male : Icons.female;
+
             return GestureDetector(
               onTap: isEdit
                   ? () => _showGenderDropdown(context, colorScheme, l10n)
@@ -596,15 +603,11 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                           AppSizes.radiusTiny,
                         ),
                       ),
-                      child: Icon(
-                        value == "Pria" ? Icons.male : Icons.female,
-                        color: colorScheme.primary,
-                        size: 20,
-                      ),
+                      child: Icon(icon, color: colorScheme.primary, size: 20),
                     ),
                     Expanded(
                       child: Text(
-                        value.isEmpty ? l10n.genderSelectLabel : value,
+                        displayText,
                         style: AppTextStyle.body.withColor(
                           value.isEmpty
                               ? colorScheme.onSurface.withValues(alpha: 0.6)
@@ -632,7 +635,10 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
     ColorScheme colorScheme,
     AppLocalizations l10n,
   ) {
-    final List<String> genderOptions = [l10n.genderMale, l10n.genderFemale];
+    final genderOptions = [
+      {"value": "Laki-laki", "label": l10n.genderMale},
+      {"value": "Perempuan", "label": l10n.genderFemale},
+    ];
 
     showModalBottomSheet(
       context: context,
@@ -671,7 +677,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
 
               // Options
               ...genderOptions.map((gender) {
-                final isSelected = genderController.value == gender;
+                final isSelected = genderController.value == gender['value'];
                 return ListTile(
                   leading: Container(
                     padding: EdgeInsets.all(AppSizes.paddingSmall),
@@ -682,13 +688,13 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                       borderRadius: BorderRadius.circular(AppSizes.radiusTiny),
                     ),
                     child: Icon(
-                      gender == "Pria" ? Icons.male : Icons.female,
+                      gender['value'] == "Laki-laki" ? Icons.male : Icons.female,
                       color: colorScheme.primary,
                       size: 20,
                     ),
                   ),
                   title: Text(
-                    gender,
+                    gender['label']!,
                     style: AppTextStyle.body.withColor(
                       isSelected ? colorScheme.primary : colorScheme.onSurface,
                     ),
@@ -697,7 +703,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                       ? Icon(Icons.check, color: colorScheme.primary)
                       : null,
                   onTap: () {
-                    genderController.value = gender;
+                    genderController.value = gender['value']!;
                     Navigator.pop(context);
                   },
                 );
@@ -838,7 +844,9 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                       street: addressController.text,
                       city: cityController.text,
                       dob: dobController.text,
-                      sex: genderController.value == "Pria" ? "1" : "2",
+                      sex: genderController.value == "Laki-laki"
+                          ? "4"
+                          : "3",
                       mobile: noHPController.text,
                     );
 

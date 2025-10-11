@@ -9,12 +9,12 @@
   "error": "Kesalahan",
   "warning": "Peringatan",
   "info": "Informasi",
-  "onboardingTitle1": "Teknologi NanoBubble",
-  "onboardingSubtitle1": "Pelayanan kesehatan pertama di Dunia yang menggunakan Teknologi Nanobubble sebagai alat kesehatan",
-  "onboardingTitle2": "Ahli Kesehatan",
-  "onboardingSubtitle2": "Dibantu dengan Dokter yang Profesional di bidang kesehatan",
-  "onboardingTitle3": "Pelayanan Member",
-  "onboardingSubtitle3": "Dilayani oleh para tenaga medis yang berkualitas dan mengutamakan kesejahteraan Anda",
+  "onboardingTitle1": "Teknologi Nano Bubble",
+  "onboardingSubtitle1": "RAHO Club hadir dengan memberikan pelayanan kesehatan berbasis riset di Dunia dengan menggunakan Teknologi Nanobubble dengan Riset yang dihasilkan dari lembaga Penelitian Institut Molekul Indonesia.",
+  "onboardingTitle2": "Tenaga Medis Profesional",
+  "onboardingSubtitle2": "Bersama Tenaga medis profesional pada bidangnya membantu member RAHO Club mewujudkan kehidupan yang lebih baik di hari tua.",
+  "onboardingTitle3": "Cabang Seluruh Indonesia",
+  "onboardingSubtitle3": "RAHO Club hadir dengan 11 cabang di seluruh Indonesia dan akan terus bertambah dengan berkembangnya riset dan teknologi medis saat ini.",
   "buttonSkipOnboarding": "Lewati",
   "buttonCompleteOnboarding": "Selesai",
   "buttonNextOnboarding": "Selanjutnya",
@@ -58,6 +58,50 @@
   "loginErrorRequiredField": "ID Registrasi dan Kata Sandi wajib diisi",
   "loginAuthenticationFailed": "ID Registrasi dan Kata Sandi salah",
   "loginSuccess": "Login Berhasil",
+  "dashboardWelcome": "Selamat datang",
+  "dashboardLastTherapy": "Riwayat Terapi Terakhir",
+  "dashboardEventPromo": "Event & Promo",
+  "dashboardYourVoucher": "Voucher Anda",
+  "dashboardUsedVoucher": "Voucher Dipakai (bulan ini)",
+  "dashboardTherapyInfusionNumber": "Jumlah infus: {infusion_number}",
+  "@dashboardTherapyInfusionNumber": {
+    "placeholders": {
+      "infusion_number": {
+        "type": "String"
+      }
+    }
+  },
+  "tryAgain": "Coba Lagi",
+  "back": "Kembali",
+  "activeEvent": "Aktif",
+  "upcomingEvent": "Akan Datang",
+  "ongoingEvent": "Berlangsung",
+  "fullEvent": "Penuh",
+  "description": "Deskripsi",
+  "eventDetails": "Detail Acara",
+  "participants": "Peserta",
+  "eventDate": "Tanggal Acara",
+  "location": "Lokasi",
+  "registrationPeriod": "Periode Pendaftaran",
+  "totalParticipants": "Total Peserta",
+  "registerNow": "Daftar Sekarang",
+  "registrationClosed": "Pendaftaran Ditutup",
+  "eventFullMessage": "Acara sudah penuh",
+  "toBeAnnounced": "Akan Diumumkan",
+  "availableSlots": "Tersedia {count} slot",
+  "@availableSlots": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventsTitle": "Acara",
+  "noEventsDescription": "Belum ada acara tersedia saat ini",
+  "refresh": "Muat ulang",
+  "noEventsAvailable": "Belum ada event",
+  "eventLoadingError": "Gagal memuat event",
+  "eventFull": "PENUH",
   "dashboardBottomNavText": "Beranda",
   "therapyBottomNavText": "Terapi",
   "transactionBottomNavText": "Transaksi",
@@ -116,19 +160,6 @@
   "logoutDialogMessage": "Apakah Anda yakin ingin keluar dari aplikasi?",
   "logoutCancelButton": "Batal",
   "logoutConfirmButton": "Keluar",
-  "dashboardWelcome": "Selamat Datang",
-  "dashboardYourVoucher": "Voucher Anda",
-  "dashboardUsedVoucher": "Voucher Terpakai",
-  "dashboardLastTherapy": "Terapi Terakhir",
-  "dashboardEventPromo": "Event dan Promo",
-  "dashboardTherapyInfusionNumber": "Infus ke-{infusion_number}",
-  "@dashboardTherapyInfusionNumber": {
-    "placeholders": {
-      "infusion_number": {
-        "type": "String"
-      }
-    }
-  },
   "myVoucherTitle": "Voucher Saya",
   "voucherFilterDate": "Pilih Tanggal",
   "voucherDateAll": "Semua Tanggal",
@@ -266,8 +297,8 @@
   "diagnosisReload": "Coba muat ulang",
   "diagnosisEmpty": "Belum ada data diagnosa",
   "diagnosisReloadButton": "Muat Ulang",
-  "genderMale": "Pria",
-  "genderFemale": "Wanita",
+  "genderMale": "Laki-Laki",
+  "genderFemale": "Perempuan",
   "genderSelectLabel": "Pilih Gender",
   "genderSelectTitle": "Pilih Gender",
   "personalDataCancelButton": "Batalkan",
@@ -281,6 +312,7 @@
       }
     }
   },
+  "whatsappOpenError": "Tidak dapat membuka WhatsApp",
   "referenceNoData": "Tidak ada data tersedia",
   "companyLoadError": "Gagal memuat data cabang",
   "languageLoadError": "Gagal memuat bahasa: {error}",
@@ -430,5 +462,9 @@
     }
   },
   "labResult": "Hasil",
-  "labNormalRange": "Rentang Normal"
+  "labNormalRange": "Rentang Normal",
+  "notificationTypeEvent": "Acara",
+  "notificationTypeDefault": "Notifikasi",
+  "timeNow": "sekarang",
+  "notificationTitle": "Notifikasi"
 }

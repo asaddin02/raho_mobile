@@ -9,6 +9,8 @@ import 'package:raho_member_apps/presentation/authentication/ui/login_page.dart'
 import 'package:raho_member_apps/presentation/authentication/ui/otp_page.dart';
 import 'package:raho_member_apps/presentation/authentication/ui/verification_page.dart';
 import 'package:raho_member_apps/presentation/dashboard/ui/dashboard_page.dart';
+import 'package:raho_member_apps/presentation/dashboard/ui/event_detail_page.dart';
+import 'package:raho_member_apps/presentation/dashboard/ui/event_list_page.dart';
 import 'package:raho_member_apps/presentation/menu_navigation/ui/bottom_navigation.dart';
 import 'package:raho_member_apps/presentation/onboarding/ui/onboarding_screen.dart';
 import 'package:raho_member_apps/presentation/appstart/ui/splash_screen.dart';
@@ -61,7 +63,8 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.login.path,
         name: AppRoutes.login.name,
-        builder: (context, state) => const LoginWrapper(),
+        builder: (context, state) =>
+            const LoginWrapper(),
       ),
       ShellRoute(
         builder: (context, state, child) {
@@ -72,7 +75,24 @@ class AppRouter {
             path: AppRoutes.dashboard.path,
             name: AppRoutes.dashboard.name,
             builder: (context, state) => const DashboardWrapper(),
-            routes: [],
+            routes: [
+              GoRoute(
+                path: AppRoutes.eventList.path,
+                name: AppRoutes.eventList.name,
+                builder: (context, state) {
+                  return EventListWrapper();
+                },
+              ),
+              GoRoute(
+                path: AppRoutes.eventDetail.path,
+                name: AppRoutes.eventDetail.name,
+                builder: (context, state) {
+                  final eventId =
+                      int.tryParse(state.pathParameters['id'] ?? '') ?? 0;
+                  return EventDetailWrapper(eventId: eventId.toString());
+                },
+              ),
+            ],
           ),
           GoRoute(
             path: AppRoutes.profile.path,

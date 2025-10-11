@@ -69,3 +69,14 @@ class DashboardError extends DashboardState {
   @override
   List<Object?> get props => [messageCode, debugMessage, previousData];
 }
+
+class EventCarouselState extends DashboardState {
+  final int currentIndex;
+  const EventCarouselState({this.currentIndex = 0});
+
+  EventCarouselState copyWith({int? currentIndex}) =>
+      EventCarouselState(currentIndex: currentIndex ?? this.currentIndex);
+
+  @override
+  List<Object?> get props => [currentIndex];
+}

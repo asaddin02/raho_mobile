@@ -209,7 +209,7 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
             ),
             child: ClipOval(
               child: Image.asset(
-                "assets/images/person.jpg",
+                "assets/images/person.png",
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => Container(
                   color: colorScheme.surfaceContainerHighest,

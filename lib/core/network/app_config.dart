@@ -8,11 +8,11 @@ class AppConfig {
   static String get baseUrl {
     switch (currentEnvironment) {
       case Environment.development:
-        return 'http://192.168.50.145:8069/api/';
+        return 'https://demo.rahoclub.id/api/';
       case Environment.staging:
         return 'https://staging.example.com/api/';
       case Environment.production:
-        return 'https://api.example.com/';
+        return 'https://api.example.com/api/';
     }
   }
 

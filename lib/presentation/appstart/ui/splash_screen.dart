@@ -8,7 +8,6 @@ import 'package:raho_member_apps/core/storage/language_storage_service.dart';
 import 'package:raho_member_apps/core/utils/extensions.dart';
 import 'package:raho_member_apps/presentation/appstart/states/cubit/app_start/app_start_cubit.dart';
 import 'package:raho_member_apps/presentation/appstart/ui/language_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenWrapper extends StatelessWidget {
   const SplashScreenWrapper({super.key});
@@ -90,8 +89,8 @@ class _SplashScreenState extends State<SplashScreen> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              theme.colorScheme.primary.withValues(alpha: 0.1),
-              theme.colorScheme.primary.withValues(alpha: 0.05),
+              theme.highlightColor.withValues(alpha: 0.3),
+              theme.highlightColor.withValues(alpha: 0.3),
               theme.scaffoldBackgroundColor,
             ],
             stops: [0.0, 0.3, 1.0],
@@ -102,6 +101,8 @@ class _SplashScreenState extends State<SplashScreen> {
             if (!_canProceedToNext) return;
             if (state is AppStartOnboarding) {
               context.goNamed(AppRoutes.onboarding.name);
+            } else if (state is AppStartVerification) {
+              context.goNamed(AppRoutes.verification.name);
             } else if (state is AppStartDashboard) {
               context.goNamed(AppRoutes.dashboard.name);
             } else if (state is AppStartLogin) {

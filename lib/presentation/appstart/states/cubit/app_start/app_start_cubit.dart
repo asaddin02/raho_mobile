@@ -14,14 +14,21 @@ class AppStartCubit extends Cubit<AppStartState> {
 
   Future<void> checkAppStart() async {
     final onboardingStatus = storageService.onboardingStatus;
+    final verifyStatus = storageService.verifyStatus;
     final hasToken = await secureStorageService.hasToken();
 
     if (onboardingStatus != 1) {
       return emit(AppStartOnboarding());
     }
+
+    if (verifyStatus != 1) {
+      return (emit(AppStartVerification()));
+    }
+
     if (!hasToken) {
       return emit(AppStartLogin());
     }
+
     emit(AppStartDashboard());
   }
 }

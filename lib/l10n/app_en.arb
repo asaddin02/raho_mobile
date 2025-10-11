@@ -9,12 +9,12 @@
   "error": "Error",
   "warning": "Warning",
   "info": "Information",
-  "onboardingTitle1": "NanoBubble Technology",
-  "onboardingSubtitle1": "World's first healthcare service using NanoBubble technology as medical equipment",
-  "onboardingTitle2": "Health Experts",
-  "onboardingSubtitle2": "Supported by professional doctors in the health field",
-  "onboardingTitle3": "Member Service",
-  "onboardingSubtitle3": "Served by qualified medical staff who prioritize your well-being",
+  "onboardingTitle1": "Nanobubble Technology",
+  "onboardingSubtitle1": "RAHO Club provides research-based healthcare services using Nanobubble Technology, supported by research from Indonesia’s Institute of Molecular Research.",
+  "onboardingTitle2": "Professional Medical Team",
+  "onboardingSubtitle2": "Our professional medical team helps RAHO Club members achieve a better quality of life in their later years.",
+  "onboardingTitle3": "Branches Across Indonesia",
+  "onboardingSubtitle3": "RAHO Club currently has 11 branches across Indonesia and will continue to grow as medical research and technology advance.",
   "buttonSkipOnboarding": "Skip",
   "buttonCompleteOnboarding": "Complete",
   "buttonNextOnboarding": "Next",
@@ -116,6 +116,9 @@
   "logoutDialogMessage": "Are you sure you want to logout?",
   "logoutCancelButton": "Cancel",
   "logoutConfirmButton": "Logout",
+  "noEventsAvailable": "No events available",
+  "eventLoadingError": "Failed to load events",
+  "eventFull": "FULL",
   "dashboardWelcome": "Welcome",
   "dashboardYourVoucher": "Your Vouchers",
   "dashboardUsedVoucher": "Used Vouchers",
@@ -129,6 +132,34 @@
       }
     }
   },
+  "tryAgain": "Try Again",
+  "back": "Back",
+  "activeEvent": "Active",
+  "upcomingEvent": "Upcoming",
+  "ongoingEvent": "Ongoing",
+  "fullEvent": "Full",
+  "description": "Description",
+  "eventDetails": "Event Details",
+  "participants": "Participants",
+  "eventDate": "Event Date",
+  "location": "Location",
+  "registrationPeriod": "Registration Period",
+  "totalParticipants": "Total Participants",
+  "registerNow": "Register Now",
+  "registrationClosed": "Registration Closed",
+  "eventFullMessage": "Event is full",
+  "toBeAnnounced": "To Be Announced",
+  "availableSlots": "{count} slots available",
+  "@availableSlots": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "eventsTitle": "Events",
+  "noEventsDescription": "No events are currently available",
+  "refresh": "Refresh",
   "myVoucherTitle": "My Vouchers",
   "voucherFilterDate": "Select Date",
   "voucherDateAll": "All Dates",
@@ -281,6 +312,7 @@
       }
     }
   },
+  "whatsappOpenError": "Cannot open WhatsApp",
   "referenceNoData": "No data available",
   "companyLoadError": "Failed to load branch data",
   "languageLoadError": "Failed to load language: {error}",
@@ -430,5 +462,9 @@
     }
   },
   "labResult": "Result",
-  "labNormalRange": "Normal Range"
+  "labNormalRange": "Normal Range",
+  "notificationTypeEvent": "Event",
+  "notificationTypeDefault": "Notification",
+  "timeNow": "now",
+  "notificationTitle": "Notifications"
 }

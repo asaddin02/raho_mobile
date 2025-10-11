@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:raho_member_apps/core/utils/helper.dart';
-import 'package:raho_member_apps/l10n/app_localizations.dart';
 
 class TransactionDetailModel {
   final String? status;

@@ -10,6 +10,7 @@ import 'package:raho_member_apps/core/styles/app_text_style.dart';
 import 'package:raho_member_apps/l10n/app_localizations.dart';
 import 'package:raho_member_apps/presentation/authentication/states/auth/auth_bloc.dart';
 import 'package:raho_member_apps/presentation/authentication/states/password_visibility/password_visibility_cubit.dart';
+import 'package:raho_member_apps/presentation/dashboard/states/notification/notification_bloc.dart';
 import 'package:raho_member_apps/presentation/widgets/snackbar_toast.dart';
 
 class LoginWrapper extends StatelessWidget {
@@ -56,8 +57,8 @@ class _LoginPageState extends State<LoginPage> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              theme.colorScheme.primary.withValues(alpha: 0.1),
-              theme.colorScheme.primary.withValues(alpha: 0.05),
+              theme.highlightColor.withValues(alpha: 0.1),
+              theme.highlightColor.withValues(alpha: 0.05),
               theme.scaffoldBackgroundColor,
             ],
             stops: [0.0, 0.3, 1.0],
@@ -74,6 +75,9 @@ class _LoginPageState extends State<LoginPage> {
                       context,
                       state.message,
                       duration: NotificationDuration.medium,
+                    );
+                    context.read<NotificationBloc>().add(
+                      InitializeNotifications(),
                     );
                     context.goNamed(AppRoutes.dashboard.name);
                   } else if (state is AuthFailure) {

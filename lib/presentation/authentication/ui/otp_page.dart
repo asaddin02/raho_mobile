@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:raho_member_apps/core/constants/app_routes.dart';
 import 'package:raho_member_apps/core/constants/app_sizes.dart';
 import 'package:raho_member_apps/core/di/service_locator.dart';
+import 'package:raho_member_apps/core/storage/app_storage_service.dart';
 import 'package:raho_member_apps/core/styles/app_color.dart';
 import 'package:raho_member_apps/core/styles/app_text_style.dart';
 import 'package:raho_member_apps/core/utils/helper.dart';
@@ -27,7 +28,7 @@ class OtpWrapper extends StatelessWidget {
         BlocProvider(create: (context) => OtpCubit(otpLength: 6)),
         BlocProvider(
           create: (context) =>
-              VerifyNumberBloc(repository: sl<OtpRepository>())
+          sl<VerifyNumberBloc>()
                 ..add(ValidateNumberEvent(idRegister: idRegister)),
         ),
       ],
@@ -48,27 +49,6 @@ class OtpPage extends StatefulWidget {
 
 class _OtpPageState extends State<OtpPage> {
   final int length = 6;
-  late List<TextEditingController> _controllers;
-  late List<FocusNode> _focusNodes;
-  String _otpCode = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _controllers = List.generate(length, (index) => TextEditingController());
-    _focusNodes = List.generate(length, (index) => FocusNode());
-  }
-
-  @override
-  void dispose() {
-    for (var controller in _controllers) {
-      controller.dispose();
-    }
-    for (var focusNode in _focusNodes) {
-      focusNode.dispose();
-    }
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,18 +57,23 @@ class _OtpPageState extends State<OtpPage> {
     return BlocConsumer<VerifyNumberBloc, VerifyNumberState>(
       listener: (context, state) {
         if (state is VerifyOtpSuccess) {
-          context.goNamed(AppRoutes.createPassword.name);
+          context.read<OtpCubit>().clearAllDigits();
+          context.goNamed(
+            AppRoutes.createPassword.name,
+            pathParameters: {'patientId': widget.idRegister},
+          );
         } else if (state is ResendOtpSuccess) {
+          context.read<OtpCubit>().clearAllDigits();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.messageCode),
+              content: Text(state.getLocalizedMessage(context)),
               backgroundColor: Colors.green,
             ),
           );
         } else if (state is ResendOtpAlreadyVerified) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.messageCode),
+              content: Text(state.getLocalizedMessage(context)),
               backgroundColor: Colors.blue,
             ),
           );
@@ -96,7 +81,7 @@ class _OtpPageState extends State<OtpPage> {
         } else if (state is VerifyNumberError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(state.messageCode),
+              content: Text(state.getLocalizedMessage(context)),
               backgroundColor: Colors.red,
             ),
           );
@@ -156,10 +141,16 @@ class _OtpPageState extends State<OtpPage> {
                 child: Column(
                   children: [
                     OtpTextField(
-                      length: 6,
+                      length: length,
                       onCompleted: (otp) {
-                        _otpCode = otp;
+                        context.read<VerifyNumberBloc>().add(
+                          VerifyOtpEvent(
+                            idRegister: widget.idRegister,
+                            otpCode: otp,
+                          ),
+                        );
                       },
+                      onChanged: (value) {},
                     ),
                     SizedBox(height: AppSizes.spacingLarge),
 
@@ -228,44 +219,57 @@ class _OtpPageState extends State<OtpPage> {
                     ),
                   ],
                 ),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    padding: EdgeInsets.symmetric(
-                      vertical: AppSizes.paddingLarge,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppSizes.radiusLarge),
-                    ),
-                  ),
-                  onPressed: state is VerifyNumberLoading || _otpCode.length < 6
-                      ? null
-                      : () {
-                          context.read<VerifyNumberBloc>().add(
-                            VerifyOtpEvent(
-                              idRegister: widget.idRegister,
-                              otpCode: _otpCode,
-                            ),
-                          );
-                        },
-                  child: state is VerifyNumberLoading
-                      ? SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              AppColor.white,
-                            ),
-                            strokeWidth: 2,
-                          ),
-                        )
-                      : Text(
-                          l10n.otpButton,
-                          style: AppTextStyle.subtitle
-                              .withWeight(AppFontWeight.bold)
-                              .withColor(AppColor.white),
+                child: BlocBuilder<OtpCubit, OtpState>(
+                  builder: (context, otpState) {
+                    final isOtpReady =
+                        otpState is OtpInProgress &&
+                        otpState.isComplete &&
+                        otpState.isValid;
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppSizes.paddingLarge,
                         ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            AppSizes.radiusLarge,
+                          ),
+                        ),
+                      ),
+                      onPressed: state is VerifyNumberLoading || !isOtpReady
+                          ? null
+                          : () {
+                              final otpCode = context
+                                  .read<OtpCubit>()
+                                  .currentOtp;
+                              context.read<VerifyNumberBloc>().add(
+                                VerifyOtpEvent(
+                                  idRegister: widget.idRegister,
+                                  otpCode: otpCode,
+                                ),
+                              );
+                            },
+                      child: state is VerifyNumberLoading
+                          ? SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  AppColor.white,
+                                ),
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : Text(
+                              l10n.otpButton,
+                              style: AppTextStyle.subtitle
+                                  .withWeight(AppFontWeight.bold)
+                                  .withColor(AppColor.white),
+                            ),
+                    );
+                  },
                 ),
               ),
               SizedBox(height: AppSizes.spacingXl),

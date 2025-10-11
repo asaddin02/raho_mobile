@@ -101,40 +101,27 @@ class _OnboardingPageState extends State<OnboardingPage>
             opacity: _imageFadeAnimation,
             child: ScaleTransition(
               scale: _imageScaleAnimation,
-              child: Container(
-                height: context.screenHeight * 0.4,
+              child: SizedBox(
+                height: context.screenHeight * 0.3,
                 width: double.infinity * 0.8,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(AppSizes.radiusXl),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.primary.withValues(alpha: 0.08),
-                      blurRadius: AppSizes.radiusLarge,
-                      offset: Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(AppSizes.radiusXl),
-                  child: Image.asset(
-                    widget.item.image,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: AppColor.greyLight.withValues(alpha: 0.3),
-                          borderRadius: BorderRadius.circular(
-                            AppSizes.radiusXl,
-                          ),
+                child: Image.asset(
+                  widget.item.image,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: AppColor.greyLight.withValues(alpha: 0.3),
+                        borderRadius: BorderRadius.circular(
+                          AppSizes.radiusXl,
                         ),
-                        child: Icon(
-                          Icons.image_not_supported,
-                          size: 80,
-                          color: AppColor.greySoft,
-                        ),
-                      );
-                    },
-                  ),
+                      ),
+                      child: Icon(
+                        Icons.image_not_supported,
+                        size: 80,
+                        color: AppColor.greySoft,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

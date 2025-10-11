@@ -22,6 +22,14 @@ class AppRoutes {
   static const profile = AppRoutes._("/profile", "profile");
 
   // Child routes
+  static const eventList = AppRoutes._(
+    "/dashboard/events",
+    "events",
+  );
+  static const eventDetail = AppRoutes._(
+    "/dashboard/detail-event/:id",
+    "detail-event",
+  );
   static const detailTransaction = AppRoutes._(
     "/transaction/detail-transaction/:id/:type",
     "detail-transaction",

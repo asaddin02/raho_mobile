@@ -13,20 +13,21 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   final DashboardRepository _repository;
 
   DashboardBloc({required DashboardRepository repository})
-    : _repository = repository,
-      super(DashboardInitial()) {
+      : _repository = repository,
+        super(DashboardInitial()) {
     on<LoadDashboardData>(_onLoadDashboardData);
     on<RefreshDashboardData>(_onRefreshDashboardData);
   }
 
   Future<void> _onLoadDashboardData(
-    LoadDashboardData event,
-    Emitter<DashboardState> emit,
-  ) async {
+      LoadDashboardData event,
+      Emitter<DashboardState> emit,
+      ) async {
     emit(DashboardLoading());
 
     try {
       final dashboardModel = await _repository.getDashboardData();
+
       if (dashboardModel.hasError) {
         emit(
           DashboardError(
@@ -60,9 +61,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   }
 
   Future<void> _onRefreshDashboardData(
-    RefreshDashboardData event,
-    Emitter<DashboardState> emit,
-  ) async {
+      RefreshDashboardData event,
+      Emitter<DashboardState> emit,
+      ) async {
     final currentState = state;
     DashboardData? previousData;
 
@@ -82,7 +83,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
           DashboardError(
             messageCode: dashboardModel.responseCode,
             debugMessage: 'API returned error: ${dashboardModel.responseCode}',
-            previousData: previousData, // Keep previous data
+            previousData: previousData,
           ),
         );
       } else if (dashboardModel.isSuccess && dashboardModel.data != null) {
@@ -112,6 +113,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     }
   }
 
+
+
   // Helper methods
   DashboardData? get dashboardData {
     final currentState = state;
@@ -124,6 +127,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   VoucherInfo? get voucherInfo => dashboardData?.voucher;
 
   List<HistoryItem> get historyItems => dashboardData?.history ?? [];
+
+  List<EventItem> get eventItems => dashboardData?.event ?? [];
 
   bool get isLoading => state is DashboardLoading;
 

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:raho_member_apps/core/storage/app_storage_service.dart';
 import 'package:raho_member_apps/data/models/resend_otp.dart';
 import 'package:raho_member_apps/data/models/validate_number.dart';
 import 'package:raho_member_apps/data/models/verify_otp.dart';
@@ -12,9 +13,10 @@ part 'verify_number_event.dart';
 part 'verify_number_state.dart';
 
 class VerifyNumberBloc extends Bloc<VerifyNumberEvent, VerifyNumberState> {
+  final AppStorageService storageService;
   final OtpRepository _repository;
 
-  VerifyNumberBloc({required OtpRepository repository})
+  VerifyNumberBloc(this.storageService,{required OtpRepository repository})
     : _repository = repository,
       super(VerifyNumberInitial()) {
     on<ValidateNumberEvent>(_onValidateNumber);
@@ -32,10 +34,10 @@ class VerifyNumberBloc extends Bloc<VerifyNumberEvent, VerifyNumberState> {
 
       final request = ValidateNumberRequest(idRegister: event.idRegister);
       final result = await _repository.validateNumber(request: request);
-
       if (result.isAlreadyVerified) {
         emit(
           ValidateNumberAlreadyVerified(
+            idRegister: result.idRegister ?? event.idRegister,
             mobile: result.mobile ?? '',
             messageCode: result.messageCode,
           ),
@@ -49,6 +51,7 @@ class VerifyNumberBloc extends Bloc<VerifyNumberEvent, VerifyNumberState> {
             expiresIn: result.expiresIn ?? 300,
           ),
         );
+        storageService.setVerifyStatus(1);
       } else if (result.isError) {
         emit(VerifyNumberError(messageCode: result.messageCode));
       } else {

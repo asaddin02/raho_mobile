@@ -13,9 +13,11 @@ class VerifyNumberLoading extends VerifyNumberState {}
 
 class ValidateNumberAlreadyVerified extends VerifyNumberState {
   final String mobile;
+  final String idRegister;
   final String messageCode;
 
   const ValidateNumberAlreadyVerified({
+    required this.idRegister,
     required this.mobile,
     required this.messageCode,
   });
@@ -31,7 +33,7 @@ class ValidateNumberAlreadyVerified extends VerifyNumberState {
   }
 
   @override
-  List<Object?> get props => [mobile, messageCode];
+  List<Object?> get props => [idRegister,mobile, messageCode];
 }
 
 class ValidateNumberOtpSent extends VerifyNumberState {

@@ -17,6 +17,8 @@ import 'package:raho_member_apps/presentation/profile/ui/dialog/language_dialog.
 import 'package:raho_member_apps/presentation/profile/ui/dialog/logout_dialog.dart';
 import 'package:raho_member_apps/presentation/template/backdrop_apps.dart';
 import 'package:raho_member_apps/presentation/theme/states/cubit/theme_cubit.dart';
+import 'package:raho_member_apps/presentation/widgets/snackbar_toast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePageWrapper extends StatelessWidget {
   const ProfilePageWrapper({super.key});
@@ -24,13 +26,12 @@ class ProfilePageWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => ProfileBloc(repository: sl<UserRepository>())
-        ..add(GetProfile()),
+      create: (_) =>
+          ProfileBloc(repository: sl<UserRepository>())..add(GetProfile()),
       child: const ProfilePage(),
     );
   }
 }
-
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -285,19 +286,19 @@ class _ProfilePageState extends State<ProfilePage>
                         child: ClipOval(
                           child: bytes != null
                               ? Image.memory(
-                            bytes,
-                            width: 96,
-                            height: 96,
-                            fit: BoxFit.cover,
-                            gaplessPlayback: true,
-                            filterQuality: FilterQuality.medium,
-                          )
+                                  bytes,
+                                  width: 96,
+                                  height: 96,
+                                  fit: BoxFit.cover,
+                                  gaplessPlayback: true,
+                                  filterQuality: FilterQuality.medium,
+                                )
                               : Image.asset(
-                            "assets/images/person.jpg",
-                            width: 96,
-                            height: 96,
-                            fit: BoxFit.cover,
-                          ),
+                                  "assets/images/person.png",
+                                  width: 96,
+                                  height: 96,
+                                  fit: BoxFit.cover,
+                                ),
                         ),
                       ),
                     ),
@@ -324,8 +325,9 @@ class _ProfilePageState extends State<ProfilePage>
                     ),
                     child: Text(
                       user?.id ?? '',
-                      style: AppTextStyle.caption
-                          .withColor(colorScheme.onSurface.withAlpha(179)),
+                      style: AppTextStyle.caption.withColor(
+                        colorScheme.onSurface.withAlpha(179),
+                      ),
                     ),
                   ),
                 ],
@@ -400,7 +402,30 @@ class _ProfilePageState extends State<ProfilePage>
             title: l10n.helpMenuTitle,
             subtitle: l10n.helpMenuSubtitle,
             icon: Icons.help_outline_rounded,
-            onTap: () {},
+            onTap: () async {
+              final ctx = context;
+              const phoneNumber = '6282121825600';
+              final message =
+                "Halo, saya butuh bantuan dengan aplikasi Raho Member.";
+              final whatsappUrl = Uri.parse(
+                "https://wa.me/$phoneNumber?text=$message",
+              );
+              final canLaunch = await canLaunchUrl(whatsappUrl);
+              if (canLaunch) {
+                await launchUrl(
+                  whatsappUrl,
+                  mode: LaunchMode.externalApplication,
+                );
+              } else {
+                if (ctx.mounted) {
+                  AppNotification.success(
+                    context,
+                    l10n.whatsappOpenError,
+                    duration: NotificationDuration.medium,
+                  );
+                }
+              }
+            },
           ),
         ]),
       ],

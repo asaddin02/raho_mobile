@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:raho_member_apps/core/di/service_locator.dart';
 import 'package:raho_member_apps/core/network/app_endpoints.dart';
 import 'package:raho_member_apps/core/storage/secure_storage_service.dart';
@@ -15,6 +17,7 @@ abstract class IApiService {
 class ApiService implements IApiService {
   final String baseUrl;
   final Dio _dio;
+  bool _isRefreshing = false;
 
   ApiService({required this.baseUrl}) : _dio = sl<Dio>() {
     _initializeDio();
@@ -25,17 +28,25 @@ class ApiService implements IApiService {
     _dio.options.contentType = 'application/json';
     _dio.options.connectTimeout = const Duration(seconds: 30);
     _dio.options.receiveTimeout = const Duration(seconds: 30);
+
+    _dio.httpClientAdapter = IOHttpClientAdapter(
+      createHttpClient: () {
+        final client = HttpClient();
+        client.badCertificateCallback = (cert, host, port) => true;
+        return client;
+      },
+    );
+
     _dio.interceptors.clear();
 
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           final secureStorageService = sl<SecureStorageService>();
-
-          if (await secureStorageService.hasToken()) {
+          final hasToken = await secureStorageService.hasToken();
+          if (hasToken) {
             String? accessToken = await secureStorageService.getToken();
             if (accessToken != null) {
-              print(accessToken);
               options.headers['Authorization'] = 'Bearer $accessToken';
             }
           }
@@ -58,7 +69,6 @@ class ApiService implements IApiService {
   ) async {
     final responseData = error.response?.data;
 
-    // Handle JSON-RPC format response
     Map<String, dynamic>? errorData;
     if (responseData != null && responseData is Map<String, dynamic>) {
       if (responseData.containsKey('result')) {
@@ -73,12 +83,60 @@ class ApiService implements IApiService {
         (errorData['code'] == 'TOKEN_INVALID' ||
             errorData['code'] == 'TOKEN_REQUIRED' ||
             errorData['code'] == 'TOKEN_EXPIRED')) {
-      final secureStorageService = sl<SecureStorageService>();
+      if (_isRefreshing) {
+        await Future.delayed(Duration(milliseconds: 100));
 
+        if (!_isRefreshing) {
+          final secureStorageService = sl<SecureStorageService>();
+          String? newAccessToken = await secureStorageService.getToken();
+
+          if (newAccessToken != null) {
+            error.requestOptions.headers['Authorization'] =
+                'Bearer $newAccessToken';
+
+            try {
+              final clonedRequest = await _dio.request(
+                error.requestOptions.path,
+                options: Options(
+                  method: error.requestOptions.method,
+                  headers: error.requestOptions.headers,
+                ),
+                data: error.requestOptions.data,
+                queryParameters: error.requestOptions.queryParameters,
+              );
+              handler.resolve(clonedRequest);
+              return;
+            } catch (e) {
+              handler.reject(
+                DioException(
+                  requestOptions: error.requestOptions,
+                  error: 'Request retry failed',
+                ),
+              );
+              return;
+            }
+          }
+        }
+
+        handler.reject(
+          DioException(
+            requestOptions: error.requestOptions,
+            error: 'Authentication required',
+          ),
+        );
+        return;
+      }
+
+      _isRefreshing = true;
+
+      final secureStorageService = sl<SecureStorageService>();
       final refreshSuccess = await _refreshToken();
+
+      _isRefreshing = false;
 
       if (refreshSuccess) {
         String? newAccessToken = await secureStorageService.getToken();
+
         if (newAccessToken != null) {
           error.requestOptions.headers['Authorization'] =
               'Bearer $newAccessToken';
@@ -99,7 +157,7 @@ class ApiService implements IApiService {
             handler.reject(
               DioException(
                 requestOptions: error.requestOptions,
-                error: 'Request failed after token refresh: $e',
+                error: 'Request failed after token refresh',
               ),
             );
             return;
@@ -123,28 +181,47 @@ class ApiService implements IApiService {
       final secureStorageService = sl<SecureStorageService>();
       final refreshToken = await secureStorageService.getRefreshToken();
 
-      if (refreshToken == null) return false;
+      if (refreshToken == null) {
+        return false;
+      }
 
       final refreshDio = Dio();
+
+      refreshDio.httpClientAdapter = IOHttpClientAdapter(
+        createHttpClient: () {
+          final client = HttpClient();
+          client.badCertificateCallback = (cert, host, port) => true;
+          return client;
+        },
+      );
+
+      final refreshUrl = '$baseUrl${AppEndpoints.refreshToken}';
+
       final response = await refreshDio.post(
-        '$baseUrl${AppEndpoints.refreshToken}',
+        refreshUrl,
         data: {'refresh_token': refreshToken},
         options: Options(headers: {'Accept': 'application/json'}),
       );
+
       if (response.statusCode == 200) {
         final data = response.data;
+
         if (data != null && data['status'] == 'success') {
           final accessToken = data['access_token'];
           final newRefreshToken = data['refresh_token'];
+
           if (accessToken != null) {
             await secureStorageService.saveToken(accessToken);
+
             if (newRefreshToken != null) {
               await secureStorageService.saveRefreshToken(newRefreshToken);
             }
+
             return true;
           }
         }
       }
+
       return false;
     } catch (e) {
       return false;
@@ -160,41 +237,85 @@ class ApiService implements IApiService {
   }) async {
     try {
       final options = Options(method: method.toUpperCase(), headers: headers);
+
+      Response response;
       switch (method.toLowerCase()) {
         case 'post':
-          return await _dio.post(endpoint, data: body, options: options);
+          response = await _dio.post(endpoint, data: body, options: options);
+          break;
         case 'put':
-          return await _dio.put(endpoint, data: body, options: options);
+          response = await _dio.put(endpoint, data: body, options: options);
+          break;
         case 'patch':
-          return await _dio.patch(endpoint, data: body, options: options);
+          response = await _dio.patch(endpoint, data: body, options: options);
+          break;
         case 'delete':
-          return await _dio.delete(endpoint, options: options);
+          response = await _dio.delete(endpoint, options: options);
+          break;
         case 'get':
         default:
-          return await _dio.get(endpoint, data: body, options: options);
+          response = await _dio.get(endpoint, data: body, options: options);
+          break;
       }
+
+      return response;
     } on DioException catch (e) {
       throw _handleDioError(e);
     }
   }
 
   Exception _handleDioError(DioException error) {
+    Exception exception;
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
-        return Exception('Connection timeout');
+        exception = Exception('Connection timeout');
+        break;
       case DioExceptionType.sendTimeout:
-        return Exception('Send timeout');
+        exception = Exception('Send timeout');
+        break;
       case DioExceptionType.receiveTimeout:
-        return Exception('Receive timeout');
+        exception = Exception('Receive timeout');
+        break;
       case DioExceptionType.badResponse:
-        return Exception('Server error: ${error.response?.statusCode}');
+        String errorMessage = 'Server error: ${error.response?.statusCode}';
+        if (error.response?.data != null) {
+          try {
+            final responseData = error.response!.data;
+
+            if (responseData is Map<String, dynamic>) {
+              if (responseData.containsKey('error')) {
+                errorMessage = responseData['error'].toString();
+              } else if (responseData.containsKey('message')) {
+                errorMessage = responseData['message'].toString();
+              } else if (responseData.containsKey('result') &&
+                  responseData['result'] is Map<String, dynamic>) {
+                final result = responseData['result'] as Map<String, dynamic>;
+                if (result.containsKey('message')) {
+                  errorMessage = result['message'].toString();
+                }
+              }
+            } else if (responseData is String) {
+              errorMessage = responseData;
+            }
+          } catch (e) {
+            // Silently fail parsing
+          }
+        }
+
+        exception = Exception(errorMessage);
+        break;
       case DioExceptionType.cancel:
-        return Exception('Request cancelled');
+        exception = Exception('Request cancelled');
+        break;
       case DioExceptionType.connectionError:
-        return Exception('Connection error');
+        exception = Exception('Connection error');
+        break;
       case DioExceptionType.unknown:
       default:
-        return Exception('Network error: ${error.message}');
+        exception = Exception('Network error: ${error.message}');
+        break;
     }
+
+    return exception;
   }
 }

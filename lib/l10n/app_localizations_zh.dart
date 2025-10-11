@@ -39,19 +39,21 @@ class AppLocalizationsZh extends AppLocalizations {
   String get onboardingTitle1 => '纳米气泡技术';
 
   @override
-  String get onboardingSubtitle1 => '全球首个使用纳米气泡技术作为医疗设备的保健服务';
+  String get onboardingSubtitle1 =>
+      'RAHO Club 采用纳米气泡技术，提供以科研为基础的健康服务，并得到印度尼西亚分子研究机构的研究支持。';
 
   @override
-  String get onboardingTitle2 => '健康专家';
+  String get onboardingTitle2 => '专业医疗团队';
 
   @override
-  String get onboardingSubtitle2 => '由健康领域专业医生支持';
+  String get onboardingSubtitle2 => '专业的医疗团队帮助 RAHO Club 会员在晚年拥有更好的生活品质。';
 
   @override
-  String get onboardingTitle3 => '会员服务';
+  String get onboardingTitle3 => '遍布印度尼西亚的分支机构';
 
   @override
-  String get onboardingSubtitle3 => '由优质医疗团队为您服务，优先考虑您的福祉';
+  String get onboardingSubtitle3 =>
+      'RAHO Club 在印度尼西亚拥有 11 家分支机构，并将随着医学研究与技术的发展不断增加。';
 
   @override
   String get buttonSkipOnboarding => '跳过';
@@ -338,6 +340,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get logoutConfirmButton => '登出';
 
   @override
+  String get noEventsAvailable => '暂无活动';
+
+  @override
+  String get eventLoadingError => '活动加载失败';
+
+  @override
+  String get eventFull => '已满';
+
+  @override
   String get dashboardWelcome => '欢迎';
 
   @override
@@ -356,6 +367,71 @@ class AppLocalizationsZh extends AppLocalizations {
   String dashboardTherapyInfusionNumber(String infusion_number) {
     return '第$infusion_number次输液';
   }
+
+  @override
+  String get tryAgain => '重试';
+
+  @override
+  String get back => '返回';
+
+  @override
+  String get activeEvent => '活跃';
+
+  @override
+  String get upcomingEvent => '即将开始';
+
+  @override
+  String get ongoingEvent => '进行中';
+
+  @override
+  String get fullEvent => '已满';
+
+  @override
+  String get description => '描述';
+
+  @override
+  String get eventDetails => '活动详情';
+
+  @override
+  String get participants => '参与者';
+
+  @override
+  String get eventDate => '活动日期';
+
+  @override
+  String get location => '地点';
+
+  @override
+  String get registrationPeriod => '报名期间';
+
+  @override
+  String get totalParticipants => '总参与者';
+
+  @override
+  String get registerNow => '立即报名';
+
+  @override
+  String get registrationClosed => '报名已关闭';
+
+  @override
+  String get eventFullMessage => '活动已满员';
+
+  @override
+  String get toBeAnnounced => '待公布';
+
+  @override
+  String availableSlots(int count) {
+    return '还有 $count 个名额';
+  }
+
+  @override
+  String get eventsTitle => '活动';
+
+  @override
+  String get noEventsDescription => '目前没有可用的活动';
+
+  @override
+  String get refresh => '刷新';
 
   @override
   String get myVoucherTitle => '我的优惠券';
@@ -700,6 +776,9 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get whatsappOpenError => '无法打开 WhatsApp';
+
+  @override
   String get referenceNoData => '暂无数据';
 
   @override
@@ -996,4 +1075,16 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get labNormalRange => '正常范围';
+
+  @override
+  String get notificationTypeEvent => '活动';
+
+  @override
+  String get notificationTypeDefault => '通知';
+
+  @override
+  String get timeNow => '现在';
+
+  @override
+  String get notificationTitle => '通知';
 }
