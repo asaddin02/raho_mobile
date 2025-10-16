@@ -9,7 +9,7 @@ class AppLocalizationsId extends AppLocalizations {
   AppLocalizationsId([String locale = 'id']) : super(locale);
 
   @override
-  String get appVersion => 'versi 1.0.0';
+  String get appVersion => 'versi 1.0.1';
 
   @override
   String get companyName => 'RAHOCLUB';

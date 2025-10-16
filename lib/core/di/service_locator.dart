@@ -126,7 +126,7 @@ Future<void> setupLocator() async {
   );
   sl.registerFactory<PasswordVisibilityCubit>(() => PasswordVisibilityCubit());
   sl.registerFactory<CreatePasswordBloc>(
-    () => CreatePasswordBloc(authRepository: sl<AuthRepository>()),
+    () => CreatePasswordBloc(sl<AppStorageService>(),authRepository: sl<AuthRepository>()),
   );
   sl.registerFactory<DashboardBloc>(
     () => DashboardBloc(repository: sl<DashboardRepository>()),

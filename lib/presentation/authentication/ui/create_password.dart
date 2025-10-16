@@ -5,7 +5,6 @@ import 'package:raho_member_apps/core/constants/app_assets.dart';
 import 'package:raho_member_apps/core/constants/app_routes.dart';
 import 'package:raho_member_apps/core/constants/app_sizes.dart';
 import 'package:raho_member_apps/core/di/service_locator.dart';
-
 import 'package:raho_member_apps/core/styles/app_color.dart';
 import 'package:raho_member_apps/core/styles/app_text_style.dart';
 import 'package:raho_member_apps/data/repositories/auth_repository.dart';
@@ -43,8 +42,7 @@ class _CreatePasswordPageState extends State<CreatePasswordPage> {
     final l10n = AppLocalizations.of(context)!;
 
     return BlocProvider(
-      create: (context) =>
-          CreatePasswordBloc(authRepository: sl<AuthRepository>()),
+      create: (context) => sl<CreatePasswordBloc>(),
       child: BlocConsumer<CreatePasswordBloc, CreatePasswordState>(
         listener: (context, state) {
           if (state is CreatePasswordSuccess) {

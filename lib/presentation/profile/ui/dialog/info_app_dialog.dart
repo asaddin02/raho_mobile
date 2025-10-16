@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:raho_member_apps/core/constants/app_sizes.dart';
 import 'package:raho_member_apps/core/styles/app_text_style.dart';
+import 'package:raho_member_apps/core/utils/helper.dart';
 import 'package:raho_member_apps/l10n/app_localizations.dart';
 import 'package:raho_member_apps/presentation/profile/ui/widget/info_row_widget.dart';
 
 void showAppInfoDialog(BuildContext context, ColorScheme colorScheme) {
+  String dateString = "2025-10-11";
+  DateTime date = DateTime.parse(dateString);
   final l10n = AppLocalizations.of(context)!;
   showDialog(
     context: context,
@@ -38,11 +41,11 @@ void showAppInfoDialog(BuildContext context, ColorScheme colorScheme) {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InfoRow(label: l10n.aboutVersionLabel, value: "1.0.0"),
+          InfoRow(label: l10n.aboutVersionLabel, value: l10n.appVersion),
           SizedBox(height: AppSizes.spacingSmall),
-          InfoRow(label: l10n.aboutCopyrightLabel, value: "Rahoclub"),
+          InfoRow(label: l10n.aboutCopyrightLabel, value: l10n.companyClubName),
           SizedBox(height: AppSizes.spacingSmall),
-          InfoRow(label: l10n.aboutReleaseDateLabel, value: "14 Juli 2025"),
+          InfoRow(label: l10n.aboutReleaseDateLabel, value: formatDateLocal(date)),
         ],
       ),
       actions: [

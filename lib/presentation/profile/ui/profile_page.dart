@@ -15,6 +15,7 @@ import 'package:raho_member_apps/presentation/profile/states/profile/profile_blo
 import 'package:raho_member_apps/presentation/profile/ui/dialog/info_app_dialog.dart';
 import 'package:raho_member_apps/presentation/profile/ui/dialog/language_dialog.dart';
 import 'package:raho_member_apps/presentation/profile/ui/dialog/logout_dialog.dart';
+import 'package:raho_member_apps/presentation/profile/ui/dialog/qr_dialog.dart';
 import 'package:raho_member_apps/presentation/template/backdrop_apps.dart';
 import 'package:raho_member_apps/presentation/theme/states/cubit/theme_cubit.dart';
 import 'package:raho_member_apps/presentation/widgets/snackbar_toast.dart';
@@ -252,7 +253,6 @@ class _ProfilePageState extends State<ProfilePage>
               if (profState is ProfileLoaded) {
                 b64 = profState.profile.profileImage;
               }
-
               final bytes = decodeBase64Image(b64);
 
               return Column(
@@ -310,23 +310,29 @@ class _ProfilePageState extends State<ProfilePage>
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: AppSizes.spacingSmall),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: AppSizes.paddingMedium,
-                      vertical: AppSizes.paddingSmall,
-                    ),
-                    decoration: BoxDecoration(
-                      color: colorScheme.surfaceContainerHighest.withAlpha(153),
-                      borderRadius: BorderRadius.circular(AppSizes.radiusSmall),
-                      border: Border.all(
-                        color: colorScheme.outline.withAlpha(26),
-                        width: 1,
+                  GestureDetector(
+                    onTap: () =>
+                        showQRCodeDialog(context,bytes, user?.id ?? '', colorScheme),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppSizes.paddingMedium,
+                        vertical: AppSizes.paddingSmall,
                       ),
-                    ),
-                    child: Text(
-                      user?.id ?? '',
-                      style: AppTextStyle.caption.withColor(
-                        colorScheme.onSurface.withAlpha(179),
+                      decoration: BoxDecoration(
+                        color: colorScheme.primary.withAlpha(153),
+                        borderRadius: BorderRadius.circular(
+                          AppSizes.radiusSmall,
+                        ),
+                        border: Border.all(
+                          color: colorScheme.outline.withAlpha(26),
+                          width: 1,
+                        ),
+                      ),
+                      child: Text(
+                        user?.id ?? '',
+                        style: AppTextStyle.caption
+                            .withColor(colorScheme.onPrimary.withAlpha(179))
+                            .withWeight(AppFontWeight.bold),
                       ),
                     ),
                   ),
@@ -406,7 +412,7 @@ class _ProfilePageState extends State<ProfilePage>
               final ctx = context;
               const phoneNumber = '6282121825600';
               final message =
-                "Halo, saya butuh bantuan dengan aplikasi Raho Member.";
+                  "Halo, saya butuh bantuan dengan aplikasi Raho Member.";
               final whatsappUrl = Uri.parse(
                 "https://wa.me/$phoneNumber?text=$message",
               );

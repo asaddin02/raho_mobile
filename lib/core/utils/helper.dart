@@ -199,3 +199,12 @@ Uint8List? decodeBase64Image(String? b64) {
     return null;
   }
 }
+
+// Format Date Local
+String formatDateLocal(DateTime date, {String pattern = 'dd MMMM yyyy'}) {
+  try {
+    return DateFormat(pattern).format(date);
+  } catch (e) {
+    return date.toIso8601String();
+  }
+}

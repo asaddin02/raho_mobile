@@ -18,6 +18,7 @@ class DetailTherapyModel {
   final List<LayananModel>? layanan;
   final List<JarumModel>? jarum;
   final List<MonitoringModel>? monitoring;
+  final String? profileImage;
 
   DetailTherapyModel({
     this.status,
@@ -35,6 +36,7 @@ class DetailTherapyModel {
     this.layanan,
     this.jarum,
     this.monitoring,
+    this.profileImage,
   });
 
   factory DetailTherapyModel.fromJson(Map<String, dynamic> json) {
@@ -75,6 +77,7 @@ class DetailTherapyModel {
                   .map((item) => MonitoringModel.fromJson(item))
                   .toList()
             : null,
+        profileImage: data?['image_profile'],
       );
     } catch (e) {
       // Return error model if parsing fails
@@ -110,6 +113,7 @@ class DetailTherapyModel {
       'layanan': layanan,
       'jarum': jarum,
       'monitoring': monitoring,
+      'image_profile':profileImage,
     };
   }
 

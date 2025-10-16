@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:raho_member_apps/core/constants/app_sizes.dart';
 import 'package:raho_member_apps/core/di/service_locator.dart';
 import 'package:raho_member_apps/core/styles/app_text_style.dart';
+import 'package:raho_member_apps/core/utils/helper.dart';
 import 'package:raho_member_apps/data/models/detail_therapy.dart';
 import 'package:raho_member_apps/l10n/app_localizations.dart';
 import 'package:raho_member_apps/presentation/template/backdrop_apps.dart';
@@ -188,6 +189,10 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
     AppLocalizations l10n,
     DetailTherapyModel detailTherapy,
   ) {
+    String? b64;
+    b64 = detailTherapy.profileImage;
+
+    final bytes = decodeBase64Image(b64);
     return Container(
       padding: EdgeInsets.all(AppSizes.paddingLarge),
       decoration: BoxDecoration(
@@ -208,18 +213,21 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
               border: Border.all(color: colorScheme.primary, width: 2),
             ),
             child: ClipOval(
-              child: Image.asset(
-                "assets/images/person.png",
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Container(
-                  color: colorScheme.surfaceContainerHighest,
-                  child: Icon(
-                    Icons.person,
-                    size: 40,
-                    color: colorScheme.onSurface.withAlpha(128),
-                  ),
-                ),
-              ),
+              child: bytes != null
+                  ? Image.memory(
+                      bytes,
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.cover,
+                      gaplessPlayback: true,
+                      filterQuality: FilterQuality.medium,
+                    )
+                  : Image.asset(
+                      "assets/images/person.png",
+                      width: 48,
+                      height: 48,
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
           SizedBox(width: AppSizes.spacingMedium),
@@ -238,8 +246,8 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
                   detailTherapy.therapyDate ?? '',
                   colorScheme,
                 ),
-                SizedBox(height: AppSizes.spacingSmall),
-                _buildStartSurveyButton(colorScheme, l10n),
+                // SizedBox(height: AppSizes.spacingSmall),
+                // _buildStartSurveyButton(colorScheme, l10n),
               ],
             ),
           ),
@@ -595,7 +603,6 @@ class _DetailTherapyPageState extends State<DetailTherapyPage> {
                 .withWeight(AppFontWeight.bold),
           ),
           SizedBox(height: AppSizes.spacingSmall),
-
           Container(
             decoration: BoxDecoration(
               border: Border.all(

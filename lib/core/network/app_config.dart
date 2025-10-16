@@ -8,7 +8,7 @@ class AppConfig {
   static String get baseUrl {
     switch (currentEnvironment) {
       case Environment.development:
-        return 'https://demo.rahoclub.id/api/';
+        return 'https://rahoclub.id/api/';
       case Environment.staging:
         return 'https://staging.example.com/api/';
       case Environment.production:

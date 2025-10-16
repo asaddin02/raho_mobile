@@ -252,6 +252,9 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
   }
 
   Widget _buildProfileSection(DiagnosisModel diagnosis, ThemeData theme) {
+    String? b64;
+    b64 = diagnosis.profileImage;
+    final bytes = decodeBase64Image(b64);
     return Container(
       padding: EdgeInsets.all(AppSizes.paddingMedium),
       decoration: BoxDecoration(
@@ -264,10 +267,33 @@ class _MyDiagnosisPageState extends State<MyDiagnosisPage> {
       ),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: AppSizes.spacingXl + AppSizes.paddingLarge,
-            backgroundColor: theme.colorScheme.primary.withAlpha(30),
-            backgroundImage: AssetImage("assets/images/person.png"),
+          Container(
+            padding: EdgeInsets.all(3),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: theme.colorScheme.surface,
+            ),
+            child: CircleAvatar(
+              radius: 42,
+              backgroundColor: theme.colorScheme.primary.withAlpha(30),
+              child: ClipOval(
+                child: bytes != null
+                    ? Image.memory(
+                        bytes,
+                        width: 84,
+                        height: 84,
+                        fit: BoxFit.cover,
+                        gaplessPlayback: true,
+                        filterQuality: FilterQuality.medium,
+                      )
+                    : Image.asset(
+                        "assets/images/person.png",
+                        width: 84,
+                        height: 84,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+            ),
           ),
           SizedBox(width: AppSizes.paddingMedium),
           Expanded(

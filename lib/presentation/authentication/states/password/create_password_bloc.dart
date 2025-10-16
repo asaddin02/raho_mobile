@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:raho_member_apps/core/storage/app_storage_service.dart';
 import 'package:raho_member_apps/data/repositories/auth_repository.dart';
 
 part 'create_password_event.dart';
@@ -9,8 +10,9 @@ part 'create_password_state.dart';
 class CreatePasswordBloc
     extends Bloc<CreatePasswordEvent, CreatePasswordState> {
   final AuthRepository _authRepository;
+  final AppStorageService _storageService;
 
-  CreatePasswordBloc({required AuthRepository authRepository})
+  CreatePasswordBloc(this._storageService,{required AuthRepository authRepository})
     : _authRepository = authRepository,
       super(CreatePasswordInitial()) {
     on<CreatePasswordSubmitted>(_onCreatePasswordSubmitted);
@@ -31,6 +33,7 @@ class CreatePasswordBloc
 
       if (response.isSuccess) {
         emit(CreatePasswordSuccess(message: response.message));
+        return _storageService.setVerifyStatus(1);
       } else {
         emit(CreatePasswordFailure(error: response.message));
       }

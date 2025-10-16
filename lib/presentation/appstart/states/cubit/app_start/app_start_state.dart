@@ -1,6 +1,6 @@
 part of 'app_start_cubit.dart';
 
-abstract class AppStartState extends Equatable {
+sealed class AppStartState extends Equatable {
   const AppStartState();
 
   @override

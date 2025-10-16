@@ -9,7 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appVersion => 'version 1.0.0';
+  String get appVersion => 'version 1.0.1';
 
   @override
   String get companyName => 'RAHOCLUB';

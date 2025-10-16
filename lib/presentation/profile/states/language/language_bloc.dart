@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'language_event.dart';
-
 part 'language_state.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
@@ -35,6 +35,7 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
       final locale = supportedLanguages[savedLanguage] ?? const Locale('id');
 
       await Future.delayed(const Duration(milliseconds: 100));
+      Intl.defaultLocale = locale.languageCode;
 
       emit(LanguageChanged(locale));
     } catch (e) {
@@ -59,6 +60,7 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
       final locale = supportedLanguages[event.languageCode]!;
 
       await Future.delayed(const Duration(milliseconds: 150));
+      Intl.defaultLocale = locale.languageCode;
 
       emit(LanguageChanged(locale));
     } catch (e) {
@@ -76,6 +78,9 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
       await _prefs.remove(_languageKey);
 
       await Future.delayed(const Duration(milliseconds: 100));
+      const locale = Locale('id');
+
+      Intl.defaultLocale = locale.languageCode;
 
       emit(const LanguageChanged(Locale('id')));
     } catch (e) {

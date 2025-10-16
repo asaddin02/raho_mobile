@@ -103,7 +103,7 @@ abstract class AppLocalizations {
   /// No description provided for @appVersion.
   ///
   /// In en, this message translates to:
-  /// **'version 1.0.0'**
+  /// **'version 1.0.1'**
   String get appVersion;
 
   /// No description provided for @companyName.

@@ -42,6 +42,7 @@ class VerifyNumberBloc extends Bloc<VerifyNumberEvent, VerifyNumberState> {
             messageCode: result.messageCode,
           ),
         );
+        return storageService.setVerifyStatus(1);
       } else if (result.isOtpSent) {
         emit(
           ValidateNumberOtpSent(
@@ -51,7 +52,6 @@ class VerifyNumberBloc extends Bloc<VerifyNumberEvent, VerifyNumberState> {
             expiresIn: result.expiresIn ?? 300,
           ),
         );
-        storageService.setVerifyStatus(1);
       } else if (result.isError) {
         emit(VerifyNumberError(messageCode: result.messageCode));
       } else {
